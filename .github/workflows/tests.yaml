@@ -3,7 +3,7 @@ name: wt.pf5 tests
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     types: ["opened", "synchronize", "reopened"]
   create:
@@ -57,7 +57,7 @@ jobs:
       - name: Combine coverage data files
         run: |
           coverage combine -a $(find /tmp/coverage -type f)
-          coverage xml -o /tmp/coverage.xml
+          coverage xml -i -o /tmp/coverage.xml
       - name: Publish coverage
         uses: codecov/codecov-action@v3
         with:
