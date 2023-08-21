@@ -1,0 +1,51 @@
+[project]
+classifiers = [
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Software Development :: Quality Assurance",
+  "Topic :: Software Development :: Testing",
+]
+description = "Patternfly5 widget library for Widgetastic."
+dynamic = ["version"]
+keywords = ["widgetastic", "patternfly", "patternfly5"]
+license = {file = "LICENSE"}
+maintainers = [
+  {name = "Nikhil Dhandre", email = "ndhandre@redhat.com"},
+  {name = "Egor Shamardin", email = "eshamard@redhat.com"},
+  {name = "Mike Shriver", email = "mshriver@redhat.com"},
+  ]
+name = "widgetastic.patternfly5"
+readme = "README.md"
+requires-python = ">=3.8"
+
+dependencies = [
+  "widgetastic.core>=1.0.5",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pre-commit",
+  "pytest",
+  "pytest-cov",
+  "pytest-xdist",
+  "codecov",
+]
+doc = ["sphinx"]
+
+[project.urls]
+repository = "https://github.com/RedHatQE/widgetastic.patternfly5"
+
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling", "hatch-vcs"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/widgetastic_patternfly5"]
+strict-naming = false
+
+[tool.hatch.version]
+source = "vcs"
