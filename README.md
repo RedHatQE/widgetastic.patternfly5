@@ -28,6 +28,7 @@ itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.
 ### Components:
 - [alert](https://www.patternfly.org/components/alert)
 - [breadcrumb](https://www.patternfly.org/components/breadcrumb)
+- [tabs](https://www.patternfly.org/components/tabs)
 - [title](https://www.patternfly.org/components/title)
 
 ### Charts:
