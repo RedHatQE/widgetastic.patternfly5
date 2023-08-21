@@ -3,7 +3,7 @@ name: wt.pf5 tests
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     types: ["opened", "synchronize", "reopened"]
   create:
