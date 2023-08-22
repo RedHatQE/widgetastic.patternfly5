@@ -8,7 +8,7 @@ class BaseOptionsMenu:
     TEXT_LOCATOR = (
         './/div[contains(@class, "c-options-menu") and child::button[normalize-space(.)={}]]'
     )
-    DEFAULT_LOCATOR = './/div[contains(@class, "c-options-menu")][1]'
+    DEFAULT_LOCATOR = ".//button[contains(@class, 'pf-v5-c-menu-toggle')]/parent::div"
 
     SELECTED_ITEMS_LOCATOR = (
         f"{ITEMS_LOCATOR}/button[.//*[name()='svg'] or descendant::i[not(@hidden)]]"

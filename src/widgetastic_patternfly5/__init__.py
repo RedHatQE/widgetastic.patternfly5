@@ -4,6 +4,7 @@ from .components.breadcrumb import BreadCrumb
 from .components.button import Button
 from .components.duallistselector import DualListSelector
 from .components.duallistselector import SearchDualListSelector
+from .components.forms.radio import Radio
 from .components.menus.dropdown import Dropdown
 from .components.menus.dropdown import DropdownDisabled
 from .components.menus.dropdown import DropdownItemDisabled
@@ -21,11 +22,13 @@ from .components.menus.select import SelectItemDisabled
 from .components.menus.select import SelectItemNotFound
 from .components.navigation import Navigation
 from .components.navigation import NavSelectionNotFound
+from .components.pagination import CompactPagination
+from .components.pagination import Pagination
+from .components.pagination import PaginationNavDisabled
 from .components.slider import InputSlider
 from .components.slider import Slider
 from .components.tabs import Tab
 from .components.title import Title
-from widgetastic_patternfly5.components.forms.radio import Radio
 
 
 __all__ = [
@@ -58,4 +61,7 @@ __all__ = [
     "Radio",
     "Tab",
     "Title",
+    "Pagination",
+    "CompactPagination",
+    "PaginationNavDisabled",
 ]
