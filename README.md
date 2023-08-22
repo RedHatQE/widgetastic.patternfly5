@@ -34,10 +34,12 @@ itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.
   - [dropdown](https://www.patternfly.org/components/menus/dropdown)
   - [menu](https://www.patternfly.org/components/menus/menu)
   - [menu-toggle](https://www.patternfly.org/components/menus/menu-toggle)
+  - [options-menu](https://www.patternfly.org/components/menus/options-menu/)
   - [select](https://www.patternfly.org/components/menus/select)
+- [navigation](https://www.patternfly.org/components/navigation)
 - [tabs](https://www.patternfly.org/components/tabs)
 - [title](https://www.patternfly.org/components/title)
-- [navigation](https://www.patternfly.org/components/navigation)
+
 
 ### Charts:
 - [bullet-chart](https://www.patternfly.org/charts/bullet-chart)
