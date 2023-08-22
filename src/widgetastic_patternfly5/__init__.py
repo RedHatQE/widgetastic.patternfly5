@@ -12,6 +12,7 @@ from .components.menus.menu import Menu
 from .components.menus.menu import MenuItemDisabled
 from .components.menus.menu import MenuItemNotFound
 from .components.menus.menu_toggle import SplitButtonDropdown
+from .components.menus.optionsmenu import OptionsMenu
 from .components.menus.select import CheckboxSelect
 from .components.menus.select import Select
 from .components.menus.select import SelectItemDisabled
@@ -42,6 +43,7 @@ __all__ = [
     "MenuItemNotFound",
     "NavSelectionNotFound",
     "Navigation",
+    "OptionsMenu",
     "Select",
     "SelectItemDisabled",
     "SelectItemNotFound",
