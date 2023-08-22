@@ -37,6 +37,7 @@ itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.
   - [select](https://www.patternfly.org/components/menus/select)
 - [tabs](https://www.patternfly.org/components/tabs)
 - [title](https://www.patternfly.org/components/title)
+- [navigation](https://www.patternfly.org/components/navigation)
 
 ### Charts:
 - [bullet-chart](https://www.patternfly.org/charts/bullet-chart)
