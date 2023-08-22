@@ -25,6 +25,7 @@ from .components.slider import InputSlider
 from .components.slider import Slider
 from .components.tabs import Tab
 from .components.title import Title
+from widgetastic_patternfly5.components.forms.radio import Radio
 
 
 __all__ = [
@@ -54,6 +55,7 @@ __all__ = [
     "SearchDualListSelector",
     "Slider",
     "SplitButtonDropdown",
+    "Radio",
     "Tab",
     "Title",
 ]
