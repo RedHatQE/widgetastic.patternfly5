@@ -76,5 +76,8 @@ def selenium(browser_name, wait_for_selenium, selenium_url):
 @pytest.fixture(scope="module")
 def browser(selenium, request):
     selenium.get(request.module.TESTING_PAGE_URL)
-    yield Browser(selenium)
+    browser = Browser(selenium)
+    if browser.elements(".//button[@aria-label='Close banner']"):
+        browser.click(".//button[@aria-label='Close banner']")
+    return browser
     selenium.refresh()
