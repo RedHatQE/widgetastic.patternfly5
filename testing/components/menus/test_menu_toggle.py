@@ -13,12 +13,11 @@ TESTING_PAGE_URL = "https://www.patternfly.org/components/menus/menu-toggle"
     ids=["without_text", "with_text"],
 )
 def split_button_dropdown(request, browser):
-    return (
-        SplitButtonDropdown(
-            browser, locator=f".//div[@id='{request.param}']/div[contains(@class, 'pf-m-primary')]"
-        ),
-        request.param,
+    browser.move_to_element(f".//div[@id='{request.param}']")
+    split_drop = SplitButtonDropdown(
+        browser, locator=f".//div[@id='{request.param}']/div[contains(@class, 'pf-m-primary')]"
     )
+    return split_drop, request.param
 
 
 def test_split_button_dropdown(split_button_dropdown):

@@ -19,9 +19,10 @@ def view(browser):
         )
         dropdown_default_locator = Dropdown()
 
-    _view = TestView(browser)
-    _view.browser.raw_click(_view.ROOT)
-    return _view
+    browser.url = "https://patternfly-react-main.surge.sh/components/menus/dropdown/react/basic-dropdowns/"  # noqa
+    view = TestView(browser)
+    view.wait_displayed("10s")
+    return view
 
 
 @pytest.fixture(
@@ -33,10 +34,13 @@ def dropdown(view, request):
 
 @pytest.fixture()
 def group_dropdown(browser):
-    return GroupDropdown(
+    browser.url = "https://patternfly-react-main.surge.sh/components/menus/dropdown/react/with-groups-of-items/"  # noqa
+    dropdown = GroupDropdown(
         browser,
         locator=".//div[@id='ws-react-c-dropdown-with-groups-of-items']",
     )
+    dropdown.wait_displayed("10s")
+    return dropdown
 
 
 def test_dropdown_is_displayed(dropdown):

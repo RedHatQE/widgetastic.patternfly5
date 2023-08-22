@@ -79,7 +79,6 @@ class BaseCheckboxSelect(BaseSelect):
     https://www.patternfly.org/components/menus/select/#checkbox
     """
 
-    # ITEMS_LOCATOR = ".//label[contains(@class, 'pf-v5-c-menu__item')]"
     ITEMS_LOCATOR = (
         ".//ul[@class='pf-v5-c-menu__list']/li[contains(@class, 'pf-v5-c-menu__list-item')]"
     )

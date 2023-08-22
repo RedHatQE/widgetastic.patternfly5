@@ -7,6 +7,7 @@ from .components.menus.dropdown import DropdownDisabled
 from .components.menus.dropdown import DropdownItemDisabled
 from .components.menus.dropdown import DropdownItemNotFound
 from .components.menus.dropdown import GroupDropdown
+from .components.menus.menu import CheckboxMenu
 from .components.menus.menu import Menu
 from .components.menus.menu import MenuItemDisabled
 from .components.menus.menu import MenuItemNotFound
@@ -34,6 +35,7 @@ __all__ = [
     "DropdownItemNotFound",
     "GroupDropdown",
     "Menu",
+    "CheckboxMenu",
     "MenuItemNotFound",
     "MenuItemDisabled",
     "SplitButtonDropdown",
