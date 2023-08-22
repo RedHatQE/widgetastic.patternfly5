@@ -2,6 +2,8 @@ from .charts.bullet_chart import BulletChart
 from .components.alert import Alert
 from .components.breadcrumb import BreadCrumb
 from .components.button import Button
+from .components.duallistselector import DualListSelector
+from .components.duallistselector import SearchDualListSelector
 from .components.menus.dropdown import Dropdown
 from .components.menus.dropdown import DropdownDisabled
 from .components.menus.dropdown import DropdownItemDisabled
@@ -47,6 +49,9 @@ __all__ = [
     "Select",
     "SelectItemDisabled",
     "SelectItemNotFound",
+    "DualListSelector",
+    "InputSlider",
+    "SearchDualListSelector",
     "Slider",
     "SplitButtonDropdown",
     "Tab",
