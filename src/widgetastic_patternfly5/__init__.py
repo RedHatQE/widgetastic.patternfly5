@@ -30,6 +30,7 @@ from .components.navigation import NavSelectionNotFound
 from .components.pagination import CompactPagination
 from .components.pagination import Pagination
 from .components.pagination import PaginationNavDisabled
+from .components.progress import Progress
 from .components.slider import InputSlider
 from .components.slider import Slider
 from .components.tabs import Tab
@@ -74,4 +75,8 @@ __all__ = [
     "SplitButtonDropdown",
     "Tab",
     "Title",
+    "Pagination",
+    "Progress",
+    "CompactPagination",
+    "PaginationNavDisabled",
 ]

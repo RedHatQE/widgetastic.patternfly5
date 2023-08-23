@@ -41,6 +41,7 @@ itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.
 - [pagination](https://www.patternfly.org/components/pagination/)
 - forms
   - [radio](https://www.patternfly.org/components/forms/radio)
+- [progress](https://www.patternfly.org/components/progress)
 - [tabs](https://www.patternfly.org/components/tabs)
 - [title](https://www.patternfly.org/components/title)
 
