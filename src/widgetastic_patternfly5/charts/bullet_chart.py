@@ -1,104 +1,12 @@
 import re
 
 from widgetastic.utils import ParametrizedLocator
-from widgetastic.widget import ParametrizedView
 from widgetastic.widget import Text
 from widgetastic.widget import View
 from widgetastic.xpath import quote
 
-
-class Legend(ParametrizedView):
-    """Represents Legend of chart."""
-
-    PARAMETERS = ("label_text",)
-
-    LEGEND_LABEL = ParametrizedLocator(
-        ".//*[name()='text' and (contains(@id, 'legend') or contains(@id, 'Legend'))]"
-        "/*[name()='tspan' and contains(., {label_text|quote})]"
-    )
-    ROOT = ParametrizedLocator(".//*[name()='g' and {@LEGEND_LABEL}]")
-    LEGEND_LABEL_ITEMS = (
-        ".//*[name()='text' and (contains(@id, 'legend') or "
-        "contains(@id, 'Legend'))]/*[name()='tspan']"
-    )
-    LEGEND_ICON_ITEMS = ".//*[name()='rect']/following-sibling::*[name()='path']"
-
-    # Need to overwrite as per need.
-    LEGEND_ITEM_REGEX = re.compile(r"(\d+)\s(\w.*)|(\w.*)\s(\d+)")
-
-    @property
-    def _legend_color_map(self):
-        _data = {}
-
-        for icon, label_el in zip(
-            self.browser.elements(self.LEGEND_ICON_ITEMS),
-            self.browser.elements(self.LEGEND_LABEL_ITEMS),
-        ):
-            color = icon.value_of_css_property("fill")
-            if not color:
-                color = icon.value_of_css_property("color")
-            _data[self.browser.text(label_el)] = color
-        return _data
-
-    @classmethod
-    def _get_legend_item(cls, text):
-        text = text.replace(":", "")
-        match = cls.LEGEND_ITEM_REGEX.match(text)
-
-        if match:
-            left_value, left_label, right_label, right_value = match.groups()
-            label = right_label or left_label if match else text
-            value = int(right_value or left_value) if match else None
-            return label, value
-        else:
-            return text, None
-
-    @property
-    def label(self):
-        """Returns the label of a Legend"""
-        return self._get_legend_item(self.browser.text(self.LEGEND_LABEL))[0]
-
-    @property
-    def value(self):
-        """Returns the value of a Legend"""
-        return self._get_legend_item(self.browser.text(self.LEGEND_LABEL))[1]
-
-    @property
-    def color(self):
-        """Returns the color of a Legend"""
-        return self._legend_color_map.get(self.browser.text(self.LEGEND_LABEL))
-
-    def click(self):
-        """Click on a Legend"""
-        self.browser.click(self.LEGEND_LABEL)
-
-    @classmethod
-    def all(cls, browser):
-        """Returns a list of all items"""
-        return [(browser.text(el),) for el in browser.elements(cls.LEGEND_LABEL_ITEMS)]
-
-    def __repr__(self):
-        return f"Legend({self.browser.text(self.LEGEND_LABEL)})"
-
-
-class DataPoint:
-    """Represents DataPoint on chart."""
-
-    def __init__(self, label, value=None, color=None):
-        self.label = label
-        self.value = value
-        self.color = color
-
-    def __gt__(self, leg):
-        return self.__class__ == leg.__class__ and self.value > leg.value
-
-    def __eq__(self, leg):
-        return (
-            self.__class__ == self.__class__ and self.label == leg.label and self.value == leg.value
-        )
-
-    def __repr__(self):
-        return f"DataPoint({self.label}: {self.value})"
+from .legend import DataPoint
+from .legend import Legend
 
 
 class BulletChart(View):
