@@ -42,12 +42,12 @@ def test_clipboardcopy_is_read_only(view):
 
 
 def test_clipboardcopy_text(view):
-    assert view.clipboardEditable.read() == " This is editable "
+    assert view.clipboardEditable.read().strip() == "This is editable"
 
     assert view.clipboardEditable.fill("Test")
     assert view.clipboardEditable.read() == "Test"
 
-    assert view.clipboardReadOnly.read() == " This is read-only "
+    assert view.clipboardReadOnly.read().strip() == "This is read-only"
 
     assert view.clipboardInline.read() == "2.3.4-2-redhat"
 

@@ -8,7 +8,9 @@ from widgetastic_patternfly5 import Button
 
 class BaseClipboardCopy:
     BUTTON_LOC = ".//button"
-    TEXT_LOC = ".//span[contains(@class, '-c-form-control')]/input"
+    TEXT_LOC = """
+.//input[contains(@class, '-c-form-control')] | .//span[contains(@class, '-c-form-control')]/input
+"""
     TEXT_LOC_INLINE = ".//span[contains(@class, '-c-clipboard-copy__text')]"
     DEFAULT_LOCATOR = ".//div[contains(@class,'-c-clipboard-copy')]"
 
