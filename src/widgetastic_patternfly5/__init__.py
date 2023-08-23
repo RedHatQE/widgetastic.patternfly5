@@ -8,6 +8,7 @@ from .components.alert import Alert
 from .components.breadcrumb import BreadCrumb
 from .components.button import Button
 from .components.drawer import Drawer
+from .components.descriptionlist import DescriptionList
 from .components.duallistselector import DualListSelector
 from .components.duallistselector import SearchDualListSelector
 from .components.forms.radio import Radio
@@ -57,6 +58,7 @@ __all__ = [
     "CompactPagination",
     "CompoundExpandableTable",
     "DataPoint",
+    "DescriptionList",
     "DonutChart",
     "Drawer",
     "Dropdown",
