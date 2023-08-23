@@ -32,6 +32,8 @@ itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.
 - [button](https://www.patternfly.org/components/button)
 - [card](https://www.patternfly.org/components/card)
 - [chip](https://www.patternfly.org/components/chip)
+- date and time
+  - [calendar-month](https://www.patternfly.org/components/date-and-time/calendar-month)
 - [description-list](https://www.patternfly.org/components/description-list)
 - [dual-list-selector](https://www.patternfly.org/components/dual-list-selector)
 - [form-select](https://www.patternfly.org/components/forms/form-select)
