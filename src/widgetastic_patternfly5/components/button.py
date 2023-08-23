@@ -92,7 +92,7 @@ class Button(BaseButton, Widget, ClickableMixin):
         return (
             ".//*[(self::a or self::button or (self::input and "
             "(@type='button' or @type='submit'))) and "
-            f"contains(@class, 'pf-v5-c-button') {locator_conditions}]"
+            f"contains(@class, '-c-button') {locator_conditions}]"
         )
 
     def __init__(self, parent, *text, **kwargs):

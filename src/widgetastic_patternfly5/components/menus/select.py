@@ -22,13 +22,13 @@ class BaseSelect:
 
     BUTTON_LOCATOR = ".//button"
     ITEMS_LOCATOR = (
-        ".//ul[@class='pf-v5-c-menu__list']/li[contains(@class, 'pf-v5-c-menu__list-item')]"
+        ".//ul[contains(@class, '-c-menu__list')]/li[contains(@class, '-c-menu__list-item')]"
     )
-    ITEM_LOCATOR = ".//*[contains(@class, 'pf-v5-c-menu__list-item') and normalize-space(.)={}]"
+    ITEM_LOCATOR = ".//*[contains(@class, '-c-menu__list-item') and normalize-space(.)={}]"
     SELECTED_ITEM_LOCATOR = (
         ".//span[contains(@class, 'ins-c-conditional-filter') and normalize-space(.)={}]"
     )
-    TEXT_LOCATOR = ".//div[contains(@class, 'c-select') and child::button[normalize-space(.)={}]]"
+    TEXT_LOCATOR = ".//div[contains(@class, '-c-select') and child::button[normalize-space(.)={}]]"
 
     def item_element(self, item, close=True):
         """Returns a WebElement for given item name."""
@@ -80,11 +80,9 @@ class BaseCheckboxSelect(BaseSelect):
     """
 
     ITEMS_LOCATOR = (
-        ".//ul[@class='pf-v5-c-menu__list']/li[contains(@class, 'pf-v5-c-menu__list-item')]"
+        ".//ul[contains(@class, '-c-menu__list')]/li[contains(@class, '-c-menu__list-item')]"
     )
-    ITEM_LOCATOR_BASE = (
-        ".//*[contains(@class, 'pf-v5-c-menu__list-item') and normalize-space(.)={}]"
-    )
+    ITEM_LOCATOR_BASE = ".//*[contains(@class, '-c-menu__list-item') and normalize-space(.)={}]"
     ITEM_LOCATOR = f"{ITEM_LOCATOR_BASE}//input"
 
     def item_select(self, items, close=True):
@@ -197,4 +195,4 @@ class BaseCheckboxSelect(BaseSelect):
 
 
 class CheckboxSelect(BaseCheckboxSelect, Dropdown):
-    DEFAULT_LOCATOR = './/div[contains(@class, "c-select")][1]'
+    DEFAULT_LOCATOR = './/div[contains(@class, "-c-select")][1]'

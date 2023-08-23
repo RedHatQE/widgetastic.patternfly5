@@ -8,9 +8,9 @@ class BaseAlert:
     https://www.patternfly.org/components/alert
     """
 
-    TITLE = './/h4[@class="pf-v5-c-alert__title"]'
-    DESCRIPTION = './/div[@class="pf-v5-c-alert__description"]'
-    ACTION = './/div[contains(@class, "pf-v5-c-alert__action")]'
+    TITLE = './/h4[contains(@class, "-c-alert__title")]'
+    DESCRIPTION = './/div[contains(@class, "-c-alert__description")]'
+    ACTION = './/div[contains(@class, "-c-alert__action")]'
     TYPE_MAPPING = {
         "pf-m-warning": "warning",
         "pf-m-success": "success",

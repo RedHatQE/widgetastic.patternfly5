@@ -17,8 +17,7 @@ class Tab(View):
 
     # Locator of the Tab selector
     TAB_LOCATOR = ParametrizedLocator(
-        './/div[contains(@class, "pf-v5-c-tabs")]/ul'
-        "/li[button[normalize-space(.)={@tab_name|quote}]]"
+        './/div[contains(@class, "-c-tabs")]/ul' "/li[button[normalize-space(.)={@tab_name|quote}]]"
     )
 
     ROOT = ParametrizedLocator(

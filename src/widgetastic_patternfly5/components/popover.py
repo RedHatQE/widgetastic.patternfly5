@@ -12,8 +12,10 @@ class BasePopover:
     should work, interacting with the active popover.
     """
 
-    TITLE = """.//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6
-                and contains(@class, "-c-popover__title-text")]"""
+    TITLE = (
+        ".//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6 and "
+        '(contains(@class, "-c-popover__title-text") or contains(@class, "c-title"))]'
+    )
     BODY = './/div[contains(@class, "-c-popover__body")]'
     FOOTER = ".//footer[contains(@class, '-c-popover__footer')]"
     CLOSE = ".//button[@aria-label='Close']"

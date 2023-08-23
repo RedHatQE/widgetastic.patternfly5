@@ -131,7 +131,7 @@ class BaseNavigation:
 
 class Navigation(BaseNavigation, Widget):
     ROOT = ParametrizedLocator("{@locator}")
-    LOCATOR_START = './/nav[@class="pf-v5-c-nav"{}]'
+    LOCATOR_START = './/nav[contains(@class, "-c-nav"){}]'
 
     def __init__(self, parent, label=None, id=None, locator=None, logger=None):
         super().__init__(parent, logger=logger)

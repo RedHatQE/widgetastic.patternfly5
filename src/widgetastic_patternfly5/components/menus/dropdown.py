@@ -30,9 +30,9 @@ class BaseDropdown:
 
     """
 
-    BUTTON_LOCATOR = ".//button[contains(@class, 'pf-v5-c-menu-toggle')]"
-    ITEMS_LOCATOR = ".//ul[contains(@class, 'pf-v5-c-menu__list')]/li"
-    ITEM_LOCATOR = ".//*[contains(@class, 'pf-v5-c-menu__list-item') and normalize-space(.)={}]"
+    BUTTON_LOCATOR = ".//button[contains(@class, '-c-menu-toggle')]"
+    ITEMS_LOCATOR = ".//ul[contains(@class, '-c-menu__list')]/li"
+    ITEM_LOCATOR = ".//*[contains(@class, '-c-menu__list-item') and normalize-space(.)={}]"
 
     @contextmanager
     def opened(self):
@@ -207,9 +207,9 @@ class Dropdown(BaseDropdown, Widget):
 class BaseGroupDropdown:
     """Dropdown with grouped items in it."""
 
-    ITEMS_LOCATOR = ".//section[@class='pf-v5-c-menu__group']/ul/li"
-    GROUPS_LOCATOR = ".//section[@class='pf-v5-c-menu__group']/h3"
-    GROUP_LOCATOR = ".//section[@class='pf-v5-c-menu__group'][h3[normalize-space(.)={}]]"
+    ITEMS_LOCATOR = ".//section[contains(@class, '-c-menu__group')]/ul/li"
+    GROUPS_LOCATOR = ".//section[contains(@class, '-c-menu__group')]/h3"
+    GROUP_LOCATOR = ".//section[contains(@class, '-c-menu__group')][h3[normalize-space(.)={}]]"
 
     @property
     def groups(self):

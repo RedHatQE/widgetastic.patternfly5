@@ -6,16 +6,16 @@ from widgetastic.widget import View
 
 class BaseRadio:
     ROOT_ID_LOC = ParametrizedLocator(
-        ".//div[contains(@class, 'pf-v5-c-radio') and .//input[@type='radio' and @id={@id|quote}]]"
+        ".//div[contains(@class, '-c-radio') and ./input[@type='radio' and @id={@id|quote}]]"
     )
     ROOT_LABEL_LOC = ParametrizedLocator(
-        ".//div[contains(@class, 'pf-v5-c-radio') and "
-        ".//*[contains(@class, 'pf-v5-c-radio__label') and normalize-space(.)={@label_text|quote}]]"
+        ".//div[contains(@class, '-c-radio') and "
+        ".//*[contains(@class, '-c-radio__label') and normalize-space(.)={@label_text|quote}]]"
     )
-    DESC_LOC = ".//*[contains(@class, 'pf-v5-c-radio__description')]"
-    BODY_LOC = ".//*[contains(@class, 'pf-v5-c-radio__body')]"
-    RADIO_LOC = ".//input[contains(@class, 'pf-v5-c-radio__input')]"
-    LABEL_LOC = ".//*[contains(@class, 'pf-v5-c-radio__label')]"
+    DESC_LOC = ".//*[contains(@class, '-c-radio__description')]"
+    BODY_LOC = ".//*[contains(@class, '-c-radio__body')]"
+    RADIO_LOC = ".//input[contains(@class, '-c-radio__input')]"
+    LABEL_LOC = ".//*[contains(@class, '-c-radio__label')]"
 
     def __init__(self, parent, id=None, label_text=None, **kwargs):
         """Generate locator based on either id or label (but not both)"""

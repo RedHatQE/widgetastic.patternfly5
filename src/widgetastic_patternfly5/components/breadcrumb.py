@@ -56,4 +56,4 @@ class BaseBreadCrumb:
 
 
 class BreadCrumb(BaseBreadCrumb, Widget):
-    ROOT = './/nav[contains(@class, "pf-v5-c-breadcrumb")]/ol'
+    ROOT = './/nav[contains(@class, "-c-breadcrumb")]/ol'

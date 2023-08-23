@@ -30,7 +30,7 @@ class BaseMenu:
 
         class PermissionsMenu(Menu):
             IS_ALWAYS_OPEN = False
-            BUTTON_LOCATOR = ".//button[contains(@class, 'pf-c-menu-toggle')]"
+            BUTTON_LOCATOR = ".//button[contains(@class, '-c-menu-toggle')]"
             ROOT = f"{BUTTON_LOCATOR}/.."
 
     https://www.patternfly.org/components/menus/menu
@@ -40,12 +40,10 @@ class BaseMenu:
     IS_ALWAYS_OPEN = True
 
     BUTTON_LOCATOR = ".//button"
-    ITEMS_LOCATOR = ".//li[contains(@class, 'pf-v5-c-menu__list-item')]"
+    ITEMS_LOCATOR = ".//li[contains(@class, '-c-menu__list-item')]"
     SELECTED_ITEMS_LOCATOR = ".//button[contains(@class, 'pf-m-selected')]"
-    ITEM_LOCATOR = ".//*[contains(@class, 'pf-v5-c-menu__list-item') and normalize-space(.)={}]"
-    TEXT_LOCATOR = (
-        ".//div[contains(@class, 'pf-v5-c-menu') and child::button[normalize-space(.)={}]]"
-    )
+    ITEM_LOCATOR = ".//*[contains(@class, '-c-menu__list-item') and normalize-space(.)={}]"
+    TEXT_LOCATOR = ".//div[contains(@class, '-c-menu') and child::button[normalize-space(.)={}]]"
 
     @property
     def selected_items(self):
@@ -139,7 +137,7 @@ class BaseMenu:
 
 
 class Menu(BaseMenu, Dropdown):
-    DEFAULT_LOCATOR = './/div[contains(@class, "c-menu")]'
+    DEFAULT_LOCATOR = './/div[contains(@class, "-c-menu")]'
 
 
 class BaseCheckboxMenu(BaseMenu):
@@ -147,9 +145,7 @@ class BaseCheckboxMenu(BaseMenu):
     Represents a checkbox menu.
     """
 
-    ITEM_LOCATOR_BASE = (
-        ".//*[contains(@class, 'pf-v5-c-menu__list-item') and normalize-space(.)={}]"
-    )
+    ITEM_LOCATOR_BASE = ".//*[contains(@class, '-c-menu__list-item') and normalize-space(.)={}]"
     ITEM_LOCATOR = f"{ITEM_LOCATOR_BASE}//input"
 
     def item_select(self, items, close=True):
