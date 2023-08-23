@@ -10,6 +10,10 @@ from .components.button import Button
 from .components.drawer import Drawer
 from .components.duallistselector import DualListSelector
 from .components.duallistselector import SearchDualListSelector
+from .components.forms.formselect import FormSelect
+from .components.forms.formselect import FormSelectDisabled
+from .components.forms.formselect import FormSelectOptionDisabled
+from .components.forms.formselect import FormSelectOptionNotFound
 from .components.forms.radio import Radio
 from .components.menus.dropdown import Dropdown
 from .components.menus.dropdown import DropdownDisabled
@@ -65,6 +69,10 @@ __all__ = [
     "DropdownItemNotFound",
     "DualListSelector",
     "ExpandableTable",
+    "FormSelect",
+    "FormSelectDisabled",
+    "FormSelectOptionDisabled",
+    "FormSelectOptionNotFound",
     "GroupDropdown",
     "InputSlider",
     "InputSlider",
