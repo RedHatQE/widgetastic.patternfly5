@@ -47,6 +47,7 @@ itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.
 - [table](https://www.patternfly.org/components/table)
 - [tabs](https://www.patternfly.org/components/tabs)
 - [title](https://www.patternfly.org/components/title)
+- [drawer](https://www.patternfly.org/components/drawer)
 
 
 ### Charts:
