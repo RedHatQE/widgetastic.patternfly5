@@ -25,6 +25,8 @@ from .components.menus.select import CheckboxSelect
 from .components.menus.select import Select
 from .components.menus.select import SelectItemDisabled
 from .components.menus.select import SelectItemNotFound
+from .components.modal import Modal
+from .components.modal import ModalItemNotFound
 from .components.navigation import Navigation
 from .components.navigation import NavSelectionNotFound
 from .components.pagination import CompactPagination
@@ -61,6 +63,8 @@ __all__ = [
     "Menu",
     "MenuItemDisabled",
     "MenuItemNotFound",
+    "Modal",
+    "ModalItemNotFound",
     "NavSelectionNotFound",
     "Navigation",
     "OptionsMenu",
