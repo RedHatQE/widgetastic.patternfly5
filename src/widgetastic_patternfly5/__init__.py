@@ -1,4 +1,9 @@
 from .charts.bullet_chart import BulletChart
+from .charts.donut_chart import DonutChart
+from .charts.legend import DataPoint
+from .charts.legend import Legend
+from .charts.line_chart import LineChart
+from .charts.pie_chart import PieChart
 from .components.alert import Alert
 from .components.breadcrumb import BreadCrumb
 from .components.button import Button
@@ -38,30 +43,35 @@ __all__ = [
     "Button",
     "CheckboxMenu",
     "CheckboxSelect",
+    "CompactPagination",
+    "DataPoint",
+    "DonutChart",
     "Dropdown",
     "DropdownDisabled",
     "DropdownItemDisabled",
     "DropdownItemNotFound",
+    "DualListSelector",
     "GroupDropdown",
     "InputSlider",
+    "InputSlider",
+    "Legend",
+    "LineChart",
     "Menu",
     "MenuItemDisabled",
     "MenuItemNotFound",
     "NavSelectionNotFound",
     "Navigation",
     "OptionsMenu",
+    "Pagination",
+    "PaginationNavDisabled",
+    "PieChart",
+    "Radio",
+    "SearchDualListSelector",
     "Select",
     "SelectItemDisabled",
     "SelectItemNotFound",
-    "DualListSelector",
-    "InputSlider",
-    "SearchDualListSelector",
     "Slider",
     "SplitButtonDropdown",
-    "Radio",
     "Tab",
     "Title",
-    "Pagination",
-    "CompactPagination",
-    "PaginationNavDisabled",
 ]
