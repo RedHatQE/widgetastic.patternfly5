@@ -8,6 +8,8 @@ from .components.alert import Alert
 from .components.breadcrumb import BreadCrumb
 from .components.button import Button
 from .components.clipboardcopy import ClipboardCopy
+from .components.card import Card
+from .components.card import CardWithActions
 from .components.descriptionlist import DescriptionList
 from .components.drawer import Drawer
 from .components.duallistselector import DualListSelector
@@ -51,11 +53,14 @@ from .components.table import RowNotExpandable
 from .components.tabs import Tab
 from .components.title import Title
 
+
 __all__ = [
     "Alert",
     "BreadCrumb",
     "BulletChart",
     "Button",
+    "Card",
+    "CardWithActions",
     "CheckboxMenu",
     "CheckboxSelect",
     "ColumnNotExpandable",

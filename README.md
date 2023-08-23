@@ -30,6 +30,7 @@ itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.
 - [breadcrumb](https://www.patternfly.org/components/breadcrumb)
 - [clipboard-copy](https://www.patternfly.org/components/clipboard-copy)
 - [button](https://www.patternfly.org/components/button)
+- [card](https://www.patternfly.org/components/card)
 - [description-list](https://www.patternfly.org/components/description-list)
 - [dual-list-selector](https://www.patternfly.org/components/dual-list-selector)
 - [form-select](https://www.patternfly.org/components/forms/form-select)
