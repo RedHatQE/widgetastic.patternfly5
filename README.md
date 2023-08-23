@@ -29,6 +29,7 @@ itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.
 - [alert](https://www.patternfly.org/components/alert)
 - [breadcrumb](https://www.patternfly.org/components/breadcrumb)
 - [button](https://www.patternfly.org/components/button)
+- [description-list](https://www.patternfly.org/components/description-list)
 - [dual-list-selector](https://www.patternfly.org/components/dual-list-selector)
 - [form-select](https://www.patternfly.org/components/forms/form-select)
 - [slider](https://www.patternfly.org/components/slider)
