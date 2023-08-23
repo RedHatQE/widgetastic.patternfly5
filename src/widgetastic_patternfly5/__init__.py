@@ -7,8 +7,9 @@ from .charts.pie_chart import PieChart
 from .components.alert import Alert
 from .components.breadcrumb import BreadCrumb
 from .components.button import Button
-from .components.drawer import Drawer
+from .components.clipboardcopy import ClipboardCopy
 from .components.descriptionlist import DescriptionList
+from .components.drawer import Drawer
 from .components.duallistselector import DualListSelector
 from .components.duallistselector import SearchDualListSelector
 from .components.forms.formselect import FormSelect
@@ -61,6 +62,7 @@ __all__ = [
     "CompactPagination",
     "CompactPagination",
     "CompoundExpandableTable",
+    "ClipboardCopy",
     "DataPoint",
     "DescriptionList",
     "DonutChart",
