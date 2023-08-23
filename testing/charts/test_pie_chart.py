@@ -43,12 +43,7 @@ def test_pie_chart(chart):
     for leg, expected_leg in zip(chart.legends, LEGENDS):
         assert leg.label == expected_leg.label
         assert leg.value == expected_leg.value
-
-    for i in range(3):
-        if chart.data == DATA_POINTS:
-            break
-        if i == 2:
-            assert chart.data == DATA_POINTS
+        assert chart.data == DATA_POINTS
 
     assert "Birds" in chart.legend_names
 

@@ -47,6 +47,10 @@ itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.
 
 ### Charts:
 - [bullet-chart](https://www.patternfly.org/charts/bullet-chart)
+- [donut-chart](https://www.patternfly.org/charts/donut-chart)
+- [legends](https://www.patternfly.org/charts/legends)
+- [line-chart](https://www.patternfly.org/charts/line-chart)
+- [pie-chart](https://www.patternfly.org/charts/pie-chart)
 
 
 ### Contribution guide
