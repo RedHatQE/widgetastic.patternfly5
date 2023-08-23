@@ -34,9 +34,13 @@ from .components.popover import Popover
 from .components.progress import Progress
 from .components.slider import InputSlider
 from .components.slider import Slider
+from .components.table import ColumnNotExpandable
+from .components.table import CompoundExpandableTable
+from .components.table import ExpandableTable
+from .components.table import PatternflyTable
+from .components.table import RowNotExpandable
 from .components.tabs import Tab
 from .components.title import Title
-
 
 __all__ = [
     "Alert",
@@ -45,7 +49,10 @@ __all__ = [
     "Button",
     "CheckboxMenu",
     "CheckboxSelect",
+    "ColumnNotExpandable",
     "CompactPagination",
+    "CompactPagination",
+    "CompoundExpandableTable",
     "DataPoint",
     "DonutChart",
     "Dropdown",
@@ -53,6 +60,7 @@ __all__ = [
     "DropdownItemDisabled",
     "DropdownItemNotFound",
     "DualListSelector",
+    "ExpandableTable",
     "GroupDropdown",
     "InputSlider",
     "InputSlider",
@@ -65,10 +73,15 @@ __all__ = [
     "Navigation",
     "OptionsMenu",
     "Pagination",
+    "Pagination",
     "PaginationNavDisabled",
+    "PaginationNavDisabled",
+    "PatternflyTable",
     "PieChart",
     "Popover",
+    "Progress",
     "Radio",
+    "RowNotExpandable",
     "SearchDualListSelector",
     "Select",
     "SelectItemDisabled",
@@ -77,8 +90,4 @@ __all__ = [
     "SplitButtonDropdown",
     "Tab",
     "Title",
-    "Pagination",
-    "Progress",
-    "CompactPagination",
-    "PaginationNavDisabled",
 ]
