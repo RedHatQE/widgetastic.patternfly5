@@ -16,7 +16,6 @@ from .components.chipgroup import ChipGroupToolbar
 from .components.chipgroup import ChipGroupToolbarCategory
 from .components.chipgroup import ChipReadOnlyError
 from .components.chipgroup import StandAloneChipGroup
-from .components.calendarmonth import CalendarMonth
 from .components.clipboardcopy import ClipboardCopy
 from .components.date_and_time.calendarmonth import CalendarMonth
 from .components.descriptionlist import DescriptionList
