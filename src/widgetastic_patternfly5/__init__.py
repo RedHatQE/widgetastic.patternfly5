@@ -52,6 +52,8 @@ from .components.popover import Popover
 from .components.progress import Progress
 from .components.slider import InputSlider
 from .components.slider import Slider
+from .components.switch import Switch
+from .components.switch import SwitchDisabled
 from .components.table import ColumnNotExpandable
 from .components.table import CompoundExpandableTable
 from .components.table import ExpandableTable
@@ -125,6 +127,9 @@ __all__ = [
     "Slider",
     "SplitButtonDropdown",
     "StandAloneChipGroup",
+    "Radio",
+    "Switch",
+    "SwitchDisabled",
     "Tab",
     "Title",
 ]

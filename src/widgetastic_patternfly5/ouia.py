@@ -16,6 +16,7 @@ from widgetastic_patternfly5.components.modal import BaseModal
 from widgetastic_patternfly5.components.navigation import BaseNavigation
 from widgetastic_patternfly5.components.pagination import BaseCompactPagination
 from widgetastic_patternfly5.components.pagination import BasePagination
+from widgetastic_patternfly5.components.switch import BaseSwitch
 from widgetastic_patternfly5.components.table import BaseExpandableTable
 from widgetastic_patternfly5.components.table import BasePatternflyTable
 from widgetastic_patternfly5.components.title import BaseTitle
@@ -37,15 +38,15 @@ class Card(BaseCard, OUIAGenericWidget):
     OUIA_COMPONENT_TYPE = "PF5/Card"
 
 
+class CheckboxMenu(BaseCheckboxMenu):
+    OUIA_COMPONENT_TYPE = "PF5/Menu"
+
+
 class FormSelect(BaseFormSelect, OUIAGenericWidget):
     OUIA_COMPONENT_TYPE = "PF5/FormSelect"
 
 
 class Menu(BaseMenu):
-    OUIA_COMPONENT_TYPE = "PF5/Menu"
-
-
-class CheckboxMenu(BaseCheckboxMenu):
     OUIA_COMPONENT_TYPE = "PF5/Menu"
 
 
@@ -98,6 +99,10 @@ class PatternflyTable(BasePatternflyTable, Table):
 
 class ExpandableTable(BaseExpandableTable, PatternflyTable):
     pass
+
+
+class Switch(BaseSwitch, OUIAGenericWidget):
+    OUIA_COMPONENT_TYPE = "PF5/Switch"
 
 
 class Title(BaseTitle, OUIAGenericWidget):
