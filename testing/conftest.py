@@ -79,5 +79,5 @@ def browser(selenium, request):
     browser = Browser(selenium)
     if browser.elements(".//button[@aria-label='Close banner']"):
         browser.click(".//button[@aria-label='Close banner']")
-    return browser
+    yield browser
     selenium.refresh()

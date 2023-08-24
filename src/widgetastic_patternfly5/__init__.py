@@ -9,6 +9,13 @@ from .components.breadcrumb import BreadCrumb
 from .components.button import Button
 from .components.card import Card
 from .components.card import CardWithActions
+from .components.chipgroup import CategoryChipGroup
+from .components.chipgroup import Chip
+from .components.chipgroup import ChipGroup
+from .components.chipgroup import ChipGroupToolbar
+from .components.chipgroup import ChipGroupToolbarCategory
+from .components.chipgroup import ChipReadOnlyError
+from .components.chipgroup import StandAloneChipGroup
 from .components.clipboardcopy import ClipboardCopy
 from .components.descriptionlist import DescriptionList
 from .components.drawer import Drawer
@@ -61,13 +68,19 @@ __all__ = [
     "Button",
     "Card",
     "CardWithActions",
+    "CategoryChipGroup",
     "CheckboxMenu",
     "CheckboxSelect",
+    "Chip",
+    "ChipGroup",
+    "ChipGroupToolbar",
+    "ChipGroupToolbarCategory",
+    "ChipReadOnlyError",
+    "ClipboardCopy",
     "ColumnNotExpandable",
     "CompactPagination",
     "CompactPagination",
     "CompoundExpandableTable",
-    "ClipboardCopy",
     "DataPoint",
     "DescriptionList",
     "DonutChart",
@@ -111,6 +124,7 @@ __all__ = [
     "SelectItemNotFound",
     "Slider",
     "SplitButtonDropdown",
+    "StandAloneChipGroup",
     "Tab",
     "Title",
 ]
