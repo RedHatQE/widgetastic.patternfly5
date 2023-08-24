@@ -8,9 +8,9 @@ class BaseProgress:
     https://www.patternfly.org/components/progress
     """
 
-    DESCRIPTION = './/div[@class="pf-v5-c-progress__description"]'
-    MEASURE = './/span[@class="pf-v5-c-progress__measure"]'
-    PROGRESS_BAR = ".//div[@class='pf-v5-c-progress__bar']"
+    DESCRIPTION = './/div[contains(@class, "-c-progress__description")]'
+    MEASURE = './/span[contains(@class, "-c-progress__measure")]'
+    PROGRESS_BAR = ".//div[contains(@class, '-c-progress__bar')]"
     STATUS_TYPE_MAPPING = {
         "pf-m-warning": "warning",
         "pf-m-success": "success",

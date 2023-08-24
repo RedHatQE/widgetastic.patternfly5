@@ -8,7 +8,7 @@ class BaseSplitButtonDropdown:
     """
 
     INPUT = ".//input[@type='checkbox']"
-    LABEL = ".//span[@class='pf-v5-c-check__label']"
+    LABEL = ".//span[contains(@class, '-c-check__label')]"
 
     def check(self):
         """Check toggle checkbox."""

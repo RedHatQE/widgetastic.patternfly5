@@ -22,7 +22,7 @@ class BasePagination:
     """
 
     DEFAULT_LOCATOR = (
-        ".//div[contains(@class, 'pf-c-pagination') and not(contains(@class, 'pf-m-compact'))]"
+        ".//div[contains(@class, '-c-pagination') and not(contains(@class, 'pf-m-compact'))]"
     )
 
     _first = GenericLocatorWidget(".//button[contains(@data-action, 'first')]")
@@ -30,9 +30,14 @@ class BasePagination:
     _next = GenericLocatorWidget(".//button[contains(@data-action, 'next')]")
     _last = GenericLocatorWidget(".//button[contains(@data-action, 'last')]")
     _options = OptionsMenu()
-    _items = Text(".//span[@class='pf-v5-c-menu-toggle__text']")
+    _items = Text(
+        ".//span[contains(@class, '-c-menu-toggle__text') or "
+        "contains(@class, '-c-options-menu__toggle-text')]"
+    )
     _current_page = TextInput(locator=".//input[@aria-label='Current page']")
-    _total_pages = Text(".//div[@class='pf-v5-c-pagination__nav-page-select']/span[text()='of']")
+    _total_pages = Text(
+        ".//div[contains(@class, '-c-pagination__nav-page-select')]/span[text()='of']"
+    )
 
     @property
     def is_enabled(self):
@@ -261,5 +266,5 @@ class BaseCompactPagination:
 
 class CompactPagination(BaseCompactPagination, Pagination):
     DEFAULT_LOCATOR = (
-        ".//div[contains(@class, 'pf-v5-c-pagination') and contains(@class, 'pf-m-compact')]"
+        ".//div[contains(@class, '-c-pagination') and contains(@class, 'pf-m-compact')]"
     )

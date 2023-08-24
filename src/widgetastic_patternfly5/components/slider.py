@@ -8,11 +8,11 @@ class BaseSlider:
     https://www.patternfly.org/components/slider
     """
 
-    LABELS = ".//div[contains(@class, 'pf-v5-c-slider__step-label')]"
-    THUMB = ".//div[contains(@class, 'pf-v5-c-slider__thumb')]"
+    LABELS = ".//div[contains(@class, '-c-slider__step-label')]"
+    THUMB = ".//div[contains(@class, '-c-slider__thumb')]"
     STEPS = (
-        ".//div[contains(@class, 'pf-v5-c-slider__steps')]"
-        "/child::div[contains(@class, 'pf-v5-c-slider__step')]"
+        ".//div[contains(@class, '-c-slider__steps')]"
+        "/child::div[contains(@class, '-c-slider__step')]"
     )
 
     def _str_num(self, value):

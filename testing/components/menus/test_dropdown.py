@@ -98,7 +98,7 @@ def test_group_dropdown(group_dropdown):
     ]
     assert group_dropdown.has_item("Group 2 link")
     assert group_dropdown.item_enabled("Group 3 action")
-    assert group_dropdown.groups == ["Group 2", "Group 3"]
+    assert group_dropdown.groups == ["", "Group 2", "Group 3"]
     group_dropdown.item_select("Group 3 action", group_name="Group 3")
     with pytest.raises(DropdownItemNotFound):
         group_dropdown.item_select("Group 3 action", group_name="Group 2")

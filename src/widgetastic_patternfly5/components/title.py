@@ -23,7 +23,7 @@ class BaseTitle:
 class Title(BaseTitle, Widget):
     ROOT = ParametrizedLocator(
         ".//*[(self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6) "
-        "and (contains(@class, 'pf-v5-c-title') "
+        "and (contains(@class, '-c-title') "
         "and normalize-space(.)={@expected|quote})]"
     )
 

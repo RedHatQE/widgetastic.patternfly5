@@ -1,5 +1,4 @@
 from widgetastic.exceptions import NoSuchElementException
-from widgetastic.xpath import quote
 
 from .dropdown import Dropdown
 from .dropdown import DropdownItemDisabled
@@ -30,7 +29,7 @@ class BaseMenu:
 
         class PermissionsMenu(Menu):
             IS_ALWAYS_OPEN = False
-            BUTTON_LOCATOR = ".//button[contains(@class, 'pf-c-menu-toggle')]"
+            BUTTON_LOCATOR = ".//button[contains(@class, '-c-menu-toggle')]"
             ROOT = f"{BUTTON_LOCATOR}/.."
 
     https://www.patternfly.org/components/menus/menu
@@ -40,12 +39,10 @@ class BaseMenu:
     IS_ALWAYS_OPEN = True
 
     BUTTON_LOCATOR = ".//button"
-    ITEMS_LOCATOR = ".//li[contains(@class, 'pf-v5-c-menu__list-item')]"
+    ITEMS_LOCATOR = ".//li[contains(@class, '-c-menu__list-item')]"
     SELECTED_ITEMS_LOCATOR = ".//button[contains(@class, 'pf-m-selected')]"
-    ITEM_LOCATOR = ".//*[contains(@class, 'pf-v5-c-menu__list-item') and normalize-space(.)={}]"
-    TEXT_LOCATOR = (
-        ".//div[contains(@class, 'pf-v5-c-menu') and child::button[normalize-space(.)={}]]"
-    )
+    ITEM_LOCATOR = ".//*[contains(@class, '-c-menu__list-item') and normalize-space(.)={}]"
+    TEXT_LOCATOR = ".//div[contains(@class, '-c-menu') and child::button[normalize-space(.)={}]]"
 
     @property
     def selected_items(self):
@@ -139,7 +136,7 @@ class BaseMenu:
 
 
 class Menu(BaseMenu, Dropdown):
-    DEFAULT_LOCATOR = './/div[contains(@class, "c-menu")]'
+    DEFAULT_LOCATOR = './/div[contains(@class, "-c-menu")]'
 
 
 class BaseCheckboxMenu(BaseMenu):
@@ -147,10 +144,7 @@ class BaseCheckboxMenu(BaseMenu):
     Represents a checkbox menu.
     """
 
-    ITEM_LOCATOR_BASE = (
-        ".//*[contains(@class, 'pf-v5-c-menu__list-item') and normalize-space(.)={}]"
-    )
-    ITEM_LOCATOR = f"{ITEM_LOCATOR_BASE}//input"
+    ITEM_LOCATOR = ".//*[contains(@class, '-c-menu__list-item') and normalize-space(.)={}]//input"
 
     def item_select(self, items, close=True):
         """Opens the Checkbox and selects the desired item.
@@ -189,25 +183,6 @@ class BaseCheckboxMenu(BaseMenu):
         finally:
             if close:
                 self.close()
-
-    def item_enabled(self, item, close=True, **kwargs):
-        """Returns whether the given item is enabled.
-
-        Args:
-            item: Name of the item.
-
-        Returns:
-            Boolean - True if enabled, False if not.
-        """
-        try:
-            self.open()
-            el = self.browser.element(self.ITEM_LOCATOR_BASE.format(quote(item)), **kwargs)
-            is_enabled = "pf-m-disabled" not in self.browser.classes(el)
-            if close:
-                self.close()
-            return is_enabled
-        except NoSuchElementException:
-            raise MenuItemNotFound("Item {!r} not found.".format(item))
 
     def fill(self, items):
         """Fills a Checkbox with all items.
@@ -262,4 +237,4 @@ class BaseCheckboxMenu(BaseMenu):
 
 
 class CheckboxMenu(BaseCheckboxMenu, Dropdown):
-    DEFAULT_LOCATOR = './/div[contains(@class, "c-menu")]'
+    DEFAULT_LOCATOR = './/div[contains(@class, "-c-menu")]'
