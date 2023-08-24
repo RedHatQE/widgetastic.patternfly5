@@ -17,6 +17,7 @@ from .components.chipgroup import ChipGroupToolbarCategory
 from .components.chipgroup import ChipReadOnlyError
 from .components.chipgroup import StandAloneChipGroup
 from .components.clipboardcopy import ClipboardCopy
+from .components.date_and_time.calendarmonth import CalendarMonth
 from .components.descriptionlist import DescriptionList
 from .components.drawer import Drawer
 from .components.duallistselector import DualListSelector
@@ -68,6 +69,7 @@ __all__ = [
     "BreadCrumb",
     "BulletChart",
     "Button",
+    "CalendarMonth",
     "Card",
     "CardWithActions",
     "CategoryChipGroup",
