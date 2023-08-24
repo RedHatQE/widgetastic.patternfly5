@@ -1,5 +1,4 @@
 from widgetastic.exceptions import NoSuchElementException
-from widgetastic.xpath import quote
 
 from .dropdown import Dropdown
 from .dropdown import DropdownItemDisabled
@@ -145,8 +144,7 @@ class BaseCheckboxMenu(BaseMenu):
     Represents a checkbox menu.
     """
 
-    ITEM_LOCATOR_BASE = ".//*[contains(@class, '-c-menu__list-item') and normalize-space(.)={}]"
-    ITEM_LOCATOR = f"{ITEM_LOCATOR_BASE}//input"
+    ITEM_LOCATOR = ".//*[contains(@class, '-c-menu__list-item') and normalize-space(.)={}]//input"
 
     def item_select(self, items, close=True):
         """Opens the Checkbox and selects the desired item.
@@ -185,25 +183,6 @@ class BaseCheckboxMenu(BaseMenu):
         finally:
             if close:
                 self.close()
-
-    def item_enabled(self, item, close=True, **kwargs):
-        """Returns whether the given item is enabled.
-
-        Args:
-            item: Name of the item.
-
-        Returns:
-            Boolean - True if enabled, False if not.
-        """
-        try:
-            self.open()
-            el = self.browser.element(self.ITEM_LOCATOR_BASE.format(quote(item)), **kwargs)
-            is_enabled = "pf-m-disabled" not in self.browser.classes(el)
-            if close:
-                self.close()
-            return is_enabled
-        except NoSuchElementException:
-            raise MenuItemNotFound("Item {!r} not found.".format(item))
 
     def fill(self, items):
         """Fills a Checkbox with all items.
@@ -258,4 +237,4 @@ class BaseCheckboxMenu(BaseMenu):
 
 
 class CheckboxMenu(BaseCheckboxMenu, Dropdown):
-    DEFAULT_LOCATOR = './/div[contains(@class, "c-menu")]'
+    DEFAULT_LOCATOR = './/div[contains(@class, "-c-menu")]'

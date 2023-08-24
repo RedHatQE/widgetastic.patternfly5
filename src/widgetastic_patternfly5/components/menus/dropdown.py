@@ -30,9 +30,16 @@ class BaseDropdown:
 
     """
 
-    BUTTON_LOCATOR = ".//button[contains(@class, '-c-menu-toggle')]"
-    ITEMS_LOCATOR = ".//ul[contains(@class, '-c-menu__list')]/li"
-    ITEM_LOCATOR = ".//*[contains(@class, '-c-menu__list-item') and normalize-space(.)={}]"
+    BUTTON_LOCATOR = (
+        ".//button[contains(@class, '-c-menu-toggle') or contains(@class, '-c-dropdown__toggle')]"
+    )
+    ITEMS_LOCATOR = (
+        ".//ul[contains(@class, '-c-menu__list') or contains(@class, '-c-dropdown__menu')]/li"
+    )
+    ITEM_LOCATOR = (
+        ".//*[(contains(@class, '-c-menu__list-item') or "
+        "contains(@class, '-c-dropdown__menu-item')) and normalize-space(.)={}]"
+    )
 
     @contextmanager
     def opened(self):
@@ -58,7 +65,9 @@ class BaseDropdown:
     @property
     def is_open(self):
         """Returns True if the Dropdown is open"""
-        return "pf-m-expanded" in self.browser.classes(self.BUTTON_LOCATOR)
+        return "pf-m-expanded" in self.browser.classes(
+            self.BUTTON_LOCATOR
+        ) or "pf-m-expanded" in self.browser.classes(self)
 
     def open(self):
         """Opens a dropdown."""
@@ -135,7 +144,13 @@ class BaseDropdown:
         """
         self._verify_enabled()
         el = self.item_element(item, close=False, **kwargs)
-        is_el_enabled = "pf-m-disabled" not in self.browser.classes(el)
+
+        if self.browser.get_attribute("type", el) == "checkbox":
+            # input element don't have such disabled attributes it at level of session.
+            is_el_enabled = el.is_enabled()
+        else:
+            is_el_enabled = "pf-m-disabled" not in self.browser.classes(el)
+
         if close:
             self.close()
         return is_el_enabled
@@ -189,8 +204,10 @@ class BaseDropdown:
 
 class Dropdown(BaseDropdown, Widget):
     ROOT = ParametrizedLocator("{@locator}")
-    TEXT_LOCATOR = './/div[contains(@class, "c-dropdown") and child::button[normalize-space(.)={}]]'
-    DEFAULT_LOCATOR = './/div[contains(@class, "c-dropdown")][1]'
+    TEXT_LOCATOR = (
+        './/div[contains(@class, "-c-dropdown") and child::button[normalize-space(.)={}]]'
+    )
+    DEFAULT_LOCATOR = './/div[contains(@class, "-c-dropdown")][1]'
 
     def __init__(self, parent, text=None, locator=None, logger=None):
         super().__init__(parent, logger=logger)
@@ -207,9 +224,18 @@ class Dropdown(BaseDropdown, Widget):
 class BaseGroupDropdown:
     """Dropdown with grouped items in it."""
 
-    ITEMS_LOCATOR = ".//section[contains(@class, '-c-menu__group')]/ul/li"
-    GROUPS_LOCATOR = ".//section[contains(@class, '-c-menu__group')]/h3"
-    GROUP_LOCATOR = ".//section[contains(@class, '-c-menu__group')][h3[normalize-space(.)={}]]"
+    ITEMS_LOCATOR = (
+        ".//section[contains(@class, '-c-menu__group') or "
+        "contains(@class, '-c-dropdown__group')]/ul/li"
+    )
+    GROUPS_LOCATOR = (
+        ".//section[contains(@class, '-c-menu__group') or "
+        "contains(@class, '-c-dropdown__group')]/*[self::h1 or self::h2 or self::h3]"
+    )
+    GROUP_LOCATOR = (
+        ".//section[(contains(@class, '-c-menu__group') or contains(@class, '-c-dropdown__group'))]"
+        "[.//*[self::h1 or self::h2 or self::h3][normalize-space(.)={}]]"
+    )
 
     @property
     def groups(self):

@@ -1,5 +1,4 @@
 from widgetastic.exceptions import NoSuchElementException
-from widgetastic.xpath import quote
 
 from .dropdown import Dropdown
 from .dropdown import DropdownItemDisabled
@@ -22,9 +21,13 @@ class BaseSelect:
 
     BUTTON_LOCATOR = ".//button"
     ITEMS_LOCATOR = (
-        ".//ul[contains(@class, '-c-menu__list')]/li[contains(@class, '-c-menu__list-item')]"
+        ".//ul[contains(@class, '-c-menu__list') or contains(@class, '-c-select__menu')]/"
+        "li[contains(@class, '-c-menu__list-item') or contains(@class, '-c-select__menu-wrapper')]"
     )
-    ITEM_LOCATOR = ".//*[contains(@class, '-c-menu__list-item') and normalize-space(.)={}]"
+    ITEM_LOCATOR = (
+        ".//*[(contains(@class, '-c-menu__list-item') or contains(@class, '-c-select__menu-item'))"
+        " and normalize-space(.)={}]"
+    )
     SELECTED_ITEM_LOCATOR = (
         ".//span[contains(@class, 'ins-c-conditional-filter') and normalize-space(.)={}]"
     )
@@ -70,7 +73,7 @@ class BaseSelect:
 
 
 class Select(BaseSelect, Dropdown):
-    DEFAULT_LOCATOR = './/div[contains(@class, "c-select")][1]'
+    DEFAULT_LOCATOR = './/div[contains(@class, "-c-select")][1]'
 
 
 class BaseCheckboxSelect(BaseSelect):
@@ -80,10 +83,12 @@ class BaseCheckboxSelect(BaseSelect):
     """
 
     ITEMS_LOCATOR = (
-        ".//ul[contains(@class, '-c-menu__list')]/li[contains(@class, '-c-menu__list-item')]"
+        ".//*[contains(@class, '-c-menu__list-item') or contains(@class, '-c-select__menu-item')]"
     )
-    ITEM_LOCATOR_BASE = ".//*[contains(@class, '-c-menu__list-item') and normalize-space(.)={}]"
-    ITEM_LOCATOR = f"{ITEM_LOCATOR_BASE}//input"
+    ITEM_LOCATOR = (
+        f"{ITEMS_LOCATOR}[.//span[starts-with(normalize-space(.), {{}})]]"
+        f"//input[@type='checkbox']"
+    )
 
     def item_select(self, items, close=True):
         """Opens the Checkbox and selects the desired item.
@@ -122,25 +127,6 @@ class BaseCheckboxSelect(BaseSelect):
         finally:
             if close:
                 self.close()
-
-    def item_enabled(self, item, close=True, **kwargs):
-        """Returns whether the given item is enabled.
-
-        Args:
-            item: Name of the item.
-
-        Returns:
-            Boolean - True if enabled, False if not.
-        """
-        try:
-            self.open()
-            el = self.browser.element(self.ITEM_LOCATOR_BASE.format(quote(item)), **kwargs)
-            is_enabled = "pf-m-disabled" not in self.browser.classes(el)
-            if close:
-                self.close()
-            return is_enabled
-        except NoSuchElementException:
-            raise SelectItemNotFound("Item {!r} not found.".format(item))
 
     def fill(self, items):
         """Fills a Checkbox with all items.
