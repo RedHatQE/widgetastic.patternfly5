@@ -7,9 +7,9 @@ from .charts.pie_chart import PieChart
 from .components.alert import Alert
 from .components.breadcrumb import BreadCrumb
 from .components.button import Button
-from .components.clipboardcopy import ClipboardCopy
 from .components.card import Card
 from .components.card import CardWithActions
+from .components.clipboardcopy import ClipboardCopy
 from .components.descriptionlist import DescriptionList
 from .components.drawer import Drawer
 from .components.duallistselector import DualListSelector
