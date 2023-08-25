@@ -28,16 +28,18 @@ itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.
 ### Components:
 - [alert](https://www.patternfly.org/components/alert)
 - [breadcrumb](https://www.patternfly.org/components/breadcrumb)
-- [clipboard-copy](https://www.patternfly.org/components/clipboard-copy)
 - [button](https://www.patternfly.org/components/button)
 - [card](https://www.patternfly.org/components/card)
 - [chip](https://www.patternfly.org/components/chip)
+- [clipboard-copy](https://www.patternfly.org/components/clipboard-copy)
 - date and time
   - [calendar-month](https://www.patternfly.org/components/date-and-time/calendar-month)
 - [description-list](https://www.patternfly.org/components/description-list)
+- [drawer](https://www.patternfly.org/components/drawer)
 - [dual-list-selector](https://www.patternfly.org/components/dual-list-selector)
-- [form-select](https://www.patternfly.org/components/forms/form-select)
-- [slider](https://www.patternfly.org/components/slider)
+- forms
+  - [form-select](https://www.patternfly.org/components/forms/form-select)
+  - [radio](https://www.patternfly.org/components/forms/radio)
 - menus
   - [dropdown](https://www.patternfly.org/components/menus/dropdown)
   - [menu](https://www.patternfly.org/components/menus/menu)
@@ -48,14 +50,12 @@ itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.
 - [navigation](https://www.patternfly.org/components/navigation)
 - [pagination](https://www.patternfly.org/components/pagination/)
 - [popover](https://www.patternfly.org/components/popover)
-- forms
-  - [radio](https://www.patternfly.org/components/forms/radio)
 - [progress](https://www.patternfly.org/components/progress)
+- [slider](https://www.patternfly.org/components/slider)
 - [switch](https://www.patternfly.org/components/switch)
 - [table](https://www.patternfly.org/components/table)
 - [tabs](https://www.patternfly.org/components/tabs)
 - [title](https://www.patternfly.org/components/title)
-- [drawer](https://www.patternfly.org/components/drawer)
 
 
 ### Charts:

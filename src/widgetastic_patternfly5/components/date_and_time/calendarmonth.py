@@ -18,11 +18,11 @@ class BaseCalendarMonth:
     """
 
     CALENDAR_HEADER = ".//div[contains(@class, '-c-calendar-month__header')]"
-    MONTH_SELECT_LOCATOR = (
-        f"{CALENDAR_HEADER}//div[contains(@class, 'header-month')]"
-    )
+    MONTH_SELECT_LOCATOR = f"{CALENDAR_HEADER}//div[contains(@class, 'header-month')]"
     _month_select_widget = Select(locator=MONTH_SELECT_LOCATOR)
-    YEAR_INPUT_LOCATOR = f"{CALENDAR_HEADER}//div[contains(@class, '-c-calendar-month__header-year')]//input"
+    YEAR_INPUT_LOCATOR = (
+        f"{CALENDAR_HEADER}//div[contains(@class, '-c-calendar-month__header-year')]//input"
+    )
     DATE_LOCATOR = ".//button[text()={date}]"
 
     PREV_BUTTON_LOCATOR = f"{CALENDAR_HEADER}//div[contains(@class, 'prev-month')]"
