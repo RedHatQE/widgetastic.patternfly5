@@ -9,7 +9,7 @@ from widgetastic_patternfly5.components.alert import BaseAlert
 from widgetastic_patternfly5.components.breadcrumb import BaseBreadCrumb
 from widgetastic_patternfly5.components.button import BaseButton
 from widgetastic_patternfly5.components.card import BaseCard
-from widgetastic_patternfly5.components.forms.formselect import BaseFormSelect
+from widgetastic_patternfly5.components.forms.form_select import BaseFormSelect
 from widgetastic_patternfly5.components.menus.menu import BaseCheckboxMenu
 from widgetastic_patternfly5.components.menus.menu import BaseMenu
 from widgetastic_patternfly5.components.modal import BaseModal

@@ -8,7 +8,7 @@ from widgetastic.widget import Text
 from widgetastic.widget import TextInput
 from widgetastic.widget import View
 
-from .menus.optionsmenu import OptionsMenu
+from .menus.options_menu import OptionsMenu
 
 
 class PaginationNavDisabled(Exception):

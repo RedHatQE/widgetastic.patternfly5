@@ -9,23 +9,23 @@ from .components.breadcrumb import BreadCrumb
 from .components.button import Button
 from .components.card import Card
 from .components.card import CardWithActions
-from .components.chipgroup import CategoryChipGroup
-from .components.chipgroup import Chip
-from .components.chipgroup import ChipGroup
-from .components.chipgroup import ChipGroupToolbar
-from .components.chipgroup import ChipGroupToolbarCategory
-from .components.chipgroup import ChipReadOnlyError
-from .components.chipgroup import StandAloneChipGroup
-from .components.clipboardcopy import ClipboardCopy
-from .components.date_and_time.calendarmonth import CalendarMonth
-from .components.descriptionlist import DescriptionList
+from .components.chip import CategoryChipGroup
+from .components.chip import Chip
+from .components.chip import ChipGroup
+from .components.chip import ChipGroupToolbar
+from .components.chip import ChipGroupToolbarCategory
+from .components.chip import ChipReadOnlyError
+from .components.chip import StandAloneChipGroup
+from .components.clipboard_copy import ClipboardCopy
+from .components.date_and_time.calendar_month import CalendarMonth
+from .components.description_list import DescriptionList
 from .components.drawer import Drawer
-from .components.duallistselector import DualListSelector
-from .components.duallistselector import SearchDualListSelector
-from .components.forms.formselect import FormSelect
-from .components.forms.formselect import FormSelectDisabled
-from .components.forms.formselect import FormSelectOptionDisabled
-from .components.forms.formselect import FormSelectOptionNotFound
+from .components.dual_list_selector import DualListSelector
+from .components.dual_list_selector import SearchDualListSelector
+from .components.forms.form_select import FormSelect
+from .components.forms.form_select import FormSelectDisabled
+from .components.forms.form_select import FormSelectOptionDisabled
+from .components.forms.form_select import FormSelectOptionNotFound
 from .components.forms.radio import Radio
 from .components.menus.dropdown import Dropdown
 from .components.menus.dropdown import DropdownDisabled
@@ -37,7 +37,7 @@ from .components.menus.menu import Menu
 from .components.menus.menu import MenuItemDisabled
 from .components.menus.menu import MenuItemNotFound
 from .components.menus.menu_toggle import SplitButtonDropdown
-from .components.menus.optionsmenu import OptionsMenu
+from .components.menus.options_menu import OptionsMenu
 from .components.menus.select import CheckboxSelect
 from .components.menus.select import Select
 from .components.menus.select import SelectItemDisabled
@@ -83,7 +83,6 @@ __all__ = [
     "ClipboardCopy",
     "ColumnNotExpandable",
     "CompactPagination",
-    "CompactPagination",
     "CompoundExpandableTable",
     "DataPoint",
     "DescriptionList",
@@ -101,7 +100,6 @@ __all__ = [
     "FormSelectOptionNotFound",
     "GroupDropdown",
     "InputSlider",
-    "InputSlider",
     "Legend",
     "LineChart",
     "Menu",
@@ -113,8 +111,6 @@ __all__ = [
     "Navigation",
     "OptionsMenu",
     "Pagination",
-    "Pagination",
-    "PaginationNavDisabled",
     "PaginationNavDisabled",
     "PatternflyTable",
     "PieChart",
@@ -129,7 +125,6 @@ __all__ = [
     "Slider",
     "SplitButtonDropdown",
     "StandAloneChipGroup",
-    "Radio",
     "Switch",
     "SwitchDisabled",
     "Tab",
