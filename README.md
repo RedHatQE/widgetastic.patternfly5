@@ -13,9 +13,6 @@
     <a href="https://github.com/RedHatQE/widgetastic.patternfly5/actions/workflows/tests.yaml">
     <img alt="github actions" src="https://github.com/RedHatQE/widgetastic.patternfly5/actions/workflows/tests.yaml/badge.svg">
     </a>
-    <a href="https://github.com/RedHatQE/widgetastic.patternfly5/blob/main/LICENSE">
-    <img alt="License: GPLv3" src="https://img.shields.io/github/license/RedHatQE/widgetastic.patternfly5">
-    </a>
     <a href="https://pypi.org/project/black">
     <img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
     </a>
