@@ -1,6 +1,8 @@
 from widgetastic.utils import ParametrizedLocator
 from widgetastic.widget import Checkbox
 from widgetastic.widget import GenericLocatorWidget
+from widgetastic.widget import ParametrizedView
+from widgetastic.widget import View
 
 from widgetastic_patternfly5.components.menus.dropdown import Dropdown
 
@@ -32,13 +34,58 @@ class BaseCard:
 
 
 class Card(BaseCard, GenericLocatorWidget):
+    DEFAULT_LOCATOR = (
+        ".//div[@data-ouia-component-type='PF5/Card'] | .//article[contains(@class, 'pf-c-card')]"
+    )
+
     def __init__(self, parent, locator=None, logger=None):
-        locator = locator or ".//div[contains(@class, '-c-card')]"
+        locator = locator or self.DEFAULT_LOCATOR
         super().__init__(parent, locator, logger=logger)
 
     ROOT = ParametrizedLocator("{@locator}")
 
 
+class CardForCardGroup(BaseCard, ParametrizedView):
+    DEFAULT_LOCATOR = (
+        "(.//div[@data-ouia-component-type='PF5/Card'] | .//article[contains(@class, 'pf-c-card')])"
+    )
+
+    def __init__(self, parent, locator=None, logger=None, **kwargs):
+        View.__init__(self, parent, logger=logger, **kwargs)
+        self.locator = locator or self.DEFAULT_LOCATOR
+
+    PARAMETERS = ("position",)
+
+    ROOT = ParametrizedLocator("{@locator}[{position}]")
+
+    def __locator__(self):
+        return self.ROOT
+
+    @classmethod
+    def all(cls, browser):
+        # todo: OUIA versions should return component ids
+        elements = browser.elements(cls.DEFAULT_LOCATOR)
+        result = []
+        for index, item in enumerate(elements):
+            result.append((index + 1,))
+        return result
+
+
+class CardGroup(GenericLocatorWidget, View):
+    def __init__(self, parent, locator=None, logger=None, **kwargs):
+        View.__init__(self, parent, logger=logger, **kwargs)
+        self.locator = locator
+
+    cards = ParametrizedView.nested(CardForCardGroup)
+
+    def __iter__(self):
+        return iter(self.cards)
+
+
 class CardWithActions(Card):
     dropdown = Dropdown(locator=".//div[contains(@class, '-c-card__actions')]")
     checkbox = Checkbox(locator=".//input[contains(@class, '-c-check__input')]")
+
+
+class CardCheckBox(Checkbox):
+    ROOT = ".//input[contains(@class, '-c-check__input')]"

@@ -62,6 +62,9 @@ itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.
 - [line-chart](https://www.patternfly.org/charts/line-chart)
 - [pie-chart](https://www.patternfly.org/charts/pie-chart)
 
+### Patterns:
+- [card-view](https://patternfly-react-main.surge.sh/patterns/card-view)
+
 
 ### Contribution guide
 
