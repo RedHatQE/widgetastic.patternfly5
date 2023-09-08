@@ -97,12 +97,12 @@ class BaseNavigation:
         return [self.browser.text(el) for el in self.browser.elements(self.CURRENTLY_SELECTED)]
 
     @check_nav_loaded
-    def select(self, *levels, **kwargs):
-        """Select an item in the navigation.
+    def select(self, *levels: tuple[str], **kwargs):
+        """Select an item in the navigation according to an ordered tuple of levels.
 
-        Args:
-            *levels: Items to be clicked in the navigation.
-            force: Force navigation to happen, defaults to False.
+        :param *levels: Items to be clicked in the navigation; implied hierarchical structure
+        from left to right.
+        :param force: Force navigation to happen, defaults to False.
         """
         self.logger.info("Selecting %r in navigation", levels)
         force = kwargs.get("force", False)
@@ -111,9 +111,13 @@ class BaseNavigation:
         current_item = self
         for i, level in enumerate(levels, 1):
             try:
-                li = self.browser.element(
-                    self.ITEM_MATCHING.format(quote(level)), parent=current_item
-                )
+                # ITEM_MATCHING locator could contain more than one substitution parameter
+                # Example: a locator containing an "or" with the same parameter value
+                import re
+
+                count = len([i.start() for i in re.finditer("{}", self.ITEM_MATCHING)])
+                subs = tuple([quote(level) for i in range(0, count)])
+                li = self.browser.element(self.ITEM_MATCHING.format(*subs, parent=current_item))
             except NoSuchElementException:
                 raise NavSelectionNotFound(
                     f"{levels} not found in navigation tree. "
