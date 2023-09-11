@@ -116,7 +116,7 @@ class BaseNavigation:
                 import re
 
                 count = len([i.start() for i in re.finditer("{}", self.ITEM_MATCHING)])
-                subs = tuple([quote(level) for i in range(0, count)])
+                subs = [quote(level) for i in range(0, count)]
                 li = self.browser.element(self.ITEM_MATCHING.format(*subs), parent=current_item)
             except NoSuchElementException:
                 raise NavSelectionNotFound(
