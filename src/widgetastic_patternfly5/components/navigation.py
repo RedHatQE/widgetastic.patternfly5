@@ -97,7 +97,7 @@ class BaseNavigation:
         return [self.browser.text(el) for el in self.browser.elements(self.CURRENTLY_SELECTED)]
 
     @check_nav_loaded
-    def select(self, *levels: tuple[str], **kwargs):
+    def select(self, *levels, **kwargs):
         """Select an item in the navigation according to an ordered tuple of levels.
 
         :param *levels: Items to be clicked in the navigation; implied hierarchical structure
