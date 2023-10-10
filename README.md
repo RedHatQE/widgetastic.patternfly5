@@ -16,6 +16,9 @@
     <a href="https://pypi.org/project/black">
     <img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
     </a>
+    <a href="https://results.pre-commit.ci/latest/github/RedHatQE/widgetastic.patternfly5/main">
+    <img alt="pre: black" src="https://results.pre-commit.ci/badge/github/RedHatQE/widgetastic.patternfly5/main.svg">
+    </a>
 </p>
 
 This library offers Widgetastic Widgets for [PatternFly v5](https://www.patternfly.org/), serving as an extended
