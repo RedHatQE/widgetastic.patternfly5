@@ -10,8 +10,10 @@ from widgetastic_patternfly5.components.breadcrumb import BaseBreadCrumb
 from widgetastic_patternfly5.components.button import BaseButton
 from widgetastic_patternfly5.components.card import BaseCard
 from widgetastic_patternfly5.components.forms.form_select import BaseFormSelect
+from widgetastic_patternfly5.components.menus.dropdown import BaseDropdown
 from widgetastic_patternfly5.components.menus.menu import BaseCheckboxMenu
 from widgetastic_patternfly5.components.menus.menu import BaseMenu
+from widgetastic_patternfly5.components.menus.select import BaseSelect
 from widgetastic_patternfly5.components.modal import BaseModal
 from widgetastic_patternfly5.components.navigation import BaseNavigation
 from widgetastic_patternfly5.components.pagination import BaseCompactPagination
@@ -36,6 +38,10 @@ class Button(BaseButton, OUIAGenericWidget):
 
 class Card(BaseCard, OUIAGenericWidget):
     OUIA_COMPONENT_TYPE = "PF5/Card"
+
+
+class Dropdown(BaseDropdown, OUIAGenericWidget):
+    OUIA_COMPONENT_TYPE = "PF5/Dropdown"
 
 
 class CheckboxMenu(BaseCheckboxMenu):
@@ -99,6 +105,10 @@ class PatternflyTable(BasePatternflyTable, Table):
 
 class ExpandableTable(BaseExpandableTable, PatternflyTable):
     pass
+
+
+class Select(BaseSelect, Dropdown):
+    OUIA_COMPONENT_TYPE = "PF5/Select"
 
 
 class Switch(BaseSwitch, OUIAGenericWidget):
