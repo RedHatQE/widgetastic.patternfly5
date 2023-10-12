@@ -40,12 +40,12 @@ class Card(BaseCard, OUIAGenericWidget):
     OUIA_COMPONENT_TYPE = "PF5/Card"
 
 
-class Dropdown(BaseDropdown, OUIAGenericWidget):
-    OUIA_COMPONENT_TYPE = "PF5/Dropdown"
-
-
 class CheckboxMenu(BaseCheckboxMenu):
     OUIA_COMPONENT_TYPE = "PF5/Menu"
+
+
+class Dropdown(BaseDropdown, OUIAGenericWidget):
+    OUIA_COMPONENT_TYPE = "PF5/Dropdown"
 
 
 class FormSelect(BaseFormSelect, OUIAGenericWidget):
