@@ -5,6 +5,7 @@ from widgetastic.ouia.text import Text as BaseOuiaText
 from widgetastic.widget.table import Table
 from widgetastic.xpath import quote
 
+from widgetastic_patternfly5 import Tab
 from widgetastic_patternfly5.components.alert import BaseAlert
 from widgetastic_patternfly5.components.breadcrumb import BaseBreadCrumb
 from widgetastic_patternfly5.components.button import BaseButton
@@ -125,9 +126,21 @@ class Dropdown(BaseDropdown, OUIAGenericWidget):
     OUIA_COMPONENT_TYPE = "Dropdown"
 
 
+class DropdownToggle(BaseDropdown, OUIAGenericWidget):
+    OUIA_COMPONENT_TYPE = "DropdownToggle"
+
+
+class DropdownItem(BaseDropdown, OUIAGenericWidget):
+    OUIA_COMPONENT_TYPE = "DropdownItem"
+
+
 class Select(BaseSelect, Dropdown):
     OUIA_COMPONENT_TYPE = "Select"
 
 
 class ClipboardCopy(BaseClipboardCopy, OUIAGenericWidget):
     OUIA_COMPONENT_TYPE = "ClipboardCopy"
+
+
+class Tabs(Tab, OUIAGenericWidget):
+    OUIA_COMPONENT_TYPE = "Tabs"
