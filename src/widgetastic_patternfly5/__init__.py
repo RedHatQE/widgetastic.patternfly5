@@ -30,6 +30,7 @@ from .components.forms.form_select import FormSelectDisabled
 from .components.forms.form_select import FormSelectOptionDisabled
 from .components.forms.form_select import FormSelectOptionNotFound
 from .components.forms.radio import Radio
+from .components.menus.context_selector import ContextSelector
 from .components.menus.dropdown import Dropdown
 from .components.menus.dropdown import DropdownDisabled
 from .components.menus.dropdown import DropdownItemDisabled
@@ -90,6 +91,7 @@ __all__ = [
     "ColumnNotExpandable",
     "CompactPagination",
     "CompoundExpandableTable",
+    "ContextSelector",
     "DataPoint",
     "DescriptionList",
     "DonutChart",
