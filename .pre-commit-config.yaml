@@ -7,14 +7,14 @@ repos:
         args:
           - --application-directories=.:src
   - repo: https://github.com/psf/black
-    rev: 23.11.0
+    rev: 23.12.1
     hooks:
       - id: black
         args: [--safe, --quiet, --line-length, "100"]
         language_version: python3
         require_serial: true
   - repo: https://github.com/PyCQA/flake8
-    rev: 6.1.0
+    rev: 7.0.0
     hooks:
       - id: flake8
         language_version: python3
