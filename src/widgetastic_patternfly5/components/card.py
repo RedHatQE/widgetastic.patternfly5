@@ -35,7 +35,7 @@ class BaseCard:
 
 class Card(BaseCard, GenericLocatorWidget):
     DEFAULT_LOCATOR = (
-        ".//div[@data-ouia-component-type='PF5/Card'] | .//article[contains(@class, 'pf-c-card')]"
+        ".//div[@data-ouia-component-type='PF5/Card'] | .//article[contains(@class, '-c-card')]"
     )
 
     def __init__(self, parent, locator=None, logger=None):
@@ -47,7 +47,7 @@ class Card(BaseCard, GenericLocatorWidget):
 
 class CardForCardGroup(BaseCard, ParametrizedView):
     DEFAULT_LOCATOR = (
-        "(.//div[@data-ouia-component-type='PF5/Card'] | .//article[contains(@class, 'pf-c-card')])"
+        "(.//div[@data-ouia-component-type='PF5/Card'] | .//article[contains(@class, '-c-card')])"
     )
 
     def __init__(self, parent, locator=None, logger=None, **kwargs):
