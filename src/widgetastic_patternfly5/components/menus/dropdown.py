@@ -65,9 +65,11 @@ class BaseDropdown:
     @property
     def is_open(self):
         """Returns True if the Dropdown is open"""
-        return "pf-m-expanded" in self.browser.classes(
-            self.BUTTON_LOCATOR
-        ) or "pf-m-expanded" in self.browser.classes(self)
+        return (
+            "pf-m-expanded" in self.browser.classes(self.BUTTON_LOCATOR)
+            or "pf-m-expanded" in self.browser.classes(self)
+            or self.browser.attributes(self.BUTTON_LOCATOR).get("aria-expanded") == "true"
+        )
 
     def open(self):
         """Opens a dropdown."""

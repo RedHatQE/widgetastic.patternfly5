@@ -16,9 +16,10 @@ class BaseOptionsMenu:
     TEXT_LOCATOR = (
         './/div[contains(@class, "-c-options-menu") and child::button[normalize-space(.)={}]]'
     )
+    # PF4/5 backward compatibility locator
     DEFAULT_LOCATOR = (
-        "(.//button[contains(@class, '-c-menu-toggle') or "
-        "contains(@class, '-c-options-menu')]/parent::div)[1]"
+        ".//div[contains(@data-ouia-component-type, 'PaginationOptionsMenu')] | "
+        "(.//button[contains(@class, '-c-menu-toggle') or contains(@class, '-c-options-menu')]/parent::div)[1]"  # noqa
     )
 
     SELECTED_ITEMS_LOCATOR = (
