@@ -1,4 +1,5 @@
 from widgetastic.exceptions import NoSuchElementException
+from widgetastic.widget import TextInput
 
 from .dropdown import Dropdown
 from .dropdown import DropdownItemDisabled
@@ -181,4 +182,20 @@ class BaseCheckboxSelect(BaseSelect):
 
 
 class CheckboxSelect(BaseCheckboxSelect, Dropdown):
+    DEFAULT_LOCATOR = './/div[contains(@class, "-c-select")][1]'
+
+
+class BaseTypeaheadSelect(BaseSelect):
+    BUTTON_LOCATOR = (
+        ".//button[(contains(@class, '-c-select__toggle') "
+        "or contains(@class, '-c-menu-toggle')) "
+        "and not(contains(@class, '-c-select__toggle-clear'))]"
+    )
+    input = TextInput(locator=".//input")
+
+    def read(self):
+        return self.browser.get_attribute("value", self.input)
+
+
+class TypeaheadSelect(BaseTypeaheadSelect, Dropdown):
     DEFAULT_LOCATOR = './/div[contains(@class, "-c-select")][1]'

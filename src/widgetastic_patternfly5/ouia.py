@@ -15,6 +15,7 @@ from widgetastic_patternfly5.components.menus.dropdown import BaseDropdown
 from widgetastic_patternfly5.components.menus.menu import BaseCheckboxMenu
 from widgetastic_patternfly5.components.menus.menu import BaseMenu
 from widgetastic_patternfly5.components.menus.select import BaseSelect
+from widgetastic_patternfly5.components.menus.select import BaseTypeaheadSelect
 from widgetastic_patternfly5.components.modal import BaseModal
 from widgetastic_patternfly5.components.navigation import BaseNavigation
 from widgetastic_patternfly5.components.pagination import BaseCompactPagination
@@ -126,6 +127,10 @@ class Dropdown(BaseDropdown, OUIAGenericWidget):
 
 
 class Select(BaseSelect, Dropdown):
+    OUIA_COMPONENT_TYPE = "Select"
+
+
+class TypeaheadSelect(BaseTypeaheadSelect, Dropdown):
     OUIA_COMPONENT_TYPE = "Select"
 
 
