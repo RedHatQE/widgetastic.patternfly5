@@ -63,6 +63,9 @@ def test_chipgroup_category(category_chip_group_view):
     assert category_chip_group_view.category_one.is_displayed
     assert category_chip_group_view.category_one.label == "Category one"
 
+    chips = ["Chip one", "Chip two", "Chip three"]
+    assert category_chip_group_view.category_one.read() == chips
+
     category_chip_group_view.category_one.close()
     assert not category_chip_group_view.category_one.is_displayed
 

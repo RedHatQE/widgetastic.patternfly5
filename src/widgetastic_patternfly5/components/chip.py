@@ -14,7 +14,10 @@ class ChipReadOnlyError(Exception):
         self.chip = chip
 
 
-CHIP_ROOT = ".//div[contains(@class, '-c-chip') and not(contains(@class, '-m-overflow'))]"
+CHIP_ROOT = (
+    ".//div[contains(@class, '-c-chip') and not(contains(@class, '-m-overflow')) "
+    "and not(contains(@class, '-c-chip-group'))]"
+)
 CHIP_TEXT = ".//span[contains(@class, '-c-chip__text')]"
 CHIP_BADGE = ".//span[contains(@class, '-c-badge')]"
 GROUP_ROOT = ".//div[contains(@class, '-c-chip-group__main')]"
