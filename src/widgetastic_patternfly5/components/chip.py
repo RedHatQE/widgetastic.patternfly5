@@ -20,9 +20,10 @@ CHIP_ROOT = (
 )
 CHIP_TEXT = ".//span[contains(@class, '-c-chip__text')]"
 CHIP_BADGE = ".//span[contains(@class, '-c-badge')]"
-GROUP_ROOT = ".//div[contains(@class, '-c-chip-group__main')]"
+GROUP_ROOT = ".//div[contains(@class, '-c-chip-group') and @role='group']"
 CATEGORY_GROUP_ROOT = (
-    ".//div[contains(@class, '-c-chip-group') and contains(@class, 'pf-m-category')]"
+    ".//div[contains(@class, '-c-chip-group') and @role='group' "
+    "and contains(@class, 'pf-m-category')]"
 )
 CATEGORY_LABEL = ".//span[contains(@class, '-c-chip-group__label')]"
 CATEGORY_CLOSE = ".//div[contains(@class, '-c-chip-group__close')]/button"
