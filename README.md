@@ -37,6 +37,7 @@ itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.
 - [description-list](https://www.patternfly.org/components/description-list)
 - [drawer](https://www.patternfly.org/components/drawer)
 - [dual-list-selector](https://www.patternfly.org/components/dual-list-selector)
+- [expandable-section](https://www.patternfly.org/components/expandable-section)
 - forms
   - [form-select](https://www.patternfly.org/components/forms/form-select)
   - [radio](https://www.patternfly.org/components/forms/radio)

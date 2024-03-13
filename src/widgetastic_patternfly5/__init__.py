@@ -25,6 +25,7 @@ from .components.description_list import DescriptionList
 from .components.drawer import Drawer
 from .components.dual_list_selector import DualListSelector
 from .components.dual_list_selector import SearchDualListSelector
+from .components.expandable_section import ExpandableSection
 from .components.forms.form_select import FormSelect
 from .components.forms.form_select import FormSelectDisabled
 from .components.forms.form_select import FormSelectOptionDisabled
@@ -137,4 +138,5 @@ __all__ = [
     "SwitchDisabled",
     "Tab",
     "Title",
+    "ExpandableSection",
 ]
