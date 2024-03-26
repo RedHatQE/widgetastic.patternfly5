@@ -145,11 +145,11 @@ class BaseCheckboxSelect(BaseSelect):
             for item, value in items.items():
                 if value == current_values.get(item, None):
                     continue
-                has_changed = True
                 if value:
                     self.item_select(item, close=False)
                 else:
                     self.item_deselect(item, close=False)
+                has_changed = True
         finally:
             self.close()
         return has_changed
