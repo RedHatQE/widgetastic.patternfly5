@@ -66,7 +66,10 @@ class BaseSelect:
 
     def fill(self, value):
         """Fills a Select with a value."""
+        if self.read() == value:
+            return False
         self.item_select(value)
+        return True
 
     def read(self):
         """Returns a string of the text of the selected option."""
@@ -136,14 +139,20 @@ class BaseCheckboxSelect(BaseSelect):
         Args:
             items: A dictionary containing what items to select (True) or deselect (False)
         """
+        current_values = self.read()
+        has_changed = False
         try:
             for item, value in items.items():
+                if value == current_values.get(item, None):
+                    continue
                 if value:
                     self.item_select(item, close=False)
                 else:
                     self.item_deselect(item, close=False)
+                has_changed = True
         finally:
             self.close()
+        return has_changed
 
     def read(self):
         """Returns a dictionary containing the selected status as bools."""
