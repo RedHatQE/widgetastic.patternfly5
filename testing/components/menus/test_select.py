@@ -45,6 +45,15 @@ def test_select_item_select(select):
     assert not select.is_open
 
 
+def test_select_fill(select):
+    # first fill returns true
+    has_changed = select.fill("Option 2")
+    assert has_changed is True
+    # same fill returns false
+    has_changed = select.fill("Option 2")
+    assert has_changed is False
+
+
 @pytest.fixture
 def checkbox_select(browser):
     class TestView(View):
@@ -84,6 +93,25 @@ def test_checkbox_select_item_checkbox_select(checkbox_select):
     with pytest.raises(SelectItemNotFound):
         checkbox_select.fill({"Non existing item": True})
     assert not checkbox_select.is_open
+
+
+def test_checkbox_fill(checkbox_select):
+    has_changed = checkbox_select.fill({"Debug": True, "Warn": True})
+    assert has_changed is True
+
+    # same input should not report as change
+    has_changed = checkbox_select.fill({"Debug": True, "Warn": True, "Info": False})
+    assert has_changed is False
+
+    # input subset should not report as change
+    has_changed = checkbox_select.fill({"Debug": True})
+    assert has_changed is False
+
+    has_changed = checkbox_select.fill({"Debug": True})
+    assert has_changed is False
+
+    has_changed = checkbox_select.fill({"Debug": False})
+    assert has_changed is True
 
 
 @pytest.fixture
