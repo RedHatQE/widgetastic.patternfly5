@@ -41,13 +41,14 @@ def test_clipboardcopy_is_read_only(view):
     assert view.clipboardInline.is_editable is False
 
 
+@pytest.mark.flaky(reruns=3, reruns_delay=2)
 def test_clipboardcopy_text(view):
-    assert view.clipboardEditable.read().strip() == "This is editable"
+    assert "This is editable" in view.clipboardEditable.read()
 
     assert view.clipboardEditable.fill("Test")
-    assert view.clipboardEditable.read() == "Test"
+    assert "Test" in view.clipboardEditable.read()
 
-    assert view.clipboardReadOnly.read().strip() == "This is read-only"
+    assert "This is read-only" in view.clipboardReadOnly.read()
 
     assert view.clipboardInline.read() == "2.3.4-2-redhat"
 

@@ -26,13 +26,9 @@ jobs:
         run: |
           pip install -U pip wheel
           pip install .[dev]
-      - name: Fetch selenium image
-        run: podman pull selenium/standalone-${{ matrix.browser }}:4.9.0-20230421
       - name: Test with pytest
-        env:
-          BROWSER: ${{ matrix.browser }}
         run: |
-          pytest -v -n 5 --cov=./ --cov-report=xml
+          pytest -v -n 5 --browser-name=${{ matrix.browser }} --cov=./ --cov-report=xml
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
