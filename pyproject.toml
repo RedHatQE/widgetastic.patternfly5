@@ -32,6 +32,7 @@ dev = [
   "pytest",
   "pytest-cov",
   "pytest-xdist",
+  "pytest-rerunfailures",
   "codecov",
 ]
 doc = ["sphinx"]
