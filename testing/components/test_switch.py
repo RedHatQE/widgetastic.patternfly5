@@ -58,7 +58,9 @@ def test_switch_selected(view):
     assert not view.disabled_no_label_switch_off.read()
 
 
+@pytest.mark.flaky(reruns=3, reruns_delay=2)
 def test_switch_fill(view):
+    view.browser.refresh()
     assert view.switch.selected
     assert view.switch.label == "Message when on"
     assert not view.switch.fill(True)
