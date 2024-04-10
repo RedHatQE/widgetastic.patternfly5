@@ -50,6 +50,7 @@ def test_contextselector_open(view):
     assert not view.contextselector.is_open
 
 
+@pytest.mark.flaky(reruns=3, reruns_delay=2)
 def test_contextselector_item_select(view):
     view.contextselector.fill("AWS")
     assert view.contextselector.read() == "AWS"

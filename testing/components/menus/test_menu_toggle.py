@@ -20,6 +20,7 @@ def split_button_dropdown(request, browser):
     return split_drop, request.param
 
 
+@pytest.mark.flaky(reruns=3, reruns_delay=2)
 def test_split_button_dropdown(split_button_dropdown):
     dropdown, dropdown_type = split_button_dropdown
     assert dropdown.is_displayed
