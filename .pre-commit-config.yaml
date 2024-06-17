@@ -1,20 +1,20 @@
 repos:
   - repo: https://github.com/asottile/reorder-python-imports
-    rev: v3.12.0
+    rev: v3.13.0
     hooks:
       - id: reorder-python-imports
         language_version: python3
         args:
           - --application-directories=.:src
   - repo: https://github.com/psf/black
-    rev: 24.3.0
+    rev: 24.4.2
     hooks:
       - id: black
         args: [--safe, --quiet, --line-length, "100"]
         language_version: python3
         require_serial: true
   - repo: https://github.com/PyCQA/flake8
-    rev: 7.0.0
+    rev: 7.1.0
     hooks:
       - id: flake8
         language_version: python3
@@ -31,7 +31,7 @@ repos:
       - id: debug-statements
         language_version: python3
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.15.2
+    rev: v3.16.0
     hooks:
       - id: pyupgrade
         language_version: python3
