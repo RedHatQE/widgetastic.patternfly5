@@ -1,3 +1,4 @@
+from .charts.boxplot_chart import BoxPlotChart
 from .charts.bullet_chart import BulletChart
 from .charts.donut_chart import DonutChart
 from .charts.legend import DataPoint
@@ -72,6 +73,7 @@ from .components.title import Title
 __all__ = [
     "Alert",
     "BreadCrumb",
+    "BoxPlotChart",
     "BulletChart",
     "Button",
     "CalendarMonth",
