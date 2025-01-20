@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         browser: [chrome, firefox]
-        python-version: ["3.9", "3.11", "3.12"]
+        python-version: ["3.11", "3.12", "3.13"]
     steps:
       - name: Pull selenium-standalone
         run: podman pull selenium/standalone-${{ matrix.browser }}:4.9
