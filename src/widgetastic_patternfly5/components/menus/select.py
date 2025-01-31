@@ -57,12 +57,7 @@ class BaseSelect:
         try:
             return super().item_select(item)
         except DropdownItemDisabled:
-            raise SelectItemDisabled(
-                'Item "{}" of {} is disabled\n'
-                "The following items are available and enabled: {}".format(
-                    item, repr(self), self.enabled_items
-                )
-            )
+            raise SelectItemDisabled('Item "{}" of {} is disabled')
 
     def fill(self, value):
         """Fills a Select with a value."""
