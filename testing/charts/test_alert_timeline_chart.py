@@ -5,7 +5,8 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5.charts.alerts_timeline_chart import AlertsTimelineChart
 
-TESTING_PAGE_URL = "https://v5-archive.patternfly.org/charts/bar-chart"
+TESTING_PAGE_COMPONENT = "charts/bar-chart/react/alerts-timeline"
+
 
 TEST_DATE_FORMAT = "%Y-%m-%dT%H:%M:%S"
 LABEL_DATE_FORMAT = "%b %-d %H:%M:%S"
@@ -201,7 +202,7 @@ TEST_DATA = [
 def view(browser):
     class TestView(View):
         ROOT = ".//div[@id='ws-react-c-bar-chart-alerts-timeline']"
-        chart = AlertsTimelineChart(locator=".//div[@class='pf-v5-c-chart']")
+        chart = AlertsTimelineChart(locator=".//div[contains(@class, '-c-chart')]")
 
     return TestView(browser)
 
@@ -225,7 +226,7 @@ def test_alert_timeline(view):
     # get data point and check values
     danger_legend = view.chart.get_legend("Danger")
     assert danger_legend.label == "Danger"
-    assert danger_legend.color == "rgb(201, 25, 11)"
+    assert danger_legend.color in ["rgb(201, 25, 11)", "rgb(177, 56, 11)"]  # [pf5, pf6]
 
     # read graph
     chart_read = view.chart.read()

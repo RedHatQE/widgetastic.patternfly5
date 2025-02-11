@@ -6,7 +6,7 @@ import pytest
 from widgetastic_patternfly5 import BulletChart
 from widgetastic_patternfly5.charts.bullet_chart import DataPoint
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/charts/bullet-chart"
+TESTING_PAGE_COMPONENT = "charts/bullet-chart"
 
 Legend = namedtuple("Legend", ["label", "value"])
 
@@ -85,12 +85,12 @@ def test_bullet_chart(chart_data):
     warning_data = chart.get_data_point("Warning")
     expected_value = 88 if chart_type == "dot" else 80
     assert warning_data.value == expected_value
-    assert warning_data.color == "rgb(236, 122, 8)"
+    assert warning_data.color in ["rgb(236, 122, 8)", "rgb(245, 146, 27)"]  # [pf5, pf6]
     # get bar with wrong label
     assert not chart.get_data_point("foo")
     # get legend for check values
     warning_legend = chart.get_legend("Warning")
     assert warning_legend.value is None
-    assert warning_legend.color == "rgb(236, 122, 8)"
+    assert warning_legend.color in ["rgb(236, 122, 8)", "rgb(245, 146, 27)"]  # [pf5, pf6]
     # get legend with wrong label
     assert not chart.get_legend("foo")

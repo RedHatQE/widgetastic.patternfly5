@@ -3,7 +3,7 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5 import LineChart
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/charts/line-chart"
+TESTING_PAGE_COMPONENT = "charts/line-chart/react/green-with-bottom-aligned-legend"
 
 TEST_DATA = {
     "2015": {"Cats": "1", "Dogs": "2", "Birds": "3", "Mice": "3"},
@@ -17,7 +17,7 @@ TEST_DATA = {
 def view(browser):
     class TestView(View):
         ROOT = ".//div[@id='ws-react-c-line-chart-green-with-bottom-aligned-legend']"
-        chart = LineChart(locator=".//div[@class='pf-v5-c-chart']")
+        chart = LineChart(locator=".//div[contains(@class, '-c-chart')]")
 
     return TestView(browser)
 
@@ -38,7 +38,7 @@ def test_line_chart(view):
     # get data point and check values
     birds_legend = view.chart.get_legend("Birds")
     assert birds_legend.label == "Birds"
-    assert birds_legend.color == "rgb(35, 81, 30)"
+    assert birds_legend.color in ["rgb(35, 81, 30)", "rgb(32, 77, 0)"]  # [pf5, pf6]
 
     # read graph
     assert view.chart.read() == TEST_DATA
