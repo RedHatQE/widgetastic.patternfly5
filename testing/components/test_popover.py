@@ -1,8 +1,7 @@
 import pytest
 from widgetastic.widget import View
 
-from widgetastic_patternfly5 import Button
-from widgetastic_patternfly5 import Popover
+from widgetastic_patternfly5 import Button, Popover
 
 TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/popover"
 PF4_EXAMPLE_POPOVER_TEXT_TITLE = "Popover header"

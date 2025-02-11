@@ -1,10 +1,12 @@
 import pytest
 from widgetastic.widget import View
 
-from widgetastic_patternfly5 import Dropdown
-from widgetastic_patternfly5 import DropdownItemDisabled
-from widgetastic_patternfly5 import DropdownItemNotFound
-from widgetastic_patternfly5 import GroupDropdown
+from widgetastic_patternfly5 import (
+    Dropdown,
+    DropdownItemDisabled,
+    DropdownItemNotFound,
+    GroupDropdown,
+)
 
 TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/menus/dropdown"
 
@@ -19,7 +21,9 @@ def view(browser):
         )
         dropdown_default_locator = Dropdown()
 
-    browser.url = "https://patternfly-react-main.surge.sh/components/menus/dropdown/react/basic-dropdowns/"  # noqa
+    browser.url = (
+        "https://patternfly-react-main.surge.sh/components/menus/dropdown/react/basic-dropdowns/"  # noqa
+    )
     view = TestView(browser)
     view.wait_displayed("10s")
     return view

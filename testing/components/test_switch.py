@@ -1,8 +1,7 @@
 import pytest
 from widgetastic.widget import View
 
-from widgetastic_patternfly5 import Switch
-from widgetastic_patternfly5 import SwitchDisabled
+from widgetastic_patternfly5 import Switch, SwitchDisabled
 
 TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/switch"
 

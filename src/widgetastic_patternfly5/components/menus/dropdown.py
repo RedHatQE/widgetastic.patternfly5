@@ -1,8 +1,7 @@
 from contextlib import contextmanager
 
 from wait_for import wait_for_decorator
-from widgetastic.exceptions import NoSuchElementException
-from widgetastic.exceptions import UnexpectedAlertPresentException
+from widgetastic.exceptions import NoSuchElementException, UnexpectedAlertPresentException
 from widgetastic.utils import ParametrizedLocator
 from widgetastic.widget import Widget
 from widgetastic.xpath import quote
@@ -133,7 +132,7 @@ class BaseDropdown:
                 items_string = "These items are present: {}".format("; ".join(items))
             else:
                 items_string = "The dropdown is probably not present"
-            raise DropdownItemNotFound("Item {!r} not found. {}".format(item, items_string))
+            raise DropdownItemNotFound(f"Item {item!r} not found. {items_string}")
 
     def item_enabled(self, item, close=True, **kwargs):
         """Returns whether the given item is enabled.
@@ -257,7 +256,7 @@ class BaseGroupDropdown:
             )
         except NoSuchElementException:
             raise DropdownItemNotFound(
-                'Following group "{}" not found. Available are: {}'.format(group_name, self.groups)
+                f'Following group "{group_name}" not found. Available are: {self.groups}'
             )
         return super().item_element(item, close=close, **kwargs)
 

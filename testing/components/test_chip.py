@@ -1,8 +1,7 @@
 import pytest
 from widgetastic.widget import View
 
-from widgetastic_patternfly5 import CategoryChipGroup
-from widgetastic_patternfly5 import ChipGroup
+from widgetastic_patternfly5 import CategoryChipGroup, ChipGroup
 
 TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/chip"
 

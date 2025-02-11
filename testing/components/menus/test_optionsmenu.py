@@ -1,8 +1,7 @@
 import pytest
 from widgetastic.widget import View
 
-from widgetastic_patternfly5 import DropdownItemNotFound
-from widgetastic_patternfly5 import OptionsMenu
+from widgetastic_patternfly5 import DropdownItemNotFound, OptionsMenu
 
 TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/menus/options-menu"
 

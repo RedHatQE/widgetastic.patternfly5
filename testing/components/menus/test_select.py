@@ -1,9 +1,7 @@
 import pytest
 from widgetastic.widget import View
 
-from widgetastic_patternfly5 import CheckboxSelect
-from widgetastic_patternfly5 import Select
-from widgetastic_patternfly5 import SelectItemNotFound
+from widgetastic_patternfly5 import CheckboxSelect, Select, SelectItemNotFound
 from widgetastic_patternfly5.components.menus.select import TypeaheadSelect
 
 TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/menus/select"
