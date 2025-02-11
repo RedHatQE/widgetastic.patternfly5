@@ -5,7 +5,7 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5 import CalendarMonth
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/date-and-time/calendar-month"
+TESTING_PAGE_COMPONENT = "components/date-and-time/calendar-month"
 
 MONTHS_LIST = list(calendar.month_name[1:])
 
@@ -14,7 +14,7 @@ MONTHS_LIST = list(calendar.month_name[1:])
 def calendar_month_view(browser):
     class TestView(View):
         ROOT = ".//div[@id='ws-react-c-calendar-month-selectable-date']"
-        calendar = CalendarMonth(locator=".//div[@class='pf-v5-c-calendar-month']")
+        calendar = CalendarMonth(locator=".//div[contains(@class, '-c-calendar-month')]")
 
     return TestView(browser)
 

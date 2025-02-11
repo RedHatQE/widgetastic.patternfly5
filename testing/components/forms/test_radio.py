@@ -3,7 +3,7 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5 import Radio
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/forms/radio"
+TESTING_PAGE_COMPONENT = "components/forms/radio"
 
 
 class RadioTestView(View):
