@@ -7,7 +7,6 @@ from selenium import webdriver
 from wait_for import wait_for
 from widgetastic.browser import Browser
 
-
 OPTIONS = {"firefox": webdriver.FirefoxOptions(), "chrome": webdriver.ChromeOptions()}
 
 
@@ -53,12 +52,13 @@ def selenium_url(pytestconfig, browser_name, worker_id):
                 f"docker.io/selenium/standalone-{browser_name}:4.9",
             ],
             stdout=subprocess.PIPE,
+            check=False,
         )
         print(f"VNC url: http://{host}:7900")
 
         yield f"http://{host}:4444"
         container_id = ps.stdout.decode("utf-8").strip()
-        subprocess.run(["podman", "kill", container_id], stdout=subprocess.DEVNULL)
+        subprocess.run(["podman", "kill", container_id], stdout=subprocess.DEVNULL, check=False)
     else:
         print(f"VNC url: http://{forced_host}:7900")
         yield f"http://{forced_host}:4444"

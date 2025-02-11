@@ -16,7 +16,7 @@ class BaseModal:
 
     BODY = ".//div[contains(@class, '-c-modal-box__body')]"
     FOOTER = ".//*[contains(@class, '-c-modal-box__footer')]/child::node()"
-    FOOTER_ITEM = ".//*[contains(@class, '-c-modal-box__footer')]" "/button[normalize-space(.)={}]"
+    FOOTER_ITEM = ".//*[contains(@class, '-c-modal-box__footer')]/button[normalize-space(.)={}]"
     TITLE = ".//h1[contains(@class, '-c-title') or contains(@class, '-c-modal-box__title')]"
     CLOSE = ".//button[@aria-label='Close']"
 

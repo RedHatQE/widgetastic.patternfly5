@@ -1,5 +1,4 @@
-from widgetastic.ouia import OUIAGenericView
-from widgetastic.ouia import OUIAGenericWidget
+from widgetastic.ouia import OUIAGenericView, OUIAGenericWidget
 from widgetastic.ouia.input import TextInput as BaseOuiaTextInput
 from widgetastic.ouia.text import Text as BaseOuiaText
 from widgetastic.widget.table import Table
@@ -12,17 +11,13 @@ from widgetastic_patternfly5.components.card import BaseCard
 from widgetastic_patternfly5.components.clipboard_copy import BaseClipboardCopy
 from widgetastic_patternfly5.components.forms.form_select import BaseFormSelect
 from widgetastic_patternfly5.components.menus.dropdown import BaseDropdown
-from widgetastic_patternfly5.components.menus.menu import BaseCheckboxMenu
-from widgetastic_patternfly5.components.menus.menu import BaseMenu
-from widgetastic_patternfly5.components.menus.select import BaseSelect
-from widgetastic_patternfly5.components.menus.select import BaseTypeaheadSelect
+from widgetastic_patternfly5.components.menus.menu import BaseCheckboxMenu, BaseMenu
+from widgetastic_patternfly5.components.menus.select import BaseSelect, BaseTypeaheadSelect
 from widgetastic_patternfly5.components.modal import BaseModal
 from widgetastic_patternfly5.components.navigation import BaseNavigation
-from widgetastic_patternfly5.components.pagination import BaseCompactPagination
-from widgetastic_patternfly5.components.pagination import BasePagination
+from widgetastic_patternfly5.components.pagination import BaseCompactPagination, BasePagination
 from widgetastic_patternfly5.components.switch import BaseSwitch
-from widgetastic_patternfly5.components.table import BaseExpandableTable
-from widgetastic_patternfly5.components.table import BasePatternflyTable
+from widgetastic_patternfly5.components.table import BaseExpandableTable, BasePatternflyTable
 from widgetastic_patternfly5.components.title import BaseTitle
 
 

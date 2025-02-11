@@ -1,8 +1,5 @@
 from widgetastic.utils import ParametrizedLocator
-from widgetastic.widget import Checkbox
-from widgetastic.widget import GenericLocatorWidget
-from widgetastic.widget import ParametrizedView
-from widgetastic.widget import View
+from widgetastic.widget import Checkbox, GenericLocatorWidget, ParametrizedView, View
 
 from widgetastic_patternfly5.components.menus.dropdown import Dropdown
 

@@ -1,9 +1,6 @@
 # TODO: This imported directly form wt.pfy4. I thnk we need to restructure it.
 from wait_for import wait_for
-from widgetastic.widget import ParametrizedLocator
-from widgetastic.widget import ParametrizedView
-from widgetastic.widget import Text
-from widgetastic.widget import View
+from widgetastic.widget import ParametrizedLocator, ParametrizedView, Text, View
 
 from .button import Button
 
@@ -327,7 +324,7 @@ class ChipGroupToolbar(View):
     # The parent of the chip group toolbar can be any element type
     # The locator should be the parent node which holds all the pf-c-chip-group elements
     TOOLBAR_LOCATOR = (
-        ".//ul[contains(@class, '-c-chip-group') and " "contains(@class, 'pf-m-toolbar')]/parent::*"
+        ".//ul[contains(@class, '-c-chip-group') and contains(@class, 'pf-m-toolbar')]/parent::*"
     )
 
     overflow = OldOverflowChip(

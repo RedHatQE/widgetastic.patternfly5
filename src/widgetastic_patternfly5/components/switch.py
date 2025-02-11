@@ -24,7 +24,7 @@ class BaseSwitch:
     def click(self):
         """Click on a Switch."""
         if not self.is_enabled:
-            raise SwitchDisabled("{} is disabled".format(repr(self)))
+            raise SwitchDisabled(f"{repr(self)} is disabled")
         else:
             self.browser.click(self.CHECKBOX_LOCATOR)
             return True
@@ -37,7 +37,7 @@ class BaseSwitch:
     def fill(self, value):
         """Fills a Switch with the supplied value."""
         if not self.is_enabled:
-            raise SwitchDisabled("{} is disabled".format(repr(self)))
+            raise SwitchDisabled(f"{repr(self)} is disabled")
         if bool(value) == self.selected:
             return False
         else:
@@ -63,7 +63,7 @@ class BaseSwitch:
             return None
 
     def __repr__(self):
-        return "{}({!r})".format(type(self).__name__, self.locator)
+        return f"{type(self).__name__}({self.locator!r})"
 
 
 class Switch(BaseSwitch, GenericLocatorWidget):

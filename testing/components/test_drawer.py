@@ -1,12 +1,9 @@
 import time
 
 import pytest
-from widgetastic.widget import Text
-from widgetastic.widget import View
+from widgetastic.widget import Text, View
 
-from widgetastic_patternfly5 import Button
-from widgetastic_patternfly5 import Drawer
-
+from widgetastic_patternfly5 import Button, Drawer
 
 TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/drawer/"
 

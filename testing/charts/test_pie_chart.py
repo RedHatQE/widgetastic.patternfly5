@@ -3,8 +3,7 @@ from time import sleep
 
 import pytest
 
-from widgetastic_patternfly5 import DataPoint
-from widgetastic_patternfly5 import PieChart
+from widgetastic_patternfly5 import DataPoint, PieChart
 
 TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/charts/pie-chart"
 

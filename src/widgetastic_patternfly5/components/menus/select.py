@@ -1,9 +1,7 @@
 from widgetastic.exceptions import NoSuchElementException
 from widgetastic.widget import TextInput
 
-from .dropdown import Dropdown
-from .dropdown import DropdownItemDisabled
-from .dropdown import DropdownItemNotFound
+from .dropdown import Dropdown, DropdownItemDisabled, DropdownItemNotFound
 
 
 class SelectItemDisabled(DropdownItemDisabled):
@@ -40,9 +38,7 @@ class BaseSelect:
             return super().item_element(item, close)
         except DropdownItemNotFound:
             raise SelectItemNotFound(
-                "Item {!r} not found in {}. Available items: {}".format(
-                    item, repr(self), self.items
-                )
+                f"Item {item!r} not found in {repr(self)}. Available items: {self.items}"
             )
 
     def item_select(self, item):
@@ -85,8 +81,7 @@ class BaseCheckboxSelect(BaseSelect):
         ".//*[contains(@class, '-c-menu__list-item') or contains(@class, '-c-select__menu-item')]"
     )
     ITEM_LOCATOR = (
-        f"{ITEMS_LOCATOR}[.//span[starts-with(normalize-space(.), {{}})]]"
-        f"//input[@type='checkbox']"
+        f"{ITEMS_LOCATOR}[.//span[starts-with(normalize-space(.), {{}})]]//input[@type='checkbox']"
     )
 
     def item_select(self, items, close=True):
@@ -96,7 +91,7 @@ class BaseCheckboxSelect(BaseSelect):
             item: Item to be selected
             close: Close the dropdown when finished
         """
-        if not isinstance(items, (list, tuple, set)):
+        if not isinstance(items, list | tuple | set):
             items = [items]
 
         try:
@@ -115,7 +110,7 @@ class BaseCheckboxSelect(BaseSelect):
             item: Item to be selected
             close: Close the dropdown when finished
         """
-        if not isinstance(items, (list, tuple, set)):
+        if not isinstance(items, list | tuple | set):
             items = [items]
 
         try:
