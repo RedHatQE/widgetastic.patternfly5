@@ -3,13 +3,13 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5 import BoxPlotChart
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/charts/box-plot-chart"
+TESTING_PAGE_COMPONENT = "charts/box-plot-chart/react/embedded-legend"
 
 TEST_DATA = {
-    "2015": {"Cats": "q1: 1.75, q3: 3.5", "Limit": "12"},
-    "2016": {"Cats": "q1: 2.75, q3: 8.5", "Limit": "12"},
-    "2017": {"Cats": "q1: 4.25, q3: 6.5", "Limit": "12"},
-    "2018": {"Cats": "q1: 1.75, q3: 4.5", "Limit": "12"},
+    "2015": {"Limit": "12", "Cats": "no data"},
+    "2016": {"Limit": "12", "Cats": "Min: 2, Max: 10", "Unknown": "Median: 5.5, Q1: 2.75, Q3: 8.5"},
+    "2017": {"Limit": "12", "Cats": "Min: 2, Max: 8", "Unknown": "Median: 5.5, Q1: 4.25, Q3: 6.5"},
+    "2018": {"Limit": "12", "Cats": "Min: 1, Max: 9", "Unknown": "Median: 2.5, Q1: 1.75, Q3: 4.5"},
 }
 
 
@@ -17,7 +17,7 @@ TEST_DATA = {
 def view(browser):
     class TestView(View):
         ROOT = ".//div[@id='ws-react-c-box-plot-chart-embedded-legend']"
-        chart = BoxPlotChart(locator=".//div[@class='pf-v5-c-chart']")
+        chart = BoxPlotChart(locator=".//div[contains(@class, '-c-chart')]")
 
     return TestView(browser)
 

@@ -95,7 +95,17 @@ class LineChart(View):
                 self.browser.elements(self.TOOLTIP_LABLES, parent=tooltip_el),
                 self.browser.elements(self.TOOLTIP_VALUES, parent=tooltip_el),
             ):
-                label_data[self.browser.text(label_el)] = self.browser.text(value_el)
+                # Get the label text and handle empty labels
+                label_txt = self.browser.text(label_el)
+                if label_txt == "":
+                    label_txt = "Unknown"
+
+                # Update label_data with the value
+                value_txt = self.browser.text(value_el)
+                if label_txt in label_data:
+                    label_data[label_txt] = f"{label_data[label_txt]}, {value_txt}"
+                else:
+                    label_data[label_txt] = value_txt
 
             _data[x_axis_label] = label_data
 

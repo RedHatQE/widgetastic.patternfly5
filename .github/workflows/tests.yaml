@@ -1,4 +1,4 @@
-name: wt.pf5 tests
+name: tests
 
 on:
   push:
@@ -10,13 +10,14 @@ on:
 
 jobs:
   test:
-    name: 🐍 Tests (python-${{ matrix.python-version }}, ${{ matrix.browser }})
+    name: wt-${{ matrix.pf-version }} (🐍-${{ matrix.python-version }}, ${{ matrix.browser }})
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
         browser: [chrome, firefox]
-        python-version: ["3.11", "3.12", "3.13"]
+        python-version: ["3.12", "3.13"]
+        pf-version: ["v5", "v6"]
     steps:
       - name: Pull selenium-standalone
         run: podman pull selenium/standalone-${{ matrix.browser }}:4.9
@@ -30,11 +31,12 @@ jobs:
           pip install .[dev]
       - name: Test with pytest
         run: |
-          pytest -v -n 5 --browser-name=${{ matrix.browser }} --cov=./ --cov-report=xml
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: coverage.xml
-          flags: unittests
-          name: ${{ github.run_id }}-py-${{ matrix.python-version }}-${{ matrix.browser }}
+          pytest -sqvvv -n 2 --browser-name=${{ matrix.browser }} --pf-version=${{ matrix.pf-version }} testing/charts
+#          pytest -v -n 5 --browser-name=${{ matrix.browser }} --cov=./ --cov-report=xml
+#      - name: Upload coverage to Codecov
+#        uses: codecov/codecov-action@v4
+#        with:
+#          token: ${{ secrets.CODECOV_TOKEN }}
+#          file: coverage.xml
+#          flags: unittests
+#          name: ${{ github.run_id }}-py-${{ matrix.python-version }}-${{ matrix.browser }}

@@ -1,5 +1,6 @@
 import os
 import subprocess
+from urllib.parse import urljoin
 from urllib.request import urlopen
 
 import pytest
@@ -8,6 +9,10 @@ from wait_for import wait_for
 from widgetastic.browser import Browser
 
 OPTIONS = {"firefox": webdriver.FirefoxOptions(), "chrome": webdriver.ChromeOptions()}
+TESTING_PAGES = {
+    "v6": "https://www.patternfly.org",
+    "v5": "https://v5-archive.patternfly.org",
+}
 
 
 def pytest_addoption(parser):
@@ -17,6 +22,12 @@ def pytest_addoption(parser):
         choices=("firefox", "chrome"),
         default="firefox",
     )
+    parser.addoption(
+        "--pf-version",
+        help="Patternfly Version",
+        choices=("v6", "v5"),
+        default="v6",
+    )
 
     parser.addoption("--force-host", default=None, help="force a selenium hostname")
 
@@ -24,6 +35,11 @@ def pytest_addoption(parser):
 @pytest.fixture(scope="session")
 def browser_name(pytestconfig):
     return os.environ.get("BROWSER") or pytestconfig.getoption("--browser-name")
+
+
+@pytest.fixture(scope="session")
+def pf_version(pytestconfig):
+    return os.environ.get("PF-VERSION") or pytestconfig.getoption("--pf-version")
 
 
 @pytest.fixture(scope="session")
@@ -78,8 +94,10 @@ def selenium(browser_name, wait_for_selenium, selenium_url):
 
 
 @pytest.fixture(scope="module")
-def browser(selenium, request):
-    selenium.get(request.module.TESTING_PAGE_URL)
+def browser(selenium, pf_version, request):
+    testing_page_url = urljoin(TESTING_PAGES.get(pf_version), request.module.TESTING_PAGE_COMPONENT)
+    selenium.get(testing_page_url)
+    print(f"Testing page: {testing_page_url}")
     browser = Browser(selenium)
     if browser.elements(".//button[@aria-label='Close banner']"):
         browser.click(".//button[@aria-label='Close banner']")
