@@ -31,7 +31,7 @@ jobs:
           pip install .[dev]
       - name: Test with pytest
         run: |
-          pytest -sqvvv -n 2 --browser-name=${{ matrix.browser }} --pf-version=${{ matrix.pf-version }} testing/charts
+          pytest -sqvvv -n 2 --browser-name=${{ matrix.browser }} --pf-version=${{ matrix.pf-version }} testing/charts testing/components/forms testing/components/date_and_time
 #          pytest -v -n 5 --browser-name=${{ matrix.browser }} --cov=./ --cov-report=xml
 #      - name: Upload coverage to Codecov
 #        uses: codecov/codecov-action@v4
