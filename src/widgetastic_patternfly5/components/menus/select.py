@@ -148,7 +148,7 @@ class BaseCheckboxSelect(BaseSelect):
         """Returns a dictionary containing the selected status as bools."""
         selected = {}
         with self.opened():
-            for el in self.browser.elements(self.ITEMS_LOCATOR):
+            for el in self.root_browser.elements(self.ITEMS_LOCATOR):
                 item = self.browser.text(el)
                 try:
                     # get the child element of the label
@@ -167,7 +167,7 @@ class BaseCheckboxSelect(BaseSelect):
             close: Close the dropdown when finished
         """
         self.open()
-        result = [self.browser.text(el) for el in self.browser.elements(self.ITEMS_LOCATOR)]
+        result = [self.browser.text(el) for el in self.root_browser.elements(self.ITEMS_LOCATOR)]
 
         if close:
             self.close()

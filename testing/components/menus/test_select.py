@@ -4,13 +4,13 @@ from widgetastic.widget import View
 from widgetastic_patternfly5 import CheckboxSelect, Select, SelectItemNotFound
 from widgetastic_patternfly5.components.menus.select import TypeaheadSelect
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/menus/select"
+TESTING_PAGE_COMPONENT = "components/menus/select"
 
 
 @pytest.fixture
 def select(browser):
     class TestView(View):
-        select = Select(locator=".//div[@id='ws-react-c-select-single']")
+        select = Select(locator=".//div[@id='ws-react-c-select-single-select']")
 
     return TestView(browser).select
 
@@ -55,7 +55,7 @@ def test_select_fill(select):
 @pytest.fixture
 def checkbox_select(browser):
     class TestView(View):
-        checkbox_select = CheckboxSelect(locator='.//div[@id="ws-react-c-select-checkbox"]')
+        checkbox_select = CheckboxSelect(locator='.//div[@id="ws-react-c-select-checkbox-select"]')
 
     return TestView(browser).checkbox_select
 
