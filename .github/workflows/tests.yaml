@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    name: wt-${{ matrix.pf-version }} (🐍-${{ matrix.python-version }}, ${{ matrix.browser }})
+    name: pf-${{ matrix.pf-version }} (🐍 ${{ matrix.python-version }}, ${{ matrix.browser }})
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
@@ -31,7 +31,7 @@ jobs:
           pip install .[dev]
       - name: Test with pytest
         run: |
-          pytest -sqvvv -n 2 --browser-name=${{ matrix.browser }} --pf-version=${{ matrix.pf-version }} testing/charts testing/components/forms testing/components/date_and_time
+          pytest -sqvvv -n 2 --browser-name=${{ matrix.browser }} --pf-version=${{ matrix.pf-version }} testing/charts testing/components/forms testing/components/date_and_time testing/components/menus
 #          pytest -v -n 5 --browser-name=${{ matrix.browser }} --cov=./ --cov-report=xml
 #      - name: Upload coverage to Codecov
 #        uses: codecov/codecov-action@v4

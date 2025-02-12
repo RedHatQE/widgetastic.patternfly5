@@ -1,5 +1,6 @@
 from contextlib import contextmanager
 
+from cached_property import cached_property
 from wait_for import wait_for_decorator
 from widgetastic.exceptions import NoSuchElementException, UnexpectedAlertPresentException
 from widgetastic.utils import ParametrizedLocator
@@ -39,6 +40,13 @@ class BaseDropdown:
         ".//*[(contains(@class, '-c-menu__list-item') or "
         "contains(@class, '-c-dropdown__menu-item')) and normalize-space(.)={}]"
     )
+
+    @cached_property
+    def is_pf6(self):
+        """In PF-v6, item selection requires the use of the root_browser, as the item locators are
+        located outside the ROOT.
+        """
+        return True if self.browser.elements(".//*[contains(@class, 'pf-v6')]") else False
 
     @contextmanager
     def opened(self):
@@ -101,9 +109,10 @@ class BaseDropdown:
     def items(self):
         """Returns a list of all dropdown items as strings."""
         with self.opened():
-            result = [
-                self.browser.text(el) for el in self.root_browser.elements(self.ITEMS_LOCATOR)
-            ]
+            items_element = self.browser.elements(self.ITEMS_LOCATOR) or self.root_browser.elements(
+                self.ITEMS_LOCATOR
+            )
+            result = [self.browser.text(el) for el in items_element]
         return result
 
     def has_item(self, item):
@@ -121,7 +130,11 @@ class BaseDropdown:
         """Returns a WebElement for given item name."""
         try:
             self.open()
-            result = self.root_browser.element(self.ITEM_LOCATOR.format(quote(item)), **kwargs)
+            result = (
+                self.root_browser.element(self.ITEM_LOCATOR.format(quote(item)), **kwargs)
+                if self.is_pf6
+                else self.browser.element(self.ITEM_LOCATOR.format(quote(item)), **kwargs)
+            )
             if close:
                 self.close()
             return result
@@ -244,9 +257,10 @@ class BaseGroupDropdown:
     def groups(self):
         """Returns a list of all group names as strings."""
         with self.opened():
-            result = [
-                self.browser.text(el) for el in self.root_browser.elements(self.GROUPS_LOCATOR)
-            ]
+            groups_element = self.browser.elements(
+                self.GROUPS_LOCATOR
+            ) or self.root_browser.elements(self.GROUPS_LOCATOR)
+            result = [self.browser.text(el) for el in groups_element]
         return result
 
     def item_element(self, item, group_name=None, close=True):
@@ -254,7 +268,13 @@ class BaseGroupDropdown:
         self.open()
         try:
             kwargs = (
-                {"parent": self.root_browser.element(self.GROUP_LOCATOR.format(quote(group_name)))}
+                {
+                    "parent": (
+                        self.root_browser.element(self.GROUP_LOCATOR.format(quote(group_name)))
+                        if self.is_pf6
+                        else self.browser.element(self.GROUP_LOCATOR.format(quote(group_name)))
+                    )
+                }
                 if group_name
                 else {}
             )

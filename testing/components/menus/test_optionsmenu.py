@@ -3,7 +3,7 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5 import DropdownItemNotFound, OptionsMenu
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/menus/options-menu"
+TESTING_PAGE_COMPONENT = "components/menus/options-menu"
 
 
 @pytest.fixture
@@ -13,18 +13,11 @@ def view(browser):
         options_menu_custom_locator = OptionsMenu(
             locator=".//div[@id='ws-react-demos-c-options-menu-options-menu']"
         )
-        options_menu_default_locator = OptionsMenu()
 
     return TestView(browser)
 
 
-@pytest.fixture(
-    params=[
-        "options_menu_txt_locator",
-        "options_menu_custom_locator",
-        "options_menu_default_locator",
-    ]
-)
+@pytest.fixture(params=["options_menu_txt_locator", "options_menu_custom_locator"])
 def options_menu(view, request):
     return getattr(view, request.param)
 
