@@ -1,7 +1,6 @@
 from contextlib import contextmanager
 
 from cached_property import cached_property
-from wait_for import wait_for_decorator
 from widgetastic.exceptions import NoSuchElementException, UnexpectedAlertPresentException
 from widgetastic.utils import ParametrizedLocator
 from widgetastic.widget import Widget
@@ -84,10 +83,13 @@ class BaseDropdown:
         if self.is_open:
             return
 
-        @wait_for_decorator(timeout=3)
-        def _click():
-            self.browser.click(self.BUTTON_LOCATOR)
-            return self.is_open
+        # @wait_for_decorator(timeout=3)
+        # def _click():
+        #     self.browser.click(self.BUTTON_LOCATOR)
+        #     return self.is_open
+        el = self.browser.wait_for_element(self.BUTTON_LOCATOR)
+        self.browser.click(el)
+        return self.is_open
 
     def close(self, ignore_nonpresent=False):
         """Close the dropdown
