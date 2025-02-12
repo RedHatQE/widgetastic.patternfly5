@@ -20,7 +20,7 @@ jobs:
         pf-version: ["v5", "v6"]
     steps:
       - name: Pull selenium-standalone
-        run: podman pull selenium/standalone-${{ matrix.browser }}:4.9
+        run: podman pull selenium/standalone-${{ matrix.browser }}:latest
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
@@ -31,7 +31,7 @@ jobs:
           pip install .[dev]
       - name: Test with pytest
         run: |
-          pytest -sqvvv -n 2 --browser-name=${{ matrix.browser }} --pf-version=${{ matrix.pf-version }} testing/charts testing/components/forms testing/components/date_and_time testing/components/menus
+          pytest -sqvvv -n 3 --browser-name=${{ matrix.browser }} --pf-version=${{ matrix.pf-version }} testing/charts testing/components/forms testing/components/date_and_time testing/components/menus
 #          pytest -v -n 5 --browser-name=${{ matrix.browser }} --cov=./ --cov-report=xml
 #      - name: Upload coverage to Codecov
 #        uses: codecov/codecov-action@v4
