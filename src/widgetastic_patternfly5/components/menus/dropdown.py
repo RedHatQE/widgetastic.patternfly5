@@ -101,7 +101,9 @@ class BaseDropdown:
     def items(self):
         """Returns a list of all dropdown items as strings."""
         with self.opened():
-            result = [self.browser.text(el) for el in self.browser.elements(self.ITEMS_LOCATOR)]
+            result = [
+                self.browser.text(el) for el in self.root_browser.elements(self.ITEMS_LOCATOR)
+            ]
         return result
 
     def has_item(self, item):
@@ -119,7 +121,7 @@ class BaseDropdown:
         """Returns a WebElement for given item name."""
         try:
             self.open()
-            result = self.browser.element(self.ITEM_LOCATOR.format(quote(item)), **kwargs)
+            result = self.root_browser.element(self.ITEM_LOCATOR.format(quote(item)), **kwargs)
             if close:
                 self.close()
             return result
@@ -242,7 +244,9 @@ class BaseGroupDropdown:
     def groups(self):
         """Returns a list of all group names as strings."""
         with self.opened():
-            result = [self.browser.text(el) for el in self.browser.elements(self.GROUPS_LOCATOR)]
+            result = [
+                self.browser.text(el) for el in self.root_browser.elements(self.GROUPS_LOCATOR)
+            ]
         return result
 
     def item_element(self, item, group_name=None, close=True):
@@ -250,7 +254,7 @@ class BaseGroupDropdown:
         self.open()
         try:
             kwargs = (
-                {"parent": self.browser.element(self.GROUP_LOCATOR.format(quote(group_name)))}
+                {"parent": self.root_browser.element(self.GROUP_LOCATOR.format(quote(group_name)))}
                 if group_name
                 else {}
             )

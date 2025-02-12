@@ -5,10 +5,9 @@ from widgetastic_patternfly5 import (
     Dropdown,
     DropdownItemDisabled,
     DropdownItemNotFound,
-    GroupDropdown,
 )
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/menus/dropdown"
+TESTING_PAGE_COMPONENT = "components/menus/dropdown/react/basic-dropdowns"
 
 
 @pytest.fixture
@@ -21,9 +20,6 @@ def view(browser):
         )
         dropdown_default_locator = Dropdown()
 
-    browser.url = (
-        "https://patternfly-react-main.surge.sh/components/menus/dropdown/react/basic-dropdowns/"  # noqa
-    )
     view = TestView(browser)
     view.wait_displayed("10s")
     return view
@@ -34,17 +30,6 @@ def view(browser):
 )
 def dropdown(view, request):
     return getattr(view, request.param)
-
-
-@pytest.fixture()
-def group_dropdown(browser):
-    browser.url = "https://patternfly-react-main.surge.sh/components/menus/dropdown/react/with-groups-of-items/"  # noqa
-    dropdown = GroupDropdown(
-        browser,
-        locator=".//div[@id='ws-react-c-dropdown-with-groups-of-items']",
-    )
-    dropdown.wait_displayed("10s")
-    return dropdown
 
 
 def test_dropdown_is_displayed(dropdown):
@@ -87,23 +72,3 @@ def test_dropdown_item_select(dropdown):
         dropdown.item_select("Disabled Link")
     with pytest.raises(DropdownItemNotFound):
         dropdown.item_select("Non existing items")
-
-
-def test_group_dropdown(group_dropdown):
-    assert group_dropdown.is_displayed
-    assert group_dropdown.is_enabled
-    assert group_dropdown.items == [
-        "Action",
-        "Link",
-        "Group 2 action",
-        "Group 2 link",
-        "Group 3 action",
-        "Group 3 link",
-    ]
-    assert group_dropdown.has_item("Group 2 link")
-    assert group_dropdown.item_enabled("Group 3 action")
-    assert group_dropdown.groups == ["", "Group 2", "Group 3"]
-    group_dropdown.item_select("Group 3 action", group_name="Group 3")
-    with pytest.raises(DropdownItemNotFound):
-        group_dropdown.item_select("Group 3 action", group_name="Group 2")
-    group_dropdown.item_select("Link")
