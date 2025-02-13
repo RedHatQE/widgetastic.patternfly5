@@ -46,9 +46,10 @@ class BaseMenu:
     def selected_items(self):
         """Returns a list of all selected items as strings."""
         with self.opened():
-            result = [
-                self.browser.text(el) for el in self.browser.elements(self.SELECTED_ITEMS_LOCATOR)
-            ]
+            items_element = self.browser.elements(
+                self.SELECTED_ITEMS_LOCATOR
+            ) or self.root_browser.elements(self.SELECTED_ITEMS_LOCATOR)
+            result = [self.browser.text(el) for el in items_element]
         return result
 
     @property
@@ -69,7 +70,7 @@ class BaseMenu:
     def close(self, ignore_nonpresent=False):
         """Close the menu
 
-        It it is always open we do nothing
+        It is always open we do nothing
 
         Args:
             ignore_nonpresent: Will ignore exceptions due to disabled or missing dropdown
@@ -198,7 +199,10 @@ class BaseCheckboxMenu(BaseMenu):
         """Returns a dictionary containing the selected status as bools."""
         selected = {}
         with self.opened():
-            for el in self.browser.elements(self.ITEMS_LOCATOR):
+            item_elements = self.browser.elements(self.ITEMS_LOCATOR) or self.root_browser.elements(
+                self.ITEMS_LOCATOR
+            )
+            for el in item_elements:
                 item = self.browser.text(el)
                 try:
                     # get the child element of the label
@@ -217,7 +221,10 @@ class BaseCheckboxMenu(BaseMenu):
             close: Close the dropdown when finished
         """
         self.open()
-        result = [self.browser.text(el) for el in self.browser.elements(self.ITEMS_LOCATOR)]
+        item_elements = self.browser.elements(self.ITEMS_LOCATOR) or self.root_browser.elements(
+            self.ITEMS_LOCATOR
+        )
+        result = [self.browser.text(el) for el in item_elements]
 
         if close:
             self.close()

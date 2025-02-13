@@ -1,6 +1,6 @@
 from contextlib import contextmanager
 
-from wait_for import wait_for_decorator
+from cached_property import cached_property
 from widgetastic.exceptions import NoSuchElementException, UnexpectedAlertPresentException
 from widgetastic.utils import ParametrizedLocator
 from widgetastic.widget import Widget
@@ -40,6 +40,13 @@ class BaseDropdown:
         "contains(@class, '-c-dropdown__menu-item')) and normalize-space(.)={}]"
     )
 
+    @cached_property
+    def is_pf6(self):
+        """In PF-v6, item selection requires the use of the root_browser, as the item locators are
+        located outside the ROOT.
+        """
+        return True if self.browser.elements(".//*[contains(@class, 'pf-v6')]") else False
+
     @contextmanager
     def opened(self):
         """A context manager to open and then close a Dropdown."""
@@ -76,10 +83,13 @@ class BaseDropdown:
         if self.is_open:
             return
 
-        @wait_for_decorator(timeout=3)
-        def _click():
-            self.browser.click(self.BUTTON_LOCATOR)
-            return self.is_open
+        # @wait_for_decorator(timeout=3)
+        # def _click():
+        #     self.browser.click(self.BUTTON_LOCATOR)
+        #     return self.is_open
+        el = self.browser.wait_for_element(self.BUTTON_LOCATOR)
+        self.browser.click(el)
+        return self.is_open
 
     def close(self, ignore_nonpresent=False):
         """Close the dropdown
@@ -101,7 +111,10 @@ class BaseDropdown:
     def items(self):
         """Returns a list of all dropdown items as strings."""
         with self.opened():
-            result = [self.browser.text(el) for el in self.browser.elements(self.ITEMS_LOCATOR)]
+            items_element = self.browser.elements(self.ITEMS_LOCATOR) or self.root_browser.elements(
+                self.ITEMS_LOCATOR
+            )
+            result = [self.browser.text(el) for el in items_element]
         return result
 
     def has_item(self, item):
@@ -119,7 +132,11 @@ class BaseDropdown:
         """Returns a WebElement for given item name."""
         try:
             self.open()
-            result = self.browser.element(self.ITEM_LOCATOR.format(quote(item)), **kwargs)
+            result = (
+                self.root_browser.element(self.ITEM_LOCATOR.format(quote(item)), **kwargs)
+                if self.is_pf6
+                else self.browser.element(self.ITEM_LOCATOR.format(quote(item)), **kwargs)
+            )
             if close:
                 self.close()
             return result
@@ -242,7 +259,10 @@ class BaseGroupDropdown:
     def groups(self):
         """Returns a list of all group names as strings."""
         with self.opened():
-            result = [self.browser.text(el) for el in self.browser.elements(self.GROUPS_LOCATOR)]
+            groups_element = self.browser.elements(
+                self.GROUPS_LOCATOR
+            ) or self.root_browser.elements(self.GROUPS_LOCATOR)
+            result = [self.browser.text(el) for el in groups_element]
         return result
 
     def item_element(self, item, group_name=None, close=True):
@@ -250,7 +270,13 @@ class BaseGroupDropdown:
         self.open()
         try:
             kwargs = (
-                {"parent": self.browser.element(self.GROUP_LOCATOR.format(quote(group_name)))}
+                {
+                    "parent": (
+                        self.root_browser.element(self.GROUP_LOCATOR.format(quote(group_name)))
+                        if self.is_pf6
+                        else self.browser.element(self.GROUP_LOCATOR.format(quote(group_name)))
+                    )
+                }
                 if group_name
                 else {}
             )

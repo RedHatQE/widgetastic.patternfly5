@@ -3,10 +3,10 @@ from .select import Select
 
 class BaseContextSelector:
     ITEMS_LOCATOR = (
-        ".//ul[@class='pf-v5-c-menu__list' or @class='pf-c-context-selector__menu-list']/li"
+        ".//ul[contains(@class, '-c-menu__list') or @class='pf-c-context-selector__menu-list']/li"
     )
     ITEM_LOCATOR = (
-        ".//*[(contains(@class, 'pf-v5-c-menu__item') or contains(@class, "
+        ".//*[(contains(@class, '-c-menu__list-item') or contains(@class, "
         "'pf-c-context-selector__menu-list-item'))"
         " and normalize-space(.)={}]"
     )

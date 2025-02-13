@@ -65,7 +65,7 @@ def selenium_url(pytestconfig, browser_name, worker_id):
                 "-e",
                 "SE_SCREEN_WIDTH=1920",
                 "--shm-size=2g",
-                f"docker.io/selenium/standalone-{browser_name}:4.9",
+                f"docker.io/selenium/standalone-{browser_name}:latest",
             ],
             stdout=subprocess.PIPE,
             check=False,

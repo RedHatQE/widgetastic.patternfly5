@@ -3,13 +3,12 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5 import ContextSelector, SelectItemNotFound
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/menus/context-selector"
+TESTING_PAGE_COMPONENT = "components/menus/context-selector"
 
 
 @pytest.fixture
 def view(browser):
     class TestView(View):
-        ROOT = ".//div[@id='ws-react-demos-c-context-selector-context-selector-menu']/parent::div"
         contextselector = ContextSelector(
             locator=".//div[@id='ws-react-demos-c-context-selector-context-selector-menu']"
         )

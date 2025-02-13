@@ -30,9 +30,10 @@ class BaseOptionsMenu:
     def selected_items(self):
         """Returns a list of all selected items in the options menu."""
         with self.opened():
-            return [
-                self.browser.text(el) for el in self.browser.elements(self.SELECTED_ITEMS_LOCATOR)
-            ]
+            selected_items_elements = self.browser.elements(
+                self.SELECTED_ITEMS_LOCATOR
+            ) or self.root_browser.elements(self.SELECTED_ITEMS_LOCATOR)
+            return [self.browser.text(el) for el in selected_items_elements]
 
 
 class OptionsMenu(BaseOptionsMenu, Dropdown):
