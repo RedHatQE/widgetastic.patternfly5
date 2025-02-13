@@ -103,3 +103,16 @@ def browser(selenium, pf_version, request):
         browser.click(".//button[@aria-label='Close banner']")
     yield browser
     selenium.refresh()
+
+
+# Hook to modify the test collection and apply the skipping logic based on user-selected PF version
+def pytest_collection_modifyitems(config, items):
+    pf_version = config.getoption("--pf-version")
+    for item in items:
+        # Check if the test has the 'skip_if_pf5' marker
+        if "skip_if_pf5" in item.keywords and pf_version == "v5":
+            item.add_marker(pytest.mark.skip(reason="Skipping test for PF5"))
+
+        # Optionally, you can add the logic to skip tests for PF6 if needed:
+        elif "skip_if_pf6" in item.keywords and pf_version == "v6":
+            item.add_marker(pytest.mark.skip(reason="Skipping test for PF6"))

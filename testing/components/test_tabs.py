@@ -1,8 +1,9 @@
+import pytest
 from widgetastic.widget import Text, View
 
 from widgetastic_patternfly5 import Tab
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/tabs"
+TESTING_PAGE_COMPONENT = "components/tabs"
 
 
 class TabsTestView(View):
@@ -57,6 +58,24 @@ class TabsTestView(View):
             TAB_NAME = "Tab item 3"
             content = Text(".")
 
+    @View.nested
+    class sub(View):
+        ROOT = ".//div[@id='ws-react-c-tabs-subtabs']"
+
+        @View.nested
+        class tab1(Tab):
+            TAB_NAME = "Users"
+
+            @View.nested
+            class sub1(Tab):
+                TAB_NAME = "Subtab item 1"
+                content = Text(".")
+
+            @View.nested
+            class sub2(Tab):
+                TAB_NAME = "Subtab item 2"
+                content = Text(".")
+
 
 def test_primary_tabs(browser):
     view = TabsTestView(browser)
@@ -79,7 +98,11 @@ def test_primary_tabs(browser):
     assert view.primary.tab2.content.text == "Containers"
 
 
+@pytest.mark.skip_if_pf6
 def test_secondary_tabs(browser):
+    """In PF6, the secondary tab widget does not exactly match the PF5 demo widget.
+    Therefore, we will be skipping this test for PF6.
+    """
     view = TabsTestView(browser)
     assert view.secondary.tab1.is_displayed
     view.primary.tab1.select()
@@ -93,6 +116,26 @@ def test_secondary_tabs(browser):
     assert not view.secondary.tab1.secondary1.is_active()
     assert view.secondary.tab1.secondary2.is_active()
     assert view.secondary.tab1.secondary2.content.text == "Secondary tab item 2 section"
+
+
+@pytest.mark.skip_if_pf5
+def test_sub_tabs(browser):
+    """In PF5, the sub tab widget does not exactly match the PF6 demo widget.
+    Therefore, we will be skipping this test for PF5.
+    """
+    view = TabsTestView(browser)
+    assert view.sub.tab1.is_displayed
+    view.primary.tab1.select()
+    assert view.sub.tab1.is_active()
+    assert view.sub.tab1.sub1.is_displayed
+    assert view.sub.tab1.sub2.is_displayed
+    assert not view.sub.tab1.sub1.is_active()
+    assert not view.sub.tab1.sub2.is_active()
+    assert view.sub.tab1.sub1.content.text == "Subtab item 1 item section"
+    view.sub.tab1.sub2.select()
+    assert not view.sub.tab1.sub1.is_active()
+    assert view.sub.tab1.sub2.is_active()
+    assert view.sub.tab1.sub2.content.text == "Subtab item 2 section"
 
 
 def test_auto_selected(browser):
