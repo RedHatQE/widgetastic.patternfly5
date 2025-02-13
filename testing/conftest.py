@@ -105,6 +105,12 @@ def browser(selenium, pf_version, request):
     selenium.refresh()
 
 
+# Registering custom markers
+def pytest_configure(config):
+    config.addinivalue_line("markers", "skip_if_pf5: Skip test for PF5.")
+    config.addinivalue_line("markers", "skip_if_pf6: Skip test for PF6.")
+
+
 # Hook to modify the test collection and apply the skipping logic based on user-selected PF version
 def pytest_collection_modifyitems(config, items):
     pf_version = config.getoption("--pf-version")

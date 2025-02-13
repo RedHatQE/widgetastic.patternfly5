@@ -44,14 +44,17 @@ class Tab(View):
 
     def click(self):
         """Clicks the tab."""
-        return self.parent_browser.click(self.TAB_LOCATOR)
+        el = self.parent_browser.move_to_element(self.TAB_LOCATOR)
+        if tab_btns := self.browser.elements(".//button", parent=el):
+            return self.browser.click(tab_btns[0])
+        return self.parent_browser.click(el)
 
     def select(self):
         """Selects the tab (checks if active already first)."""
         if not self.is_active():
             self.logger.info("Opening the tab %s", self.tab_name)
 
-            @wait_for_decorator(timeout=3)
+            @wait_for_decorator(timeout=5)
             def _click():
                 self.click()
                 return self.is_active()
