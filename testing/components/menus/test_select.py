@@ -1,3 +1,5 @@
+from urllib.parse import urljoin
+
 import pytest
 from widgetastic.widget import View
 
@@ -12,7 +14,10 @@ def select(browser):
     class TestView(View):
         select = Select(locator=".//div[@id='ws-react-c-select-single-select']")
 
-    return TestView(browser).select
+    current_url = browser.url
+    browser.url = urljoin(current_url, "react/single-select")
+    yield TestView(browser).select
+    browser.url = current_url
 
 
 def test_select_is_displayed(select):
@@ -57,7 +62,10 @@ def checkbox_select(browser):
     class TestView(View):
         checkbox_select = CheckboxSelect(locator='.//div[@id="ws-react-c-select-checkbox-select"]')
 
-    return TestView(browser).checkbox_select
+    current_url = browser.url
+    browser.url = urljoin(current_url, "react/checkbox-select")
+    yield TestView(browser).checkbox_select
+    browser.url = current_url
 
 
 def test_checkbox_select_is_displayed(checkbox_select):
@@ -117,7 +125,10 @@ def typeahead_select(browser):
     class TestView(View):
         typeahead_select = TypeaheadSelect(locator=".//div[@id='ws-react-c-select-typeahead']")
 
-    return TestView(browser).typeahead_select
+    current_url = browser.url
+    browser.url = urljoin(current_url, "react/typeahead")
+    yield TestView(browser).typeahead_select
+    browser.url = current_url
 
 
 def test_typeahead_select_is_displayed(typeahead_select):
