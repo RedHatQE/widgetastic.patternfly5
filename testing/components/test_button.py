@@ -3,7 +3,7 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5 import Button
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/button"
+TESTING_PAGE_COMPONENT = "components/button"
 
 
 @pytest.fixture
@@ -19,8 +19,8 @@ def variations_view(browser):
 @pytest.fixture
 def disabled_view(browser):
     class TestView(View):
-        ROOT = ".//div[@id='ws-react-c-button-disabled-buttons']"
-        button = Button("Primary disabled")
+        ROOT = ".//div[@id='ws-react-c-button-aria-disabled-examples']"
+        button = Button("Primary aria disabled")
 
     return TestView(browser)
 

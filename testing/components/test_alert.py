@@ -3,14 +3,14 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5 import Alert
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/alert"
+TESTING_PAGE_COMPONENT = "components/alert"
 ALERT_TYPES = ["success", "danger", "warning", "info"]
 
 
 @pytest.fixture(params=ALERT_TYPES)
 def alert(browser, request):
     class TestView(View):
-        alert = Alert(locator=f".//div[@class='pf-v5-c-alert pf-m-{request.param}'][1]")
+        alert = Alert(locator=f".//div[contains(@class, '-c-alert pf-m-{request.param}')][1]")
 
     return TestView(browser).alert
 
