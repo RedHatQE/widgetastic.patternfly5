@@ -3,13 +3,13 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5 import CategoryChipGroup, ChipGroup
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/chip"
+TESTING_PAGE_COMPONENT = "components/chip"
 
 
 @pytest.fixture(scope="module")
 def chip_group_view(browser):
     class TestView(View):
-        ROOT = './/div[@class="ws-example" and .//h3[text()="Chip groups"]]'
+        ROOT = './/h3[text()="Chip groups"]/ancestor::div[@class="ws-example" or contains(@class, "pf-m-gutter")][1]'
 
         non_existent_chip_group = ChipGroup(locator="foobar-locator")
         chip_group = ChipGroup()
@@ -20,9 +20,7 @@ def chip_group_view(browser):
 @pytest.fixture(scope="module")
 def category_chip_group_view(browser):
     class TestView(View):
-        ROOT = (
-            './/div[@class="ws-example" and .//h3[text()="Chip groups with removable categories"]]'
-        )
+        ROOT = './/h3[text()="Chip groups with removable categories"]/ancestor::div[@class="ws-example" or contains(@class, "pf-m-gutter")][1]'
         category_one = CategoryChipGroup(label="Category one")
         category_two = CategoryChipGroup(label="Category two has a very long name")
 

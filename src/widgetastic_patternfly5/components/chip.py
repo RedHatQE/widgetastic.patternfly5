@@ -12,18 +12,18 @@ class ChipReadOnlyError(Exception):
 
 
 CHIP_ROOT = (
-    ".//div[contains(@class, '-c-chip') and not(contains(@class, '-m-overflow')) "
-    "and not(contains(@class, '-c-chip-group'))]"
+    ".//*[contains(@data-ouia-component-type, '/Chip') and not(contains(@class, '-m-overflow')) "
+    "and not(contains(@class, '-c-chip-group') or contains(@class, '-c-label-group'))]"
 )
-CHIP_TEXT = ".//span[contains(@class, '-c-chip__text')]"
+CHIP_TEXT = ".//span[contains(@class, '-c-chip__text') or contains(@class, '-c-label__text')]"
 CHIP_BADGE = ".//span[contains(@class, '-c-badge')]"
-GROUP_ROOT = ".//div[contains(@class, '-c-chip-group') and @role='group']"
+GROUP_ROOT = ".//div[(contains(@class, '-c-chip-group') and @role='group') or contains(@class,  '-c-label-group')]"
 CATEGORY_GROUP_ROOT = (
-    ".//div[contains(@class, '-c-chip-group') and @role='group' "
+    ".//div[((contains(@class, '-c-chip-group') and @role='group') or contains(@class, '-c-label-group')) "
     "and contains(@class, 'pf-m-category')]"
 )
-CATEGORY_LABEL = ".//span[contains(@class, '-c-chip-group__label')]"
-CATEGORY_CLOSE = ".//div[contains(@class, '-c-chip-group__close')]/button"
+CATEGORY_LABEL = ".//span[contains(@class, '-group__label')]"
+CATEGORY_CLOSE = ".//div[contains(@class, '-group__close')]/button"
 # For backwards compatibility
 OLD_GROUP_ROOT = ".//ul[contains(@class, '-c-chip-group')]"
 TOOLBAR_GROUP_LABEL = "./li/*[contains(@class, '-c-chip-group__label')]"
@@ -41,7 +41,7 @@ class _BaseChip(View):
 
     _text = Text(CHIP_TEXT)
     _badge = Text(f"{CHIP_TEXT}/{CHIP_BADGE}")
-    button = Button(**{"aria-label": "close"})
+    button = Button()
 
     @property
     def badge(self):
@@ -119,7 +119,7 @@ class OverflowChip(_BaseChip):
     The 'Show More'/'Show Less' button is essentially a special kind of chip
     """
 
-    ROOT = ".//button[contains(@class, '-c-chip') and contains(@class, 'pf-m-overflow')]"
+    ROOT = ".//button[(contains(@class, '-c-chip') or contains(@class, '-c-label')) and contains(@class, 'pf-m-overflow')]"
 
     def _show_less_shown(self):
         return self.text.replace(" ", "").lower() == "showless"
