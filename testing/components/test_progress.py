@@ -3,7 +3,7 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5 import Progress
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/progress"
+TESTING_PAGE_COMPONENT = "components/progress"
 PROGRESS_STATUS_TYPES_WITH_CURRENT_PROGRESS = {
     "success": "100",
     "danger": "33",
@@ -17,10 +17,10 @@ def progress(browser, request):
     class TestView(View):
         ROOT = ".//main"
         if request.param == "info":
-            progress = Progress(locator="(.//div[@class='pf-v5-c-progress'])[1]")
+            progress = Progress(locator="(.//div[contains(@class, '-c-progress')])[1]")
         else:
             progress = Progress(
-                locator=f"(.//div[@class='pf-v5-c-progress pf-m-{request.param}'])[1]"
+                locator=f"(.//div[contains(@class, '-c-progress') and contains(@class, 'pf-m-{request.param}')])[1]"
             )
 
     return TestView(browser).progress
