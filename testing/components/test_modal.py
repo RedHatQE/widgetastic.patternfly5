@@ -4,7 +4,7 @@ from widgetastic.widget import Text
 from widgetastic_patternfly5 import Button
 from widgetastic_patternfly5.components.modal import Modal, ModalItemNotFound
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/modal"
+TESTING_PAGE_COMPONENT = "components/modal"
 
 
 @pytest.fixture()
@@ -20,7 +20,7 @@ def modal(browser):
 class CustomModal(Modal):
     """Model use as view and enhance with widgets"""
 
-    custom_body = Text(".//div[contains(@class, 'pf-v5-c-modal-box__body')]")
+    custom_body = Text(".//div[contains(@class, '-c-modal-box__body')]")
 
 
 def test_title(modal):

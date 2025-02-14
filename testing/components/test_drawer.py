@@ -43,4 +43,7 @@ def test_drawer_as_view(view):
     assert view.CustomDrawer.is_open
     assert view.CustomDrawer.title.text in ["drawer-panel", "Drawer panel header"]
     view.CustomDrawer.close()
+    if view.CustomDrawer.is_open:
+        # Wait special time if the closure wasn't captured
+        time.sleep(3)
     assert not view.CustomDrawer.is_open
