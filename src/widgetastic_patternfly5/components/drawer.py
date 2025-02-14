@@ -3,7 +3,7 @@ from widgetastic.widget import View
 
 
 class BaseDrawer:
-    """Represents drawer component for pf5
+    """Represents drawer component for pf5/pf6
 
     https://www.patternfly.org/components/drawer
     """

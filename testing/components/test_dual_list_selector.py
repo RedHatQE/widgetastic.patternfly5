@@ -3,7 +3,7 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5 import DualListSelector, SearchDualListSelector
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/dual-list-selector"
+TESTING_PAGE_COMPONENT = "components/dual-list-selector"
 
 
 @pytest.fixture
@@ -127,16 +127,18 @@ def test_reset_selected(view, request):
 
     view.dual_list_selector.select(["Option 1"])
     left_elements = view.dual_list_selector._left_elements
-    assert left_elements[0].get_attribute("aria-selected") == "true"
+    selected_element = next(el for el in left_elements if el.text == "Option 1")
+    assert selected_element.get_attribute("aria-selected") == "true"
     view.dual_list_selector.reset_selected()
-    assert left_elements[0].get_attribute("aria-selected") == "false"
+    assert selected_element.get_attribute("aria-selected") == "false"
 
     view.dual_list_selector.select_and_move(["Option 2"])
     view.dual_list_selector.select(["Option 2"], left_items=False)
     right_elements = view.dual_list_selector._right_elements
-    assert right_elements[0].get_attribute("aria-selected") == "true"
+    selected_element = next(el for el in right_elements if el.text == "Option 2")
+    assert selected_element.get_attribute("aria-selected") == "true"
     view.dual_list_selector.reset_selected(left_items=False)
-    assert right_elements[0].get_attribute("aria-selected") == "false"
+    assert selected_element.get_attribute("aria-selected") == "false"
 
 
 def test_select(view, request):
