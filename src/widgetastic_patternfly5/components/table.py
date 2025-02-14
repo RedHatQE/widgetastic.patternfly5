@@ -7,13 +7,17 @@ from widgetastic.widget.table import resolve_table_widget
 class HeaderColumn(TableColumn):
     """Represents a cell in the header row."""
 
+    sort_indicator = Text(
+        locator=".//span[contains(@class, '-c-table__sort-indicator')] | .//button[contains(@class, '-c-table__button')]"
+    )
+
     def __locator__(self):
         return f"(./td|./th)[{self.position + 1}]"
 
     @property
     def is_sortable(self):
         """Returns true of the column is sortable."""
-        return "-c-table__sort" in self.browser.classes(self)
+        return any(cls for cls in self.browser.classes(self) if "-c-table__sort" in cls)
 
     @property
     def sorting_order(self):
@@ -24,10 +28,14 @@ class HeaderColumn(TableColumn):
         """Sorts the column according to the supplied "ascending" or "descending"."""
         if order not in ("ascending", "descending"):
             raise ValueError("order should be either 'ascending' or 'descending'")
+
+        if not self.is_sortable:
+            raise ValueError("Column is not sortable.")
+
         for _ in range(10):
             if self.sorting_order == order:
                 break
-            self.click()
+            self.sort_indicator.click()
         else:
             raise AssertionError(f"Could not set sorting order to `{order}` after 10 tries.")
 
@@ -227,8 +235,9 @@ class ExpandableTableRow(PatternflyTableRow):
         """Returns a text representation of the table row."""
         result = super().read()
         # Remove the column with the "expand" button in it
-        if 0 in result and not result[0]:
-            del result[0]
+        for expand_col in [0, "Row expansion"]:
+            if expand_col in result and not result[expand_col]:
+                del result[expand_col]
         return result
 
 

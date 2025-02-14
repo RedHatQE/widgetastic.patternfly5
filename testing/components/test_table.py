@@ -1,5 +1,5 @@
 import pytest
-from widgetastic.widget import Checkbox, View
+from widgetastic.widget import Checkbox, Text, View
 
 from widgetastic_patternfly5 import (
     ColumnNotExpandable,
@@ -9,7 +9,7 @@ from widgetastic_patternfly5 import (
     RowNotExpandable,
 )
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/table"
+TESTING_PAGE_COMPONENT = "components/table"
 
 SORT = [
     (
@@ -45,6 +45,9 @@ def test_sortable_table(browser, sample):
     table.sort_by(header, order)
     column = [row[header] for row in table.read()]
     assert column == expected_result
+
+    with pytest.raises(ValueError):
+        table.sort_by("Branches table header that goes on for a long time.", "ascending")
 
 
 @pytest.mark.parametrize(
@@ -120,7 +123,11 @@ def test_expandable_table(browser):
     row2_expected_content = "Lorem ipsum sit dolor."
     row3_expected_content = "single cell - noPadding"
 
-    table = ExpandableTable(browser, ".//div[@id='ws-react-c-table-expandable']/table")
+    table = ExpandableTable(
+        browser,
+        ".//div[@id='ws-react-c-table-expandable']/table",
+        column_widgets={"Row expansion": Text('.//button[contains(@class, "-c-button")]')},
+    )
 
     assert table.read() == expected_read
 
@@ -166,7 +173,7 @@ def test_compound_expandable_table(browser, use_different_widgets):
             "Pull requests": "4",
             "Workspaces": "4",
             "Last commit": "20 minutes",
-            5: "Open in GitHub",
+            "URL": "Open in GitHub",
         },
         {
             "Repositories": "siemur/test-space-2",
@@ -174,7 +181,7 @@ def test_compound_expandable_table(browser, use_different_widgets):
             "Pull requests": "4",
             "Workspaces": "4",
             "Last commit": "20 minutes",
-            5: "Open in GitHub",
+            "URL": "Open in GitHub",
         },
     ]
 
