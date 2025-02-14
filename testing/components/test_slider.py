@@ -3,7 +3,7 @@ from widgetastic.widget import Text, View
 
 from widgetastic_patternfly5 import InputSlider, Slider
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/slider"
+TESTING_PAGE_COMPONENT = "components/slider"
 TEST_DATA = {
     "discrete": {
         "steps": [-25, -15, -5, 5, 15, 25, 35, 45, 55, 65, 75],

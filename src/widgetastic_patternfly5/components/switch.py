@@ -13,8 +13,9 @@ class BaseSwitch:
     """
 
     CHECKBOX_LOCATOR = "./input"
-    LABEL_ON = "./span[contains(@class, 'pf-m-on')]"
-    LABEL_OFF = "./span[contains(@class, 'pf-m-off')]"
+    PF_5_LABEL_ON = "./span[contains(@class, 'pf-m-on')]"
+    PF_5_LABEL_OFF = "./span[contains(@class, 'pf-m-off')]"
+    PF_6_LABLE = "./span[contains(@class, '-c-switch__label')]"
 
     @property
     def is_enabled(self):
@@ -48,9 +49,9 @@ class BaseSwitch:
     def label(self):
         """Returns the label of the Switch."""
         if self.selected:
-            return self._read_locator(self.LABEL_ON)
+            return self._read_locator(self.PF_5_LABEL_ON) or self._read_locator(self.PF_6_LABLE)
         else:
-            return self._read_locator(self.LABEL_OFF)
+            return self._read_locator(self.PF_5_LABEL_OFF) or self._read_locator(self.PF_6_LABLE)
 
     def read(self):
         """Returns a boolean detailing if the Switch is on (True) of off (False)."""

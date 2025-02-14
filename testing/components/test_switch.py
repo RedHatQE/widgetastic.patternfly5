@@ -3,7 +3,7 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5 import Switch, SwitchDisabled
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/switch"
+TESTING_PAGE_COMPONENT = "components/switch"
 
 
 @pytest.fixture
@@ -40,10 +40,16 @@ def test_switch_is_enabled(view):
 
 
 def test_switch_label(view):
-    assert view.switch.label == "Message when on"
+    assert view.switch.label in ["Message when on", "Togglable option for basic example"]
     assert view.no_label_switch.label is None
-    assert view.disabled_switch_on.label == "Message when on"
-    assert view.disabled_switch_off.label == "Message when off"
+    assert view.disabled_switch_on.label in [
+        "Message when on",
+        "Togglable option for disabled checked example",
+    ]
+    assert view.disabled_switch_off.label in [
+        "Message when off",
+        "Togglable option for disabled unchecked example",
+    ]
     assert view.disabled_no_label_switch_on.label is None
     assert view.disabled_no_label_switch_off.label is None
 
@@ -57,20 +63,20 @@ def test_switch_selected(view):
     assert not view.disabled_no_label_switch_off.read()
 
 
-@pytest.mark.flaky(reruns=3, reruns_delay=2)
+# @pytest.mark.flaky(reruns=3, reruns_delay=2)
 def test_switch_fill(view):
     view.browser.refresh()
     assert view.switch.selected
-    assert view.switch.label == "Message when on"
+    assert view.switch.label in ["Message when on", "Togglable option for basic example"]
     assert not view.switch.fill(True)
     assert view.switch.selected
-    assert view.switch.label == "Message when on"
+    assert view.switch.label in ["Message when on", "Togglable option for basic example"]
     assert view.switch.fill(False)
     assert not view.switch.selected
-    assert view.switch.label == "Message when off"
+    assert view.switch.label in ["Message when off", "Togglable option for basic example"]
     assert view.switch.fill(True)
     assert view.switch.selected
-    assert view.switch.label == "Message when on"
+    assert view.switch.label in ["Message when on", "Togglable option for basic example"]
 
 
 def test_switch_fill_disabled(view):
