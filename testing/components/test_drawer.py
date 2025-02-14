@@ -5,7 +5,7 @@ from widgetastic.widget import Text, View
 
 from widgetastic_patternfly5 import Button, Drawer
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/drawer/"
+TESTING_PAGE_COMPONENT = "components/drawer/"
 
 
 @pytest.fixture(scope="module")
@@ -41,5 +41,6 @@ def test_drawer_as_view(view):
     time.sleep(1)
     view.toggle_drawer.click()
     assert view.CustomDrawer.is_open
-    assert view.CustomDrawer.title.text == "drawer-panel"
+    assert view.CustomDrawer.title.text in ["drawer-panel", "Drawer panel header"]
     view.CustomDrawer.close()
+    assert not view.CustomDrawer.is_open
