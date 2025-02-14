@@ -2,7 +2,7 @@ from widgetastic.widget import Text, View
 
 from widgetastic_patternfly5 import ExpandableSection
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/expandable-section"
+TESTING_PAGE_COMPONENT = "components/expandable-section"
 
 
 class SectionView(View):

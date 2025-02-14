@@ -3,7 +3,7 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5 import Navigation, NavSelectionNotFound
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/navigation"
+TESTING_PAGE_COMPONENT = "components/navigation"
 
 NAVS = [
     (
