@@ -18,7 +18,8 @@ class BaseDrawer:
     def close(self):
         """Close drawer."""
         if self.is_open:
-            self.browser.click(self.browser.element(self.CLOSE))
+            el = self.browser.wait_for_element(self.CLOSE)
+            return self.browser.click(el)
 
 
 class Drawer(BaseDrawer, View):
