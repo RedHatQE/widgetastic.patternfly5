@@ -3,7 +3,7 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5 import ClipboardCopy
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/clipboard-copy"
+TESTING_PAGE_COMPONENT = "components/clipboard-copy"
 
 
 @pytest.fixture

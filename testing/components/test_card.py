@@ -9,9 +9,7 @@ from widgetastic_patternfly5 import (
     Dropdown,
 )
 
-TESTING_PAGE_URL = (
-    "https://patternfly-react-main.surge.sh/patterns/card-view/react-demos/card-view/"
-)
+TESTING_PAGE_COMPONENT = "patterns/card-view/react-demos/card-view/"
 
 
 @pytest.fixture
@@ -50,7 +48,7 @@ class PageCard(CardForCardGroup):
 class Cards(CardGroup):
     def __init__(self, parent, locator=None, logger=None, **kwargs):
         super().__init__(parent, logger=logger, **kwargs)
-        self.locator = locator or './/div[contains(@class, "pf-v5-l-gallery")]'
+        self.locator = locator or './/div[contains(@class, "-l-gallery")]'
 
     cards = ParametrizedView.nested(PageCard)
 
