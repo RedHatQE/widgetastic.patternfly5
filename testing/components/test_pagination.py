@@ -6,18 +6,20 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5 import CompactPagination, Pagination, PaginationNavDisabled
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/pagination"
+TESTING_PAGE_COMPONENT = "components/pagination"
 
 
 @contextlib.contextmanager
 def _paginator(browser, request, reset_elements_per_page=True):
     paginator_cls, kind = request.param
+    SIDE_BAR_LOCATOR = f".//span[contains(@class, '-c-jump-links__link-text') and contains(., '{kind.replace('-', ' ').capitalize()}')]"
 
     class TestView(View):
         ROOT = f".//div[@id='ws-react-c-pagination-{kind}']"
         paginator = paginator_cls(locator="./div")
 
     paginator = TestView(browser).paginator
+    browser.click(SIDE_BAR_LOCATOR)  # To jump on specific paginator to avoid flakyness in tests.
     wait_for(lambda: paginator.is_displayed, num_sec=10)
     yield paginator
     try:
