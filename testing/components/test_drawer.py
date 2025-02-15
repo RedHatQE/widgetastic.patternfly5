@@ -5,7 +5,7 @@ from widgetastic.widget import Text, View
 
 from widgetastic_patternfly5 import Button, Drawer
 
-TESTING_PAGE_COMPONENT = "components/drawer/"
+TESTING_PAGE_COMPONENT = "components/drawer/react/basic"
 
 
 @pytest.fixture(scope="module")

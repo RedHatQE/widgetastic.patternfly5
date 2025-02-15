@@ -3,7 +3,7 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5.ouia import PatternflyTable as PatternflyTableOUIA
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/table"
+TESTING_PAGE_COMPONENT = "components/table"
 
 SORT = [
     ("Repositories table header that goes on for a long time.", "ascending", ["a", "one", "p"]),
