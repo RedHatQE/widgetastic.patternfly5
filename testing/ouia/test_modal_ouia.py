@@ -5,7 +5,7 @@ from widgetastic_patternfly5 import ModalItemNotFound
 from widgetastic_patternfly5.ouia import Button as ButtonOUIA
 from widgetastic_patternfly5.ouia import Modal as ModalOUIA
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/modal"
+TESTING_PAGE_COMPONENT = "components/modal"
 
 
 @pytest.fixture()
@@ -26,7 +26,7 @@ def modal(browser):
 class CustomModal(ModalOUIA):
     """Model use as view and enhance with widgets"""
 
-    custom_body = Text(".//div[contains(@class, 'pf-v5-c-modal-box__body')]")
+    custom_body = Text(".//div[contains(@class, '-c-modal-box__body')]")
 
 
 def test_title(modal):

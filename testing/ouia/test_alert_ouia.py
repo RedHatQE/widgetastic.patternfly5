@@ -3,7 +3,7 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5.ouia import Alert as AlertOUIA
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/alert"
+TESTING_PAGE_COMPONENT = "components/alert"
 
 ALERT_TYPES = ["InfoAlert", "SuccessAlert", "WarningAlert", "DangerAlert"]
 

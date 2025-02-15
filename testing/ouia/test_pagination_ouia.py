@@ -5,7 +5,7 @@ from widgetastic.widget import View
 from widgetastic_patternfly5 import PaginationNavDisabled
 from widgetastic_patternfly5.ouia import Pagination as PaginationOUIA
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/pagination"
+TESTING_PAGE_COMPONENT = "components/pagination"
 
 
 @pytest.fixture

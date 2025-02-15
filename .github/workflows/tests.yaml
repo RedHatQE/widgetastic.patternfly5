@@ -31,12 +31,11 @@ jobs:
           pip install .[dev]
       - name: Test with pytest
         run: |
-          pytest -sqvvv -n 3 --browser-name=${{ matrix.browser }} --pf-version=${{ matrix.pf-version }} testing/charts testing/components/forms testing/components/date_and_time testing/components/menus testing/components/test_alert.py testing/components/test_breadcrumb.py testing/components/test_button.py testing/components/test_card.py testing/components/test_chip.py testing/components/test_clipboard_copy.py testing/components/test_description_list.py testing/components/test_drawer.py testing/components/test_dual_list_selector.py testing/components/test_expandable_section.py testing/components/test_modal.py testing/components/test_navigation.py testing/components/test_pagination.py testing/components/test_slider.py testing/components/test_switch.py testing/components/test_table.py testing/components/test_tabs.py testing/components/test_title.py testing/components/test_popover.py testing/components/test_progress.py
-#          pytest -v -n 5 --browser-name=${{ matrix.browser }} --cov=./ --cov-report=xml
-#      - name: Upload coverage to Codecov
-#        uses: codecov/codecov-action@v4
-#        with:
-#          token: ${{ secrets.CODECOV_TOKEN }}
-#          file: coverage.xml
-#          flags: unittests
-#          name: ${{ github.run_id }}-py-${{ matrix.python-version }}-${{ matrix.browser }}
+          pytest -v -n 5 --browser-name=${{ matrix.browser }} --pf-version=${{ matrix.pf-version }} --cov=./ --cov-report=xml
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: coverage.xml
+          flags: unittests
+          name: ${{ github.run_id }}-py-${{ matrix.python-version }}-${{ matrix.browser }}

@@ -3,7 +3,7 @@ from widgetastic.widget import View
 
 from widgetastic_patternfly5.ouia import Button as ButtonOUIA
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/button"
+TESTING_PAGE_COMPONENT = "components/button"
 
 BUTTON_TYPES = ["Primary", "Secondary", "DangerSecondary", "Tertiary", "Danger", "Warning"]
 

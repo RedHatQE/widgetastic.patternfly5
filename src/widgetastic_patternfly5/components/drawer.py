@@ -1,5 +1,8 @@
+from wait_for import wait_for
 from widgetastic.utils import ParametrizedLocator
 from widgetastic.widget import View
+
+from widgetastic_patternfly5 import Button
 
 
 class BaseDrawer:
@@ -8,7 +11,7 @@ class BaseDrawer:
     https://www.patternfly.org/components/drawer
     """
 
-    CLOSE = ".//button[@aria-label='Close drawer panel']"
+    close_btn = Button(locator=".//div[contains(@class, '-c-drawer__close')]/button")
 
     @property
     def is_open(self):
@@ -18,8 +21,8 @@ class BaseDrawer:
     def close(self):
         """Close drawer."""
         if self.is_open:
-            el = self.browser.wait_for_element(self.CLOSE)
-            return self.browser.click(el)
+            self.close_btn.click()
+            wait_for(lambda: not self.is_open, num_sec=10)
 
 
 class Drawer(BaseDrawer, View):

@@ -4,7 +4,7 @@ from widgetastic.widget import View
 from widgetastic_patternfly5 import FormSelectOptionNotFound
 from widgetastic_patternfly5.ouia import FormSelect as FormSelectOUIA
 
-TESTING_PAGE_URL = "https://patternfly-react-main.surge.sh/components/forms/form-select"
+TESTING_PAGE_COMPONENT = "components/forms/form-select"
 
 
 @pytest.fixture
