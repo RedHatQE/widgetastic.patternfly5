@@ -19,7 +19,7 @@ def _paginator(browser, request, reset_elements_per_page=True):
         paginator = paginator_cls(locator="./div")
 
     paginator = TestView(browser).paginator
-    browser.click(SIDE_BAR_LOCATOR)    # To jump on specific paginator to avoid flakyness in tests.
+    browser.click(SIDE_BAR_LOCATOR)  # To jump on specific paginator to avoid flakyness in tests.
     wait_for(lambda: paginator.is_displayed, num_sec=10)
     yield paginator
     try:
