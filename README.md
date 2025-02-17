@@ -13,15 +13,12 @@
     <a href="https://github.com/RedHatQE/widgetastic.patternfly5/actions/workflows/tests.yaml">
     <img alt="github actions" src="https://github.com/RedHatQE/widgetastic.patternfly5/actions/workflows/tests.yaml/badge.svg">
     </a>
-    <a href="https://pypi.org/project/black">
-    <img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
-    </a>
     <a href="https://results.pre-commit.ci/latest/github/RedHatQE/widgetastic.patternfly5/main">
     <img alt="pre: black" src="https://results.pre-commit.ci/badge/github/RedHatQE/widgetastic.patternfly5/main.svg">
     </a>
 </p>
 
-This library offers Widgetastic Widgets for [PatternFly v5](https://www.patternfly.org/), serving as an extended
+This library offers Widgetastic Widgets for [PatternFly v5/v6](https://www.patternfly.org/), serving as an extended
 itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.patternfly4).
 
 
@@ -69,7 +66,7 @@ itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.
 - [pie-chart](https://www.patternfly.org/charts/pie-chart)
 
 ### Patterns:
-- [card-view](https://patternfly-react-main.surge.sh/patterns/card-view)
+- [card-view](https://www.patternfly.org/patterns/card-view)
 
 
 ### Contribution guide
@@ -93,7 +90,7 @@ pre-commit install
 
 ### Testing
 
-The library has selenium tests that are performed against [Patternfly React docs](https://patternfly-react-main.surge.sh).
+The library has selenium tests that are performed against [Patternfly v6 docs](https://www.patternfly.org) and [Patternfly v5 docs](https://v5-archive.patternfly.org).
 It's also configured to run the tests every time when a new version of that page is released.
 
 Tests spawn a container from official selenium image - [selenium/standalone-{chrome/firefox}](https://hub.docker.com/u/selenium).
@@ -107,5 +104,5 @@ Use `-n` key to specify a number
 of workers:
 
 ```bash
-BROWSER=firefox pytest -v testing -n 4
+pytest --browser-name firefox --pf-version v5 -n 2 -vv
 ```
