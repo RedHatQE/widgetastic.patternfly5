@@ -21,45 +21,44 @@ from widgetastic_patternfly5.components.table import BaseExpandableTable, BasePa
 from widgetastic_patternfly5.components.title import BaseTitle
 
 
-# TODO: Restore "PF5/<name>" once everyone has moved to using PF5
 class Alert(BaseAlert, OUIAGenericWidget):
-    OUIA_COMPONENT_TYPE = "Alert"
+    OUIA_COMPONENT_TYPE = "PF5/Alert"
 
 
 class BreadCrumb(BaseBreadCrumb, OUIAGenericWidget):
-    OUIA_COMPONENT_TYPE = "Breadcrumb"
+    OUIA_COMPONENT_TYPE = "PF5/Breadcrumb"
 
 
 class Button(BaseButton, OUIAGenericWidget):
-    OUIA_COMPONENT_TYPE = "Button"
+    OUIA_COMPONENT_TYPE = "PF5/Button"
 
 
 class Card(BaseCard, OUIAGenericWidget):
-    OUIA_COMPONENT_TYPE = "Card"
+    OUIA_COMPONENT_TYPE = "PF5/Card"
 
 
 class CheckboxMenu(BaseCheckboxMenu):
-    OUIA_COMPONENT_TYPE = "Menu"
+    OUIA_COMPONENT_TYPE = "PF5/Menu"
 
 
 class FormSelect(BaseFormSelect, OUIAGenericWidget):
-    OUIA_COMPONENT_TYPE = "FormSelect"
+    OUIA_COMPONENT_TYPE = "PF5/FormSelect"
 
 
 class Menu(BaseMenu):
-    OUIA_COMPONENT_TYPE = "Menu"
+    OUIA_COMPONENT_TYPE = "PF5/Menu"
 
 
 class Modal(BaseModal, OUIAGenericView):
-    OUIA_COMPONENT_TYPE = "ModalContent"
+    OUIA_COMPONENT_TYPE = "PF5/ModalContent"
 
 
 class Navigation(BaseNavigation, OUIAGenericWidget):
-    OUIA_COMPONENT_TYPE = "Nav"
+    OUIA_COMPONENT_TYPE = "PF5/Nav"
 
 
 class Pagination(BasePagination, OUIAGenericView):
-    OUIA_COMPONENT_TYPE = "Pagination"
+    OUIA_COMPONENT_TYPE = "PF5/Pagination"
 
 
 class CompactPagination(BaseCompactPagination, Pagination):
@@ -79,7 +78,7 @@ class PatternflyTable(BasePatternflyTable, Table):
         bottom_ignore_fill=False,
         logger=None,
     ):
-        self.component_type = "Table"
+        self.component_type = "PF5/Table"
         self.component_id = component_id
         super().__init__(
             parent,
@@ -102,32 +101,32 @@ class ExpandableTable(BaseExpandableTable, PatternflyTable):
 
 
 class Switch(BaseSwitch, OUIAGenericWidget):
-    OUIA_COMPONENT_TYPE = "Switch"
+    OUIA_COMPONENT_TYPE = "PF5/Switch"
 
 
 class Title(BaseTitle, OUIAGenericWidget):
-    OUIA_COMPONENT_TYPE = "Title"
+    OUIA_COMPONENT_TYPE = "PF5/Title"
 
 
 class Text(BaseOuiaText):
-    OUIA_COMPONENT_TYPE = "Text"
+    OUIA_COMPONENT_TYPE = "PF5/Text"
 
 
 class TextInput(BaseOuiaTextInput):
-    OUIA_COMPONENT_TYPE = "TextInput"
+    OUIA_COMPONENT_TYPE = "PF5/TextInput"
 
 
 class Dropdown(BaseDropdown, OUIAGenericWidget):
-    OUIA_COMPONENT_TYPE = "Dropdown"
+    OUIA_COMPONENT_TYPE = "PF5/Dropdown"
 
 
 class Select(BaseSelect, Dropdown):
-    OUIA_COMPONENT_TYPE = "Select"
+    OUIA_COMPONENT_TYPE = "PF5/Select"
 
 
 class TypeaheadSelect(BaseTypeaheadSelect, Dropdown):
-    OUIA_COMPONENT_TYPE = "Select"
+    OUIA_COMPONENT_TYPE = "PF5/Select"
 
 
 class ClipboardCopy(BaseClipboardCopy, OUIAGenericWidget):
-    OUIA_COMPONENT_TYPE = "ClipboardCopy"
+    OUIA_COMPONENT_TYPE = "PF5/ClipboardCopy"
