@@ -86,7 +86,7 @@ pip install -U pip setuptools wheel
 # install the package in editable mode
 pip install -e .[dev]
 # if you use zsh, pip install will fail. Use this instead:
-pip install -e ."[dev]"
+pip install -e ".[dev]"
 
 pre-commit install
 ```
