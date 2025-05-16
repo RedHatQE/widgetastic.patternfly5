@@ -1,4 +1,3 @@
-from wait_for import wait_for
 from widgetastic.utils import ParametrizedLocator
 from widgetastic.widget import View
 
@@ -21,8 +20,12 @@ class BaseDrawer:
     def close(self):
         """Close drawer."""
         if self.is_open:
-            self.close_btn.click()
-            wait_for(lambda: not self.is_open, num_sec=10)
+            for _ in range(3):
+                if self.close_btn.is_displayed:
+                    self.close_btn.click()
+                if not self.is_open:
+                    return True
+        return False
 
 
 class Drawer(BaseDrawer, View):
