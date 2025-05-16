@@ -2,6 +2,7 @@ from collections import namedtuple
 from time import sleep
 
 import pytest
+from widgetastic.xpath import quote
 
 from widgetastic_patternfly5 import DataPoint, PieChart
 
@@ -16,11 +17,11 @@ DATA_POINTS = [DataPoint(label, value) for label, value in DATA.items()]
 @pytest.fixture(
     params=[
         {
-            "id": "ws-react-c-pie-chart-multi-color-ordered-with-bottom-aligned-legend",
+            "id": "-c-pie-chart-multi-color-ordered-with-bottom-aligned-legend",
             "anchor": "#multi-color-ordered-with-bottom-aligned-legend",
         },
         {
-            "id": "ws-react-c-pie-chart-basic-with-right-aligned-legend",
+            "id": "-c-pie-chart-basic-with-right-aligned-legend",
             "anchor": "#basic-with-right-aligned-legend",
         },
     ],
@@ -32,7 +33,7 @@ def chart(browser, request):
     # in order to properly scroll down
     anchor = browser.element(f".//a[@href='{request.param['anchor']}']")
     browser.click(anchor)
-    return PieChart(browser, id=request.param["id"])
+    return PieChart(browser, locator=f".//div[contains(@id, {quote(request.param['id'])})]")
 
 
 def test_pie_chart(chart):

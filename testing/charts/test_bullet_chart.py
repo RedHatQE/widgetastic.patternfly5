@@ -2,6 +2,7 @@ from collections import namedtuple
 from time import sleep
 
 import pytest
+from widgetastic.xpath import quote
 
 from widgetastic_patternfly5 import BulletChart
 from widgetastic_patternfly5.charts.bullet_chart import DataPoint
@@ -13,7 +14,7 @@ Legend = namedtuple("Legend", ["label", "value"])
 
 TEST_DATA = {
     "dot": {
-        "id": "ws-react-c-bullet-chart-primary-measure-dot",
+        "id": "-c-bullet-chart-primary-measure-dot",
         "anchor": "primary-measure-dot",
         "bar_data": [
             DataPoint("Range", 75),
@@ -31,7 +32,7 @@ TEST_DATA = {
         ],
     },
     "tick": {
-        "id": "ws-react-c-bullet-chart-error-measure-and-custom-axis-ticks",
+        "id": "-c-bullet-chart-error-measure-and-custom-axis-ticks",
         "anchor": "error-measure-and-custom-axis-ticks",
         "bar_data": [
             DataPoint("Range", 150),
@@ -65,7 +66,9 @@ def chart_data(browser, request):
     anchor = browser.element(f".//h3[@id='{anchor_id}']/a")
     browser.click(anchor)
     return (
-        BulletChart(browser, id=TEST_DATA[request.param]["id"]),
+        BulletChart(
+            browser, locator=f".//div[contains(@id, {quote(TEST_DATA[request.param]['id'])})]"
+        ),
         TEST_DATA[request.param]["bar_data"],
         TEST_DATA[request.param]["legend_data"],
         request.param,
