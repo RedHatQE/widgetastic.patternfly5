@@ -72,3 +72,9 @@ def test_fill_and_read(calendar_month_view):
 
     with pytest.raises(TypeError):
         calendar_month_view.calendar.fill("foo")
+
+
+def test_fill_day_and_read(calendar_month_view):
+    calendar_month_view.calendar.fill({"day": "30", "month": "July", "year": "2025"})
+    result = calendar_month_view.calendar.read()
+    assert result == "30 July 2025"

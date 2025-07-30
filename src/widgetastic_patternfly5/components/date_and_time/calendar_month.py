@@ -23,7 +23,9 @@ class BaseCalendarMonth:
     YEAR_INPUT_LOCATOR = (
         f"{CALENDAR_HEADER}//div[contains(@class, '-c-calendar-month__header-year')]//input"
     )
-    DATE_LOCATOR = ".//button[text()={date}]"
+    DATE_LOCATOR = (
+        ".//button[text()={date} and not(ancestor::td[contains(@class, 'pf-m-adjacent-month')])]"
+    )
 
     PREV_BUTTON_LOCATOR = f"{CALENDAR_HEADER}//div[contains(@class, 'prev-month')]"
     NEXT_BUTTON_LOCATOR = f"{CALENDAR_HEADER}//div[contains(@class, 'next-month')]"
@@ -85,12 +87,12 @@ class BaseCalendarMonth:
         """
         if type(items) is not dict:
             raise TypeError("'items' value has to be dictionary type. ")
-        if "day" in items:
-            self.day = items["day"]
-        if "month" in items:
-            self.month = items["month"]
         if "year" in items:
             self.year = items["year"]
+        if "month" in items:
+            self.month = items["month"]
+        if "day" in items:
+            self.day = items["day"]
 
 
 class CalendarMonth(BaseCalendarMonth, Widget):
