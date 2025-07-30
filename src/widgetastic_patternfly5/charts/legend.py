@@ -85,13 +85,16 @@ class DataPoint:
         self.value = value
         self.color = color
 
-    def __gt__(self, leg):
-        return self.__class__ == leg.__class__ and self.value > leg.value
+    def __gt__(self, other):
+        return isinstance(other, DataPoint) and self.value > other.value
 
-    def __eq__(self, leg):
+    def __eq__(self, other):
         return (
-            self.__class__ == self.__class__ and self.label == leg.label and self.value == leg.value
+            isinstance(other, DataPoint) and self.label == other.label and self.value == other.value
         )
+
+    def __hash__(self):
+        return hash((self.label, self.value))
 
     def __repr__(self):
         return f"DataPoint({self.label}: {self.value})"
