@@ -54,7 +54,7 @@ raw-options.version_scheme = "calver-by-date"
 
 [tool.ruff]
 line-length = 100
-extend-ignore = ["PLR2004", "PLE0643", "PLR0913"]
 
 [tool.ruff.lint]
 select = ["F", "I", "PL", "UP"]
+extend-ignore = ["PLR2004", "PLE0643", "PLR0913"]
