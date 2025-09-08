@@ -14,11 +14,11 @@ class BaseModal:
     https://www.patternfly.org/components/modal
     """
 
-    BODY = ".//div[contains(@class, '-c-modal-box__body')]"
-    FOOTER = ".//*[contains(@class, '-c-modal-box__footer')]/child::node()"
-    FOOTER_ITEM = ".//*[contains(@class, '-c-modal-box__footer')]/button[normalize-space(.)={}]"
+    BODY = ".//div[contains(@class, '-c-modal-box__body') or contains(@class, '-c-wizard__main-body')]"
+    FOOTER = ".//*[contains(@class, '-c-modal-box__footer') or contains(@class, '-c-wizard__footer')]//button"
+    FOOTER_ITEM = ".//*[contains(@class, '-c-modal-box__footer') or contains(@class, '-c-wizard__footer')]//button[normalize-space(.)={}]"
     TITLE = ".//h1[contains(@class, '-c-title') or contains(@class, '-c-modal-box__title')]"
-    CLOSE = ".//button[@aria-label='Close']"
+    CLOSE = ".//div[contains(@class, '-c-wizard__close')]//button | .//button[@aria-label='Close']"
 
     @property
     def title(self):
@@ -55,4 +55,4 @@ class Modal(BaseModal, View):
 
     def __init__(self, parent, locator=None, logger=None, **kwargs):
         super().__init__(parent, logger=logger, **kwargs)
-        self.locator = locator or ".//div[contains(@class, '-c-modal-box')]"
+        self.locator = locator or ".//div[contains(@data-ouia-component-type, 'ModalContent')]"
