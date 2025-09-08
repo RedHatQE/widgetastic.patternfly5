@@ -14,7 +14,9 @@ class BaseModal:
     https://www.patternfly.org/components/modal
     """
 
-    BODY = ".//div[contains(@class, '-c-modal-box__body') or contains(@class, '-c-wizard__main-body')]"
+    BODY = (
+        ".//div[contains(@class, '-c-modal-box__body') or contains(@class, '-c-wizard__main-body')]"
+    )
     FOOTER = ".//*[contains(@class, '-c-modal-box__footer') or contains(@class, '-c-wizard__footer')]//button"
     FOOTER_ITEM = ".//*[contains(@class, '-c-modal-box__footer') or contains(@class, '-c-wizard__footer')]//button[normalize-space(.)={}]"
     TITLE = ".//h1[contains(@class, '-c-title') or contains(@class, '-c-modal-box__title')]"
