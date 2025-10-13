@@ -1,14 +1,12 @@
 import os
-import subprocess
+from collections.abc import Iterator
 from urllib.parse import urljoin
-from urllib.request import urlopen
 
 import pytest
-from selenium import webdriver
-from wait_for import wait_for
+from playwright.sync_api import Browser as PlaywrightBrowser
+from playwright.sync_api import BrowserContext, Page, sync_playwright
 from widgetastic.browser import Browser
 
-OPTIONS = {"firefox": webdriver.FirefoxOptions(), "chrome": webdriver.ChromeOptions()}
 TESTING_PAGES = {
     "v6": "https://www.patternfly.org",
     "v5": "https://v5-archive.patternfly.org",
@@ -17,10 +15,24 @@ TESTING_PAGES = {
 
 def pytest_addoption(parser):
     parser.addoption(
-        "--browser-name",
-        help="name of the browser",
-        choices=("firefox", "chrome"),
-        default="firefox",
+        "--browser",
+        action="store",
+        default="chromium",
+        choices=["chromium", "firefox"],
+        help="Browser to run tests with: chromium, firefox (default: chromium)",
+    )
+    parser.addoption(
+        "--headless",
+        action="store_true",
+        default=False,
+        help="Run tests in headless mode (no browser window) default its run in headed mode.",
+    )
+    parser.addoption(
+        "--slowmo",
+        action="store",
+        type=int,
+        default=0,
+        help="Slow down Playwright operations by specified milliseconds (default: 0, no slowdown)",
     )
     parser.addoption(
         "--pf-version",
@@ -28,81 +40,80 @@ def pytest_addoption(parser):
         choices=("v6", "v5"),
         default="v6",
     )
-
     parser.addoption("--force-host", default=None, help="force a selenium hostname")
 
 
 @pytest.fixture(scope="session")
 def browser_name(pytestconfig):
-    return os.environ.get("BROWSER") or pytestconfig.getoption("--browser-name")
+    return os.environ.get("BROWSER") or pytestconfig.getoption("--browser")
 
 
 @pytest.fixture(scope="session")
-def pf_version(pytestconfig):
+def headless_mode(request):
+    """Determine if tests should run in headless mode."""
+    if request.config.getoption("--headless"):
+        return True
+    return False
+
+
+@pytest.fixture(scope="session")
+def slowmo_delay(request):
+    """Get slowmo delay from command line argument."""
+    return request.config.getoption("--slowmo")
+
+
+@pytest.fixture(scope="session")
+def pf_version(pytestconfig) -> str:
     return os.environ.get("PF-VERSION") or pytestconfig.getoption("--pf-version")
 
 
 @pytest.fixture(scope="session")
-def selenium_url(pytestconfig, browser_name, worker_id):
-    forced_host = pytestconfig.getoption("--force-host")
-    if forced_host is None:
-        oktet = 1 if worker_id == "master" else int(worker_id.lstrip("gw")) + 1
-        host = f"127.0.0.{oktet}"
-        ps = subprocess.run(
-            [
-                "podman",
-                "run",
-                "--rm",
-                "-d",
-                "-p",
-                f"{host}:4444:4444",
-                "-p",
-                f"{host}:7900:7900",
-                "-e",
-                "SE_VNC_NO_PASSWORD=1",
-                "-e",
-                "SE_SCREEN_HEIGHT=1080",
-                "-e",
-                "SE_SCREEN_WIDTH=1920",
-                "--shm-size=2g",
-                f"docker.io/selenium/standalone-{browser_name}:latest",
-            ],
-            stdout=subprocess.PIPE,
-            check=False,
+def playwright_browser_instance(
+    browser_name: str, headless_mode: bool, slowmo_delay: int
+) -> PlaywrightBrowser:
+    """Launches a Playwright browser instance."""
+    with sync_playwright() as p:
+        # Select browser based on command line argument (default to chromium)
+        if browser_name == "firefox":
+            py_browser = p.firefox.launch(headless=headless_mode, slow_mo=slowmo_delay)
+        else:
+            py_browser = p.chromium.launch(headless=headless_mode, slow_mo=slowmo_delay)
+
+        slowmo_info = f" with {slowmo_delay}ms slowmo" if slowmo_delay > 0 else ""
+        print(
+            f"\nLaunching {browser_name} browser ({'headless' if headless_mode else 'headed'} mode){slowmo_info}"
         )
-        print(f"VNC url: http://{host}:7900")
-
-        yield f"http://{host}:4444"
-        container_id = ps.stdout.decode("utf-8").strip()
-        subprocess.run(["podman", "kill", container_id], stdout=subprocess.DEVNULL, check=False)
-    else:
-        print(f"VNC url: http://{forced_host}:7900")
-        yield f"http://{forced_host}:4444"
+        yield py_browser
+        print(f"\nClosing {browser_name} browser")
+        py_browser.close()
 
 
 @pytest.fixture(scope="session")
-def wait_for_selenium(selenium_url):
-    wait_for(lambda: urlopen(selenium_url), timeout=180, handle_exception=True)
+def browser_context(playwright_browser_instance: PlaywrightBrowser) -> BrowserContext:
+    """Creates a browser context for the entire test session."""
+    context = playwright_browser_instance.new_context()
+    yield context
+    context.close()
 
 
 @pytest.fixture(scope="session")
-def selenium(browser_name, wait_for_selenium, selenium_url):
-    driver = webdriver.Remote(command_executor=selenium_url, options=OPTIONS[browser_name.lower()])
-    driver.maximize_window()
-    yield driver
-    driver.quit()
+def page(browser_context: BrowserContext) -> Iterator[Page]:
+    """Creates the initial page within the session context."""
+    page = browser_context.new_page()
+    yield page
+    page.close()
 
 
 @pytest.fixture(scope="module")
-def browser(selenium, pf_version, request):
+def browser(page: Page, pf_version: str, request):
     testing_page_url = urljoin(TESTING_PAGES.get(pf_version), request.module.TESTING_PAGE_COMPONENT)
-    selenium.get(testing_page_url)
+    page.goto(testing_page_url)
     print(f"Testing page: {testing_page_url}")
-    browser = Browser(selenium)
+    browser = Browser(page)
     if browser.elements(".//button[@aria-label='Close banner']"):
         browser.click(".//button[@aria-label='Close banner']")
     yield browser
-    selenium.refresh()
+    browser.refresh()
 
 
 # Registering custom markers
