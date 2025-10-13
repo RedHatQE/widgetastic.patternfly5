@@ -32,9 +32,13 @@ class Legend(ParametrizedView):
             self.browser.elements(self.LEGEND_ICON_ITEMS),
             self.browser.elements(self.LEGEND_LABEL_ITEMS),
         ):
-            color = icon.value_of_css_property("fill")
+            color = icon.evaluate(
+                "element => window.getComputedStyle(element).getPropertyValue('fill')"
+            )
             if not color:
-                color = icon.value_of_css_property("color")
+                color = icon.evaluate(
+                    "element => window.getComputedStyle(element).getPropertyValue('color')"
+                )
             _data[self.browser.text(label_el)] = color
         return _data
 
