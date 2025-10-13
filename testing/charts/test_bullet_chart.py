@@ -63,7 +63,7 @@ def chart_data(browser, request):
 
     test_data = TEST_DATA[request.param]
     anchor_id = test_data["anchor"]
-    anchor = browser.element(f".//h3[@id='{anchor_id}']/a")
+    anchor = browser.element(f".//h3[@id='{anchor_id}']")
     browser.click(anchor)
     return (
         BulletChart(
