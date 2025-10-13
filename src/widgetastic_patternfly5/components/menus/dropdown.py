@@ -1,7 +1,7 @@
 from contextlib import contextmanager
 
 from cached_property import cached_property
-from widgetastic.exceptions import NoSuchElementException, UnexpectedAlertPresentException
+from widgetastic.exceptions import NoSuchElementException
 from widgetastic.utils import ParametrizedLocator
 from widgetastic.widget import Widget
 from widgetastic.xpath import quote
@@ -202,11 +202,7 @@ class BaseDropdown:
                 self.browser.handle_alert(cancel=not handle_alert, wait=10.0)
                 self.browser.plugin.ensure_page_safe()
         finally:
-            try:
-                self.close(ignore_nonpresent=True)
-            except UnexpectedAlertPresentException:
-                self.logger.warning("There is an unexpected alert present.")
-                pass
+            self.close(ignore_nonpresent=True)
 
     @property
     def button_text(self):
