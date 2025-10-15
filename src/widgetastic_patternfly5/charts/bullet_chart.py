@@ -1,5 +1,7 @@
 import re
+import time
 
+from cached_property import cached_property
 from widgetastic.utils import ParametrizedLocator
 from widgetastic.widget import Text, View
 from widgetastic.xpath import quote
@@ -21,7 +23,7 @@ class BulletChart(View):
     ROOT = ParametrizedLocator("{@locator}")
 
     DEFAULT_LOCATOR = ".//div[contains(@class, 'chartbullet')]"
-    ITEMS = ".//*[name()='g']/*[name()='path' and not(contains(@style, 'type:square'))]"
+    ITEMS = "//*[name()='g' and not(./*[name()='rect'])]/*[name()='path']"
     TOOLTIP_REGEX = re.compile(r"(.*?): ([\d]+)")
     APPLY_OFFSET = True
 
@@ -73,20 +75,20 @@ class BulletChart(View):
         except StopIteration:
             return None
 
-    @property
+    @cached_property
     def data(self):
         """Read graph and returns all Data Point objects."""
         _data = []
         # focus away from graph
         self.parent_browser.move_to_element("//body")
-
         for el in self.browser.elements(self.ITEMS):
-            self.browser.move_to_element(el)
-            self.browser.click(el)
+            time.sleep(0.2)
+            # Sometime path elements are not interactable so use force click.
+            self.browser.click(el, force=True)
 
             if self.APPLY_OFFSET:
                 dx, dy = self._offsets(el)
-                self.browser.move_by_offset(dx, dy)
+                self.browser.move_by_offset(origin=el, x=dx, y=dy)
 
             match = self.TOOLTIP_REGEX.match(self.tooltip.text)
             if match:
@@ -94,7 +96,9 @@ class BulletChart(View):
                     DataPoint(
                         label=match.groups()[0],
                         value=int(match.groups()[1]),
-                        color=el.value_of_css_property("fill"),
+                        color=el.evaluate(
+                            "element => window.getComputedStyle(element).getPropertyValue('fill')"
+                        ),
                     )
                 )
         return _data
