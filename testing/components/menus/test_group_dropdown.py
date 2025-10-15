@@ -5,7 +5,7 @@ from widgetastic_patternfly5 import (
     GroupDropdown,
 )
 
-TESTING_PAGE_COMPONENT = "components/menus/dropdown/react/with-groups-of-items"
+TESTING_PAGE_COMPONENT = "components/menus/dropdown"
 
 
 @pytest.fixture()

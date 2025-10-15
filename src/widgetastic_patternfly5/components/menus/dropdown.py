@@ -87,7 +87,7 @@ class BaseDropdown:
         # def _click():
         #     self.browser.click(self.BUTTON_LOCATOR)
         #     return self.is_open
-        el = self.browser.wait_for_element(self.BUTTON_LOCATOR)
+        el = self.browser.element(self.BUTTON_LOCATOR)
         self.browser.click(el)
         return self.is_open
 
