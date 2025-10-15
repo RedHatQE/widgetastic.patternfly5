@@ -83,7 +83,7 @@ class LineChart(View):
         _data = {}
 
         for lab_el in self._x_axis_labels_map.values():
-            # self.browser.move_to_element(lab_el)
+            # Sometime path elements are not interactable so use force click.
             self.browser.click(lab_el, force=True)
             self.browser.move_by_offset(lab_el, *offset)
             tooltip_el = self.browser.wait_for_element(self.TOOLTIP)

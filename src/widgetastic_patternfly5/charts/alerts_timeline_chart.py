@@ -48,6 +48,7 @@ class AlertsTimelineChart(LineChart):
             _row_data = []
             for line_el in lines_el:
                 self.browser.move_to_element(line_el)
+                # Sometime path elements are not interactable so use force click.
                 self.browser.click(line_el, force=True)
                 tooltip_el = self.browser.wait_for_element(self.TOOLTIP)
 
