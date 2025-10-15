@@ -49,42 +49,41 @@ def browser_name(pytestconfig):
 
 
 @pytest.fixture(scope="session")
-def headless_mode(request):
-    """Determine if tests should run in headless mode."""
-    if request.config.getoption("--headless"):
-        return True
-    return False
-
-
-@pytest.fixture(scope="session")
-def slowmo_delay(request):
-    """Get slowmo delay from command line argument."""
-    return request.config.getoption("--slowmo")
-
-
-@pytest.fixture(scope="session")
 def pf_version(pytestconfig) -> str:
     return os.environ.get("PF-VERSION") or pytestconfig.getoption("--pf-version")
 
 
+def pytest_report_header(config):
+    """Add browser configuration info to pytest report header."""
+    browser_name = os.environ.get("BROWSER") or config.getoption("--browser")
+    pf_version = os.environ.get("PF-VERSION") or config.getoption("--pf-version")
+    headless_mode = config.getoption("--headless")
+    slowmo_delay = config.getoption("--slowmo")
+
+    mode = "headless" if headless_mode else "headed"
+    slowmo_info = f" with {slowmo_delay}ms slowmo" if slowmo_delay > 0 else ""
+
+    return [
+        f"Browser: {browser_name} ({mode} mode){slowmo_info}",
+        f"PatternFly Version: {pf_version}",
+        f"Testing Page: {TESTING_PAGES.get(pf_version)}",
+    ]
+
+
 @pytest.fixture(scope="session")
-def playwright_browser_instance(
-    browser_name: str, headless_mode: bool, slowmo_delay: int
-) -> PlaywrightBrowser:
+def playwright_browser_instance(request, browser_name: str) -> PlaywrightBrowser:
     """Launches a Playwright browser instance."""
     with sync_playwright() as p:
         # Select browser based on command line argument (default to chromium)
+        headless_mode = request.config.getoption("--headless")
+        slowmo_delay = request.config.getoption("--slowmo")
+
         if browser_name == "firefox":
             py_browser = p.firefox.launch(headless=headless_mode, slow_mo=slowmo_delay)
         else:
             py_browser = p.chromium.launch(headless=headless_mode, slow_mo=slowmo_delay)
 
-        slowmo_info = f" with {slowmo_delay}ms slowmo" if slowmo_delay > 0 else ""
-        print(
-            f"\nLaunching {browser_name} browser ({'headless' if headless_mode else 'headed'} mode){slowmo_info}"
-        )
         yield py_browser
-        print(f"\nClosing {browser_name} browser")
         py_browser.close()
 
 

@@ -3,7 +3,8 @@ name: tests
 on:
   push:
     branches:
-      - main
+      - feature-playwright
+#      - main
   pull_request:
     types: ["opened", "synchronize", "reopened"]
   create:

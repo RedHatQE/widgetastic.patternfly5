@@ -82,8 +82,8 @@ class BulletChart(View):
         # focus away from graph
         self.parent_browser.move_to_element("//body")
         for el in self.browser.elements(self.ITEMS):
-            # self.browser.move_to_element(el)
             time.sleep(0.2)
+            # Sometime path elements are not interactable so use force click.
             self.browser.click(el, force=True)
 
             if self.APPLY_OFFSET:
