@@ -16,7 +16,6 @@ class BaseCalendarMonth:
     https://www.patternfly.org/components/date-and-time/calendar-month
     """
 
-    CALENDAR_HEADER = ".//div[contains(@class, '-c-calendar-month__header')]"
     MONTH_SELECT_LOCATOR = ".//div[contains(@class, '-c-calendar-month__header-month')]"
     _month_select_widget = Select(locator=MONTH_SELECT_LOCATOR)
     YEAR_INPUT_LOCATOR = ".//div[contains(@class, '-c-calendar-month__header-year')]//input"
