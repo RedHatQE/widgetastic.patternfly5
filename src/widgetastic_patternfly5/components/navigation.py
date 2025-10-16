@@ -56,9 +56,7 @@ class BaseNavigation:
     def nav_links(self, *levels):
         """Returns a list of all navigation items."""
         if not levels:
-            return [
-                el.get_property("textContent").strip() for el in self.browser.elements(self.ITEMS)
-            ]
+            return [self.browser.text(el) for el in self.browser.elements(self.ITEMS)]
         current_item = self
         for i, level in enumerate(levels):
             li = self.browser.element(
@@ -73,8 +71,7 @@ class BaseNavigation:
                 else:
                     raise
         return [
-            el.get_property("textContent").strip()
-            for el in self.browser.elements(self.ITEMS, parent=current_item)
+            self.browser.text(el) for el in self.browser.elements(self.ITEMS, parent=current_item)
         ]
 
     @check_nav_loaded
