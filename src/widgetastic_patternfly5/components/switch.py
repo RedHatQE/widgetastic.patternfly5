@@ -12,10 +12,10 @@ class BaseSwitch:
     https://www.patternfly.org/components/switch
     """
 
-    CHECKBOX_LOCATOR = "./input"
-    PF_5_LABEL_ON = "./span[contains(@class, 'pf-m-on')]"
-    PF_5_LABEL_OFF = "./span[contains(@class, 'pf-m-off')]"
-    PF_6_LABLE = "./span[contains(@class, '-c-switch__label')]"
+    CHECKBOX_LOCATOR = ".//input"
+    PF_5_LABEL_ON = ".//span[contains(@class, 'pf-m-on')]"
+    PF_5_LABEL_OFF = ".//span[contains(@class, 'pf-m-off')]"
+    PF_6_LABEL = ".//span[contains(@class, '-c-switch__label')]"
 
     @property
     def is_enabled(self):
@@ -26,32 +26,36 @@ class BaseSwitch:
         """Click on a Switch."""
         if not self.is_enabled:
             raise SwitchDisabled(f"{repr(self)} is disabled")
-        else:
-            self.browser.click(self.CHECKBOX_LOCATOR)
-            return True
+
+        self.browser.click(self.CHECKBOX_LOCATOR, force=True)
+        return True
 
     @property
     def selected(self):
         """Returns a boolean detailing if the Switch is on (True) of off (False)."""
-        return self.browser.get_attribute("checked", self.CHECKBOX_LOCATOR) is not None
+        return self.browser.is_checked(self.CHECKBOX_LOCATOR)
 
-    def fill(self, value):
+    def fill(self, value: bool):
         """Fills a Switch with the supplied value."""
         if not self.is_enabled:
             raise SwitchDisabled(f"{repr(self)} is disabled")
-        if bool(value) == self.selected:
+        if value == self.selected:
             return False
+
+        el = self.browser.element(self.CHECKBOX_LOCATOR)
+        if value:
+            el.check(force=True)
         else:
-            self.browser.click(self.CHECKBOX_LOCATOR)
-            return True
+            el.uncheck(force=True)
+        return True
 
     @property
     def label(self):
         """Returns the label of the Switch."""
         if self.selected:
-            return self._read_locator(self.PF_5_LABEL_ON) or self._read_locator(self.PF_6_LABLE)
+            return self._read_locator(self.PF_5_LABEL_ON) or self._read_locator(self.PF_6_LABEL)
         else:
-            return self._read_locator(self.PF_5_LABEL_OFF) or self._read_locator(self.PF_6_LABLE)
+            return self._read_locator(self.PF_5_LABEL_OFF) or self._read_locator(self.PF_6_LABEL)
 
     def read(self):
         """Returns a boolean detailing if the Switch is on (True) of off (False)."""
