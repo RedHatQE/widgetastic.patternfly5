@@ -35,6 +35,7 @@ dev = [
   "pytest-cov",
   "pytest-xdist",
   "pytest-rerunfailures",
+  "pytest-timeout",
   "codecov",
 ]
 doc = ["sphinx"]
