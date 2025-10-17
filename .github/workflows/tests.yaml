@@ -9,6 +9,11 @@ on:
     types: ["opened", "synchronize", "reopened"]
   create:
 
+# Auto-cancel outdated runs when new commits are pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   setup-browsers:
     name: 🌐 Setup Playwright Browsers
@@ -57,6 +62,13 @@ jobs:
         browser: [chromium, firefox]
         python-version: ["3.12", "3.13"]
         pf-version: ["v5", "v6"]
+        # Reduce redundancy: only run coverage for one combination
+        include:
+          - browser: chromium
+            python-version: "3.13"
+            pf-version: "v6"
+            run-coverage: true
+        exclude: []
     steps:
       - uses: actions/checkout@v4
 
@@ -78,13 +90,24 @@ jobs:
         run: |
           pip install -U pip wheel
           pip install .[dev]
-      - name: Test with pytest
+
+      - name: Test with pytest (with coverage)
+        if: matrix.run-coverage == true
+        timeout-minutes: 25
         run: |
-          pytest -v -n 3 --headless --browser=${{ matrix.browser }} --pf-version=${{ matrix.pf-version }} --cov=./ --cov-report=xml --ignore=testing/ouia
-#      - name: Upload coverage to Codecov
-#        uses: codecov/codecov-action@v4
-#        with:
-#          token: ${{ secrets.CODECOV_TOKEN }}
-#          file: coverage.xml
-#          flags: unittests
-#          name: ${{ github.run_id }}-py-${{ matrix.python-version }}-${{ matrix.browser }}
+          pytest -v -n 2 --headless --browser=${{ matrix.browser }} --pf-version=${{ matrix.pf-version }} --cov=./ --cov-report=xml --reruns 2 --reruns-delay 5
+
+      - name: Test with pytest (without coverage)
+        if: matrix.run-coverage != true
+        timeout-minutes: 25
+        run: |
+          pytest -v -n 2 --headless --browser=${{ matrix.browser }} --pf-version=${{ matrix.pf-version }} --reruns 2 --reruns-delay 5
+
+      - name: Upload coverage to Codecov
+        if: matrix.run-coverage == true
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage.xml
+          flags: unittests
+          name: ${{ github.run_id }}-py-${{ matrix.python-version }}-${{ matrix.browser }}

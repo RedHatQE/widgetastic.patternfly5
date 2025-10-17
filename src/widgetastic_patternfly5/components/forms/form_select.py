@@ -1,4 +1,3 @@
-from selenium.webdriver.support.ui import Select
 from widgetastic.exceptions import NoSuchElementException
 from widgetastic.widget import GenericLocatorWidget
 
@@ -67,10 +66,6 @@ class BaseFormSelect:
             if not group_disabled and not element_disabled:
                 result.append(self.browser.text(el))
         return result
-
-    @property
-    def _select_element(self):
-        return Select(self.__element__())
 
     def fill(self, value):
         """Select desired option in FormSelect.

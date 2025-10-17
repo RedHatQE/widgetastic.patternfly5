@@ -35,7 +35,8 @@ def test_title(modal):
 
 def test_body(modal):
     body = modal.body
-    assert body.text.startswith("Lorem")
+    body_text = body.text_content().strip()
+    assert body_text.startswith("Lorem")
 
 
 def test_close(modal):
@@ -52,7 +53,7 @@ def test_footer_items(modal):
 
 def test_footer_item(modal):
     item = modal.footer_item("Confirm")
-    assert item.text == "Confirm"
+    assert item.text_content().strip() == "Confirm"
     item.click()
     assert not modal.is_displayed
 
@@ -67,4 +68,4 @@ def test_footer_item_invalid(modal):
 def test_modal_as_view(browser, modal):
     view = CustomModal(browser, "BasicModal")
     assert view.is_displayed
-    assert view.custom_body.text == modal.body.text
+    assert view.custom_body.text == modal.body.text_content().strip()
