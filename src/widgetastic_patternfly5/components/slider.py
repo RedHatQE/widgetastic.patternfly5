@@ -1,4 +1,3 @@
-from selenium.webdriver.common.keys import Keys
 from widgetastic.widget import GenericLocatorWidget
 
 
@@ -12,7 +11,7 @@ class BaseSlider:
     THUMB = ".//div[contains(@class, '-c-slider__thumb')]"
     STEPS = (
         ".//div[contains(@class, '-c-slider__steps')]"
-        "/child::div[contains(@class, '-c-slider__step')]"
+        "//child::div[contains(@class, '-c-slider__step-tick')]"
     )
 
     def _str_num(self, value):
@@ -79,7 +78,7 @@ class BaseSlider:
         source_el = el_map[self.text] if self.text in el_map else self.browser.element(self.THUMB)
         self.browser.move_to_element(source_el)
         self.browser.drag_and_drop(source_el, target_el)
-        self.browser.click(target_el)
+        self.browser.click(target_el, force=True)
         return True
 
     def read(self):
@@ -99,6 +98,7 @@ class InputSlider(Slider):
         if self.text == value:
             return False
         el = self.browser.element(self.INPUT)
-        el.send_keys(Keys.CONTROL + "a")
-        el.send_keys(str(value) + Keys.ENTER)
+        el.press("Control+A")
+        el.fill(str(value))
+        el.press("Enter")
         return True
