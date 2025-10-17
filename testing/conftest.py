@@ -40,7 +40,6 @@ def pytest_addoption(parser):
         choices=("v6", "v5"),
         default="v6",
     )
-    parser.addoption("--force-host", default=None, help="force a selenium hostname")
 
 
 @pytest.fixture(scope="session")
