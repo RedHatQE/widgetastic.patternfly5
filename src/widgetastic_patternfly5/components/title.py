@@ -9,11 +9,11 @@ class BaseTitle:
 
     @property
     def heading_level(self):
-        return self.browser.element(self, parent=self.parent).tag_name
+        return self.browser.tag(self)
 
     @property
     def text(self):
-        return self.browser.text(self, parent=self.parent)
+        return self.browser.text(self)
 
     def read(self):
         return self.text
