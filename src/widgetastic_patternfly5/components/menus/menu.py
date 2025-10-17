@@ -208,7 +208,7 @@ class BaseCheckboxMenu(BaseMenu):
                     # get the child element of the label
                     selected[item] = self.browser.element(
                         parent=el, locator=".//input"
-                    ).is_selected()
+                    ).is_checked()
                 except NoSuchElementException:
                     selected[item] = False
 

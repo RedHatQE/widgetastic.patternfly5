@@ -11,10 +11,10 @@ class AlertsTimelineChart(LineChart):
         locator: If you have specific locator else it will take pf-chart.
     """
 
-    Y_AXIS_ROW = "./*[name()='svg']/*[name()='g'][3]/*[name()='g']"
-    Y_AXIS_ROW_LINE = "./*[name()='path']"
+    Y_AXIS_ROW = ".//*[name()='svg']/*[name()='g'][3]/*[name()='g']"
+    Y_AXIS_ROW_LINE = ".//*[name()='path']"
 
-    TOOLTIP = "./*[name()='svg']/*[name()='g'][5]"
+    TOOLTIP = ".//*[name()='svg']/*[name()='g'][5]"
     TOOLTIP_X_AXIS_LABLE = None
     TOOLTIP_LABLES = None
     TOOLTIP_VALUES = ".//*[name()='text']/*[name()='tspan']"
@@ -48,7 +48,8 @@ class AlertsTimelineChart(LineChart):
             _row_data = []
             for line_el in lines_el:
                 self.browser.move_to_element(line_el)
-                self.browser.click(line_el)
+                # Sometime path elements are not interactable so use force click.
+                self.browser.click(line_el, force=True)
                 tooltip_el = self.browser.wait_for_element(self.TOOLTIP)
 
                 label_data = {}

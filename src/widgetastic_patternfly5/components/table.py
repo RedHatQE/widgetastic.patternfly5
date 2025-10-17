@@ -1,4 +1,4 @@
-from selenium.common.exceptions import NoSuchElementException
+from widgetastic.exceptions import NoSuchElementException
 from widgetastic.log import create_item_logger
 from widgetastic.widget import Table, TableColumn, TableRow, Text, Widget
 from widgetastic.widget.table import resolve_table_widget
@@ -302,7 +302,7 @@ class ExpandableTable(BaseExpandableTable, PatternflyTable):
 
 
 class ExpandableColumn(TableColumn):
-    EXPAND_LOCATOR = "./button"
+    EXPAND_LOCATOR = ".//button"
 
     def __init__(
         self,

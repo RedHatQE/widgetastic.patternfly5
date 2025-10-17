@@ -20,10 +20,7 @@ class BaseClipboardCopy:
     def is_editable(self):
         if self.is_inline:
             return False
-        if self.browser.get_attribute("readonly", self.text):
-            return False
-        else:
-            return True
+        return "readonly" not in self.browser.attributes(self.text)
 
     @property
     def is_inline(self):

@@ -18,11 +18,11 @@ DATA_POINTS = [DataPoint(label, value) for label, value in DATA.items()]
     params=[
         {
             "id": "-c-pie-chart-multi-color-ordered-with-bottom-aligned-legend",
-            "anchor": "#multi-color-ordered-with-bottom-aligned-legend",
+            "anchor": "multi-color-ordered-with-bottom-aligned-legend",
         },
         {
             "id": "-c-pie-chart-basic-with-right-aligned-legend",
-            "anchor": "#basic-with-right-aligned-legend",
+            "anchor": "basic-with-right-aligned-legend",
         },
     ],
     ids=["bottom-aligned", "right-aligned"],
@@ -31,7 +31,7 @@ def chart(browser, request):
     sleep(3)  # Stabilized graph data on testing page; specially for firefox.
     # Firefox fails the test if the chart is not fully visible therefore we click here on anchor
     # in order to properly scroll down
-    anchor = browser.element(f".//a[@href='{request.param['anchor']}']")
+    anchor = browser.element(f".//h3[@id='{request.param['anchor']}']")
     browser.click(anchor)
     return PieChart(browser, locator=f".//div[contains(@id, {quote(request.param['id'])})]")
 

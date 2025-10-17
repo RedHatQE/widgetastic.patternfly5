@@ -1,5 +1,4 @@
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.keys import Keys
+from widgetastic.exceptions import NoSuchElementException
 from widgetastic.utils import ParametrizedLocator
 from widgetastic.widget import Widget
 from widgetastic.xpath import quote
@@ -17,18 +16,15 @@ class BaseCalendarMonth:
     https://www.patternfly.org/components/date-and-time/calendar-month
     """
 
-    CALENDAR_HEADER = ".//div[contains(@class, '-c-calendar-month__header')]"
-    MONTH_SELECT_LOCATOR = f"{CALENDAR_HEADER}//div[contains(@class, 'header-month')]"
+    MONTH_SELECT_LOCATOR = ".//div[contains(@class, '-c-calendar-month__header-month')]"
     _month_select_widget = Select(locator=MONTH_SELECT_LOCATOR)
-    YEAR_INPUT_LOCATOR = (
-        f"{CALENDAR_HEADER}//div[contains(@class, '-c-calendar-month__header-year')]//input"
-    )
+    YEAR_INPUT_LOCATOR = ".//div[contains(@class, '-c-calendar-month__header-year')]//input"
     DATE_LOCATOR = (
         ".//button[text()={date} and not(ancestor::td[contains(@class, 'pf-m-adjacent-month')])]"
     )
 
-    PREV_BUTTON_LOCATOR = f"{CALENDAR_HEADER}//div[contains(@class, 'prev-month')]"
-    NEXT_BUTTON_LOCATOR = f"{CALENDAR_HEADER}//div[contains(@class, 'next-month')]"
+    PREV_BUTTON_LOCATOR = ".//div[contains(@class, 'prev-month')]"
+    NEXT_BUTTON_LOCATOR = ".//div[contains(@class, 'next-month')]"
 
     TABLE = ".//table"
     SELECTED_DATE_LOCATOR = f"{TABLE}/tbody//td[contains(@class, 'pf-m-selected')]"
@@ -46,14 +42,13 @@ class BaseCalendarMonth:
 
     @year.setter
     def year(self, value):
-        el = self.browser.element(self.YEAR_INPUT_LOCATOR)
-        el.send_keys(Keys.CONTROL + "a")
-        el.send_keys(str(value) + Keys.ENTER)
+        self.browser.fill(str(value), self.YEAR_INPUT_LOCATOR)
+        # value attribute not setting at same time we need release that web element.
+        self.root_browser.click(".//body")
 
     @property
     def month(self):
-        el = self.browser.element(self.MONTH_SELECT_LOCATOR)
-        return self.browser.text(el)
+        return self._month_select_widget.read()
 
     @month.setter
     def month(self, value):
@@ -62,10 +57,9 @@ class BaseCalendarMonth:
     @property
     def day(self):
         try:
-            el = self.browser.element(self.SELECTED_DATE_LOCATOR)
+            return self.browser.text(self.SELECTED_DATE_LOCATOR)
         except NoSuchElementException:
             return ""
-        return self.browser.text(el)
 
     @day.setter
     def day(self, value):

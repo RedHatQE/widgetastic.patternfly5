@@ -23,7 +23,7 @@ def test_cards_displayed(pfy_card):
 
 def test_card_content(pfy_card):
     assert pfy_card.title == "PatternFly"
-    assert pfy_card.body.text == (
+    assert pfy_card.body.text_content() == (
         "PatternFly is a community project that promotes design commonality and "
         "improves user experience."
     )

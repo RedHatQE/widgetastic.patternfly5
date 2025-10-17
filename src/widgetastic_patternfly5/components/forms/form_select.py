@@ -90,11 +90,11 @@ class BaseFormSelect:
             raise FormSelectOptionDisabled(
                 f'Option "{value}" is disabled in {repr(self)}. Enabled options are: {self.all_enabled_options}'
             )
-        self._select_element.select_by_visible_text(value)
+        self.__element__().select_option(label=value)
 
     def read(self):
         """Returns selected option."""
-        return self.browser.text(self._select_element.first_selected_option)
+        return self.browser.text("option:checked")
 
     def __repr__(self):
         return f"{type(self).__name__}({self.locator!r})"

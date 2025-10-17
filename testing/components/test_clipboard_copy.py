@@ -9,7 +9,6 @@ TESTING_PAGE_COMPONENT = "components/clipboard-copy"
 @pytest.fixture
 def view(browser):
     class TestView(View):
-        ROOT = ".//div[@id='ws-react-c-clipboard-copy-basic']"
         clipboardEditable = ClipboardCopy(
             locator="//div[@id='ws-react-c-clipboard-copy-basic']/div[1]"
         )

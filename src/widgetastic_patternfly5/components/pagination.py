@@ -1,7 +1,6 @@
 import math
 from contextlib import contextmanager
 
-from selenium.webdriver.common.keys import Keys
 from widgetastic.utils import ParametrizedLocator
 from widgetastic.widget import GenericLocatorWidget, Text, TextInput, View
 
@@ -43,7 +42,7 @@ class BasePagination:
         Returns ``True`` when pagination dropdown button is enabled along with next & last button.
         """
         el = self.browser.element(self._last)
-        last_flag = el.is_enabled() if el.is_displayed() else True
+        last_flag = el.is_enabled() if el.is_visible() else True
         return (
             self.browser.element(self._options.BUTTON_LOCATOR).is_enabled()
             and self.browser.element(self._next).is_enabled()
@@ -178,7 +177,7 @@ class BasePagination:
     def go_to_page(self, value):
         """Navigate to custom page number."""
         self._current_page.fill(value)
-        self.browser.send_keys(Keys.RETURN, self._current_page)
+        self._current_page.__element__().press("Enter")
 
     def __iter__(self):
         if self.current_page > 1:
