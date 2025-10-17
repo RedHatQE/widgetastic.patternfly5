@@ -25,16 +25,16 @@ def test_dual_list_selector_is_displayed(view):
 
 
 def test_available(view):
-    view.dual_list_selector._available.is_displayed()
+    assert view.dual_list_selector._available.is_visible()
 
 
 def test_chosen(view):
-    assert view.dual_list_selector._chosen.is_displayed()
+    assert view.dual_list_selector._chosen.is_visible()
 
 
 def test_get_left_list(view):
     left_list = view.dual_list_selector._left_list
-    assert left_list.is_displayed()
+    assert left_list.is_visible()
 
 
 def test_get_left_elements(view):
@@ -44,7 +44,7 @@ def test_get_left_elements(view):
 
 def test_get_right_list(view):
     right_list = view.dual_list_selector._right_list
-    assert right_list.is_displayed()
+    assert right_list.is_visible()
 
 
 def test_get_right_elements(view):
@@ -127,7 +127,7 @@ def test_reset_selected(view, request):
 
     view.dual_list_selector.select(["Option 1"])
     left_elements = view.dual_list_selector._left_elements
-    selected_element = next(el for el in left_elements if el.text == "Option 1")
+    selected_element = next(el for el in left_elements if el.text_content() == "Option 1")
     assert selected_element.get_attribute("aria-selected") == "true"
     view.dual_list_selector.reset_selected()
     assert selected_element.get_attribute("aria-selected") == "false"
@@ -135,7 +135,7 @@ def test_reset_selected(view, request):
     view.dual_list_selector.select_and_move(["Option 2"])
     view.dual_list_selector.select(["Option 2"], left_items=False)
     right_elements = view.dual_list_selector._right_elements
-    selected_element = next(el for el in right_elements if el.text == "Option 2")
+    selected_element = next(el for el in right_elements if el.text_content() == "Option 2")
     assert selected_element.get_attribute("aria-selected") == "true"
     view.dual_list_selector.reset_selected(left_items=False)
     assert selected_element.get_attribute("aria-selected") == "false"
@@ -159,11 +159,11 @@ def test_select_and_move(view, request):
     view.dual_list_selector.select_and_move(["Option 2"])
     selected_items = view.dual_list_selector._right_elements
     assert len(selected_items) == 1
-    assert selected_items[0].text == "Option 2"
+    assert selected_items[0].text_content() == "Option 2"
 
 
 def test_search(view):
     view.dual_list_selector_with_search.search("Option 1")
     items = view.dual_list_selector_with_search._left_elements
     assert len(items) == 1
-    assert items[0].text == "Option 1"
+    assert items[0].text_content() == "Option 1"

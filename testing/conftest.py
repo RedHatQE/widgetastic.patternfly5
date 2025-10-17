@@ -90,7 +90,7 @@ def playwright_browser_instance(request, browser_name: str) -> PlaywrightBrowser
 @pytest.fixture(scope="session")
 def browser_context(playwright_browser_instance: PlaywrightBrowser) -> BrowserContext:
     """Creates a browser context for the entire test session."""
-    context = playwright_browser_instance.new_context()
+    context = playwright_browser_instance.new_context(viewport={"width": 1920, "height": 1080})
     yield context
     context.close()
 

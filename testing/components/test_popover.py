@@ -1,3 +1,5 @@
+import time
+
 import pytest
 from widgetastic.widget import View
 
@@ -41,4 +43,5 @@ def test_popover_footer_text_accessible(popover):
 
 def test_popover_close(popover):
     popover.close()
+    time.sleep(0.5)
     assert not popover.is_displayed

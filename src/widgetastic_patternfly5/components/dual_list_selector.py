@@ -25,11 +25,11 @@ class BaseDualListSelector:
 
     @property
     def _available(self):
-        return self.browser.element(self.AVAILABLE, parent=self)
+        return self.browser.element(self.AVAILABLE)
 
     @property
     def _chosen(self):
-        return self.browser.element(self.CHOSEN, parent=self)
+        return self.browser.element(self.CHOSEN)
 
     @property
     def _left_list(self):
@@ -41,11 +41,11 @@ class BaseDualListSelector:
 
     @property
     def _left_title(self):
-        return self.browser.element(self.SECTION_TITLE, parent=self._available).text
+        return self.browser.text(self.SECTION_TITLE, parent=self._available)
 
     @property
     def _right_title(self):
-        return self.browser.element(self.SECTION_TITLE, parent=self._chosen).text
+        return self.browser.text(self.SECTION_TITLE, parent=self._chosen)
 
     @property
     def _left_elements(self):
@@ -86,8 +86,8 @@ class BaseDualListSelector:
             right_elements = self._right_elements
             left_elements = self._left_elements
 
-        data[self._left_title] = [el.text for el in left_elements]
-        data[self._right_title] = [el.text for el in right_elements]
+        data[self._left_title] = [self.browser.text(el) for el in left_elements]
+        data[self._right_title] = [self.browser.text(el) for el in right_elements]
         return data
 
     def reset_selected(self, left_items=True):
