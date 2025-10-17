@@ -18,11 +18,29 @@
     </a>
 </p>
 
+## Overview
+
 This library offers Widgetastic Widgets for [PatternFly v5/v6](https://www.patternfly.org/), serving as an extended
-itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.patternfly4).
+iteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.patternfly4).
 
+Built on top of [widgetastic.core](https://github.com/RedHatQE/widgetastic.core) with **Playwright** as the browser
+automation engine, this library provides a robust and modern approach to UI testing for PatternFly components.
 
-### Components:
+## Installation
+
+```bash
+# Install from PyPI
+pip install widgetastic.patternfly5
+
+# Or install from source
+git clone https://github.com/RedHatQE/widgetastic.patternfly5.git
+cd widgetastic.patternfly5
+pip install -e .
+```
+
+## Supported Components
+
+### Components
 - [alert](https://www.patternfly.org/components/alert)
 - [breadcrumb](https://www.patternfly.org/components/breadcrumb)
 - [button](https://www.patternfly.org/components/button)
@@ -65,9 +83,10 @@ itteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.
 - [line-chart](https://www.patternfly.org/charts/line-chart)
 - [pie-chart](https://www.patternfly.org/charts/pie-chart)
 
-### Patterns:
+### Patterns
 - [card-view](https://www.patternfly.org/patterns/card-view)
 
+## Development
 
 ### Contribution guide
 
@@ -88,24 +107,91 @@ pip install -e .[dev]
 # if you use zsh, pip install will fail. Use this instead:
 pip install -e ".[dev]"
 
+# install Playwright browsers for testing
+playwright install chromium firefox
+playwright install-deps
+
+# setup pre-commit hooks
 pre-commit install
 ```
 
 ### Testing
 
-The library has selenium tests that are performed against [Patternfly v6 docs](https://www.patternfly.org) and [Patternfly v5 docs](https://v5-archive.patternfly.org).
-It's also configured to run the tests every time when a new version of that page is released.
+The library includes comprehensive tests that run against the official PatternFly documentation pages:
+- [PatternFly v6](https://www.patternfly.org) (latest)
+- [PatternFly v5](https://v5-archive.patternfly.org) (archived)
 
-Tests spawn a container from official selenium image - [selenium/standalone-{chrome/firefox}](https://hub.docker.com/u/selenium).
-We can check local runs via vnc `http://localhost:7900`
+Tests are powered by **Playwright**, providing fast, reliable, and modern browser automation.
 
-**Note:** Tests use `podman` to manage containers. Please install it before running.
+#### Prerequisites
 
-It's possible to run tests in parallel to speed up the execution. Make sure that you have **xdist** python plugin installed.
-
-Use `-n` key to specify a number
-of workers:
+Before running tests, install Playwright browsers:
 
 ```bash
-pytest --browser-name firefox --pf-version v5 -n 2 -vv
+# Install Playwright (included in dev dependencies)
+pip install -e ".[dev]"
+
+# Install Playwright browsers
+playwright install chromium firefox
+
+# Install system dependencies (if needed)
+playwright install-deps
+```
+
+#### Running Tests
+
+**Basic test execution:**
+
+```bash
+# Run tests with default settings (chromium, v6, headed mode)
+pytest -v
+
+# Run tests against PatternFly v5
+pytest -v --pf-version v5
+
+# Run tests with Firefox
+pytest -v --browser firefox
+
+# Run tests in headless mode (no browser window)
+pytest -v --headless
+```
+
+**Advanced options:**
+
+```bash
+# Run tests in parallel (speeds up execution)
+pytest -v -n 3 --browser chromium --pf-version v6
+
+# Run with slow motion for debugging (100ms delay between actions)
+pytest -v --slowmo 100
+
+# Run specific test file
+pytest testing/components/test_button.py -v --browser firefox
+
+# Run tests with coverage
+pytest -v --cov=./ --cov-report=html
+```
+
+**Available test options:**
+
+| Option | Choices | Default | Description |
+|--------|---------|---------|-------------|
+| `--browser` | `chromium`, `firefox` | `chromium` | Browser to use for testing |
+| `--pf-version` | `v5`, `v6` | `v6` | PatternFly version to test against |
+| `--headless` | flag | `False` | Run in headless mode (no UI) |
+| `--slowmo` | milliseconds | `0` | Slow down operations for debugging |
+| `-n` | number | `1` | Number of parallel workers (requires pytest-xdist) |
+
+
+#### Debugging Tests
+
+When debugging, it's helpful to:
+1. Run tests in **headed mode** (without `--headless`) to see browser interactions
+2. Use `--slowmo` to slow down actions and observe what's happening
+3. Run a single test file or test function instead of the entire suite
+4. Reduce parallelism (`-n 1` or remove `-n` flag) to avoid race conditions
+
+```bash
+# Debug specific test with visible browser and slow execution
+pytest testing/components/test_modal.py::test_modal_basic -v --slowmo 1000
 ```
