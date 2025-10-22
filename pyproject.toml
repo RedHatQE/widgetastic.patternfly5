@@ -22,10 +22,8 @@ name = "widgetastic.patternfly5"
 readme = "README.md"
 requires-python = ">=3.11"
 
-#TODO: Revisit after complete migration and wt.core playwright release.
 dependencies = [
-#  "widgetastic.core>=1.0.6",
-    "widgetastic.core @ git+https://github.com/RedHatQE/widgetastic.core.git",
+    "widgetastic.core>=2.0.0a2",
 ]
 
 [project.optional-dependencies]
@@ -54,9 +52,6 @@ strict-naming = false
 [tool.hatch.version]
 source = "vcs"
 raw-options.version_scheme = "calver-by-date"
-
-[tool.hatch.metadata]
-allow-direct-references = true
 
 [tool.ruff]
 line-length = 100

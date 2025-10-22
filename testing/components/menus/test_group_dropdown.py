@@ -18,7 +18,7 @@ def group_dropdown(browser):
     return dropdown
 
 
-def test_group_dropdown(group_dropdown):
+def test_group_dropdown(group_dropdown, pf_version):
     assert group_dropdown.is_displayed
     assert group_dropdown.is_enabled
     assert group_dropdown.items == [
@@ -31,7 +31,8 @@ def test_group_dropdown(group_dropdown):
     ]
     assert group_dropdown.has_item("Group 2 link")
     assert group_dropdown.item_enabled("Group 3 action")
-    assert group_dropdown.groups == ["", "Group 2", "Group 3"]
+    expected_group = ["", "Group 2", "Group 3"] if pf_version == "v5" else ["Group 2", "Group 3"]
+    assert group_dropdown.groups == expected_group
     group_dropdown.item_select("Group 3 action", group_name="Group 3")
     with pytest.raises(DropdownItemNotFound):
         group_dropdown.item_select("Group 3 action", group_name="Group 2")
