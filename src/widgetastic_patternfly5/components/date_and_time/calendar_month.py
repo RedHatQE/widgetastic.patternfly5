@@ -44,7 +44,8 @@ class BaseCalendarMonth:
     def year(self, value):
         self.browser.fill(str(value), self.YEAR_INPUT_LOCATOR)
         # value attribute not setting at same time we need release that web element.
-        self.root_browser.click(".//body")
+        el = self.browser.element(self.YEAR_INPUT_LOCATOR)
+        self.browser.execute_script("arguments[0].blur();", el)
 
     @property
     def month(self):

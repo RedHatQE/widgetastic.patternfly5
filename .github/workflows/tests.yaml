@@ -3,8 +3,7 @@ name: tests
 on:
   push:
     branches:
-      - feature-playwright
-#      - main
+      - main
   pull_request:
     types: ["opened", "synchronize", "reopened"]
   create:
@@ -95,7 +94,7 @@ jobs:
         if: matrix.run-coverage == true
         timeout-minutes: 25
         run: |
-          pytest -v -n 2 --headless --browser=${{ matrix.browser }} --pf-version=${{ matrix.pf-version }} --cov=./ --cov-report=xml --reruns 2 --reruns-delay 5
+          pytest -v -n 2 --headless --browser=${{ matrix.browser }} --pf-version=${{ matrix.pf-version }} --cov=./src --cov-report=xml --reruns 2 --reruns-delay 5
 
       - name: Test with pytest (without coverage)
         if: matrix.run-coverage != true
