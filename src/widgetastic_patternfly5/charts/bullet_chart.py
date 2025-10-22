@@ -96,9 +96,7 @@ class BulletChart(View):
                     DataPoint(
                         label=match.groups()[0],
                         value=int(match.groups()[1]),
-                        color=el.evaluate(
-                            "element => window.getComputedStyle(element).getPropertyValue('fill')"
-                        ),
+                        color=self.browser.value_of_css_property(el, "fill"),
                     )
                 )
         return _data
