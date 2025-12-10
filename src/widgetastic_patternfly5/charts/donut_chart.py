@@ -5,9 +5,9 @@ from widgetastic.xpath import quote
 
 
 class DonutLegendItem(ParametrizedView, ClickableMixin):
-    PARAMETERS = ("label_text",)
+    PARAMETERS = ("label_name",)
     ROOT = ParametrizedLocator(
-        ".//*[name()='text']/*[name()='tspan' and contains(., '{label_text}')]"
+        ".//*[name()='text']/*[name()='tspan' and contains(., '{label_name}:')]"
     )
     ALL_ITEMS = ".//*[name()='text']/*[name()='tspan']"
     LEGEND_ITEM_REGEX = re.compile(r"(.*?): ([\d]+)")
@@ -32,8 +32,14 @@ class DonutLegendItem(ParametrizedView, ClickableMixin):
 
     @classmethod
     def all(cls, browser):
-        """Returns a list of all items"""
-        return [(browser.text(el),) for el in browser.elements(cls.ALL_ITEMS)]
+        """Returns a list of all item labels"""
+        result = []
+        for el in browser.elements(cls.ALL_ITEMS):
+            text = browser.text(el)
+            # Extract just the label
+            label, _ = cls._get_legend_item(text)
+            result.append((label,))
+        return result
 
 
 class DonutLegend(View):
