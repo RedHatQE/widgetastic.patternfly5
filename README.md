@@ -26,6 +26,8 @@ iteration of [widgetastic.patternfly4](https://github.com/RedHatQE/widgetastic.p
 Built on top of [widgetastic.core](https://github.com/RedHatQE/widgetastic.core) with **Playwright** as the browser
 automation engine, this library provides a robust and modern approach to UI testing for PatternFly components.
 
+> **Note**: The `main` branch now uses **Playwright** for browser automation. For the legacy Selenium implementation, please refer to the [legacy-selenium-support](https://github.com/RedHatQE/widgetastic.patternfly5/tree/legacy-selenium-support) branch.
+
 ## Installation
 
 ```bash
