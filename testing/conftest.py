@@ -94,7 +94,7 @@ def browser_context(playwright_browser_instance: PlaywrightBrowser) -> BrowserCo
     context.close()
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
 def page(browser_context: BrowserContext) -> Iterator[Page]:
     """Creates the initial page within the session context."""
     page = browser_context.new_page()
@@ -105,7 +105,8 @@ def page(browser_context: BrowserContext) -> Iterator[Page]:
 @pytest.fixture(scope="module")
 def browser(page: Page, pf_version: str, request):
     testing_page_url = urljoin(TESTING_PAGES.get(pf_version), request.module.TESTING_PAGE_COMPONENT)
-    page.goto(testing_page_url)
+    page.goto(testing_page_url, wait_until="networkidle")
+    page.wait_for_load_state("domcontentloaded")
     print(f"Testing page: {testing_page_url}")
     browser = Browser(page)
     if browser.elements(".//button[@aria-label='Close banner']"):
