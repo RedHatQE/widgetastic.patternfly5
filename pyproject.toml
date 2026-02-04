@@ -23,7 +23,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 
 dependencies = [
-    "widgetastic.core>=2.0.0a2",
+    "widgetastic.core>=2.0.0", # 2.x.x supports Playwright (1.x.x supports Selenium)
 ]
 
 [project.optional-dependencies]
