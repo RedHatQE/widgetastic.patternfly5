@@ -13,6 +13,9 @@ def view(browser):
         select = Select(locator=".//div[@id='ws-react-c-select-single-select']")
         checkbox_select = CheckboxSelect(locator='.//div[@id="ws-react-c-select-checkbox-select"]')
         typeahead_select = TypeaheadSelect(locator=".//div[@id='ws-react-c-select-typeahead']")
+        typeahead_create_select = TypeaheadSelect(
+            locator=".//div[@id='ws-react-c-select-typeahead-with-create-option']"
+        )
 
     yield TestView(browser)
 
@@ -159,3 +162,34 @@ def test_typeahead_select_item_select(typeahead_select):
     with pytest.raises(SelectItemNotFound):
         typeahead_select.fill("Non existing item")
     assert not typeahead_select.is_open
+
+
+@pytest.fixture
+def typeahead_create_select(view):
+    yield view.typeahead_create_select
+
+
+def test_typeahead_create_select_new_item(typeahead_create_select):
+    """Test TypeaheadSelect with create_item option for creating new items."""
+    assert typeahead_create_select.is_displayed
+
+    # Selecting an existing item should work normally
+    typeahead_create_select.fill("Alabama")
+    assert typeahead_create_select.read() == "Alabama"
+    assert not typeahead_create_select.is_open
+
+    # Same value should report no change
+    assert typeahead_create_select.fill("Alabama") is False
+
+    # Non-existing value without create_item should raise
+    with pytest.raises(SelectItemNotFound):
+        typeahead_create_select.fill("NonExistentItem")
+
+    # create_item=True with an existing item should select it normally
+    assert typeahead_create_select.fill("Florida", create_item=True) is True
+    assert typeahead_create_select.read() == "Florida"
+
+    # create_item=True with a new value should create and select it
+    assert typeahead_create_select.fill("MyNewOption", create_item=True) is True
+    assert typeahead_create_select.read() == "MyNewOption"
+    assert not typeahead_create_select.is_open
