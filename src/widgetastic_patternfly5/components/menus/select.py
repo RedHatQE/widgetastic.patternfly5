@@ -191,15 +191,40 @@ class CheckboxSelect(BaseCheckboxSelect, Dropdown):
 
 
 class BaseTypeaheadSelect(BaseSelect):
+    """Represents the Patternfly Typeahead Select.
+
+    https://www.patternfly.org/components/menus/select/#typeahead
+    """
+
     BUTTON_LOCATOR = (
         ".//button[(contains(@class, '-c-select__toggle') "
         "or contains(@class, '-c-menu-toggle')) "
         "and not(contains(@class, '-c-select__toggle-clear'))]"
     )
+    CREATE_ITEM_LOCATOR = ".//button[@id='select-typeahead-create']"
     input = TextInput(locator=".//input")
 
     def read(self):
         return self.browser.get_attribute("value", self.input)
+
+    def fill(self, value, create_item=False):
+        """Fills a TypeaheadSelect with a value.
+
+        Args:
+            value: The value to fill in or select.
+            create_item: If True, types the value and clicks the 'Create' option
+                         when the item is not found in the existing options.
+        """
+        if self.read() == value:
+            return False
+
+        if create_item and value not in self.items:
+            self.input.fill(value)
+            self.root_browser.click(self.CREATE_ITEM_LOCATOR)
+            return True
+        else:
+            self.item_select(value)
+            return True
 
 
 class TypeaheadSelect(BaseTypeaheadSelect, Dropdown):
