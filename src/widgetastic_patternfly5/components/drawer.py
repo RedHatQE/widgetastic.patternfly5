@@ -1,3 +1,5 @@
+import time
+
 from widgetastic.utils import ParametrizedLocator
 from widgetastic.widget import View
 
@@ -20,10 +22,13 @@ class BaseDrawer:
     def close(self):
         """Close drawer."""
         if self.is_open:
+            self.logger.info("Closing drawer")
             for _ in range(3):
                 if self.close_btn.is_displayed:
                     self.close_btn.click()
+                    time.sleep(0.5)
                 if not self.is_open:
+                    self.logger.info("Drawer closed")
                     return True
         return False
 
