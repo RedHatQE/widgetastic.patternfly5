@@ -15,7 +15,7 @@ def paginator(browser):
         paginator = PaginationOUIA("PaginationTop")
 
     paginator = TestView(browser).paginator
-    wait_for(lambda: paginator.is_displayed, num_sec=10)
+    wait_for(lambda: paginator.is_displayed, timeout=10)
     yield paginator
     try:
         paginator.first_page()
