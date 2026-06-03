@@ -21,20 +21,30 @@ jobs:
     outputs:
       playwright-version: ${{ steps.playwright-version.outputs.version }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install Playwright
-        run: pip install playwright
+      - name: Install hatch
+        run: pip install hatch
+
+      - name: Cache hatch environment
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/hatch
+          key: hatch-${{ runner.os }}-3.11-${{ hashFiles('pyproject.toml') }}
+          restore-keys: |
+            hatch-${{ runner.os }}-3.11-
+
+      - name: Create test environment
+        run: hatch env create test
 
       - name: Get Playwright version
         id: playwright-version
-        run: echo "version=$(pip show playwright | grep Version | cut -d' ' -f2)" >> $GITHUB_OUTPUT
+        run: |
+          echo "version=$(hatch run test:python -c 'import playwright; print(playwright.__version__)')" >> $GITHUB_OUTPUT
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4
@@ -47,11 +57,10 @@ jobs:
 
       - name: Install browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: |
-          playwright install chromium firefox
-          playwright install-deps
+        run: hatch run test:install-browsers
+
   test:
-    name: pf-${{ matrix.pf-version }} (🐍 ${{ matrix.python-version }}, ${{ matrix.browser }})
+    name: pf-v${{ matrix.pf-version }} (🐍 ${{ matrix.python-version }}, ${{ matrix.browser }})
     runs-on: ubuntu-latest
     needs: setup-browsers
     timeout-minutes: 30
@@ -60,12 +69,14 @@ jobs:
       matrix:
         browser: [chromium, firefox]
         python-version: ["3.12", "3.13"]
-        pf-version: ["v5", "v6"]
-        # Reduce redundancy: only run coverage for one combination
+        # Values are the numeric suffix only so they compose directly into
+        # the hatch script names pf5 / pf6 and the --pf-version=v5 / v6 flag.
+        pf-version: ["5", "6"]
+        # Run coverage only for one combination to keep CI lean
         include:
           - browser: chromium
             python-version: "3.13"
-            pf-version: "v6"
+            pf-version: "6"
             run-coverage: true
         exclude: []
     steps:
@@ -73,10 +84,21 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-           python-version: ${{ matrix.python-version }}
+          python-version: ${{ matrix.python-version }}
 
-      - name: Install Playwright
-        run: pip install playwright
+      - name: Install hatch
+        run: pip install hatch
+
+      - name: Cache hatch environment
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/hatch
+          key: hatch-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('pyproject.toml') }}
+          restore-keys: |
+            hatch-${{ runner.os }}-${{ matrix.python-version }}-
+
+      - name: Create test environment
+        run: hatch env create test
 
       - name: Restore Playwright browsers cache
         uses: actions/cache/restore@v4
@@ -85,22 +107,22 @@ jobs:
           key: playwright-${{ runner.os }}-${{ needs.setup-browsers.outputs.playwright-version }}-browsers
           fail-on-cache-miss: true
 
-      - name: Install dependencies
-        run: |
-          pip install -U pip wheel
-          pip install -e .[dev]
-
       - name: Test with pytest (with coverage)
         if: matrix.run-coverage == true
         timeout-minutes: 25
         run: |
-          pytest -v -n 2 --headless --browser=${{ matrix.browser }} --pf-version=${{ matrix.pf-version }} --cov=./src --cov-report=xml --reruns 2 --reruns-delay 5
+          hatch run test:pf${{ matrix.pf-version }} \
+            -n 2 --browser=${{ matrix.browser }} \
+            --reruns 2 --reruns-delay 5 \
+            --cov=./src --cov-report=xml
 
       - name: Test with pytest (without coverage)
         if: matrix.run-coverage != true
         timeout-minutes: 25
         run: |
-          pytest -v -n 2 --headless --browser=${{ matrix.browser }} --pf-version=${{ matrix.pf-version }} --reruns 2 --reruns-delay 5
+          hatch run test:pf${{ matrix.pf-version }} \
+            -n 2 --browser=${{ matrix.browser }} \
+            --reruns 2 --reruns-delay 5
 
       - name: Upload coverage to Codecov
         if: matrix.run-coverage == true

@@ -41,7 +41,7 @@ class Radio(BaseRadio, View):
 
     @property
     def selected(self):
-        return self.radio.selected
+        return self.browser.is_checked(self.RADIO_LOC)
 
     @property
     def disabled(self):
@@ -49,4 +49,19 @@ class Radio(BaseRadio, View):
 
     def fill(self, values):
         """Can only handle `True` to check the radio, nature of individual radio button"""
-        return self.radio.fill(values)
+        if values == self.selected:
+            return False
+        if values:
+            el = self.browser.element(self.RADIO_LOC)
+            el.evaluate(
+                "e => {"
+                "  const nativeSetter = Object.getOwnPropertyDescriptor("
+                "    window.HTMLInputElement.prototype, 'checked'"
+                "  ).set;"
+                "  nativeSetter.call(e, true);"
+                "  e.dispatchEvent(new Event('click', {bubbles: true}));"
+                "  e.dispatchEvent(new Event('input', {bubbles: true}));"
+                "  e.dispatchEvent(new Event('change', {bubbles: true}));"
+                "}"
+            )
+        return True
