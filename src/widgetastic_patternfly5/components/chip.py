@@ -248,7 +248,8 @@ class CategoryChipGroup(ChipGroup):
         return self.close_button.is_displayed
 
     def close(self):
-        self.close_button.click()
+        close_el = self.browser.element(CATEGORY_CLOSE)
+        close_el.dispatch_event("click")
 
     @classmethod
     def all(cls, browser):

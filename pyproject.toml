@@ -35,6 +35,7 @@ dev = [
   "pytest-rerunfailures",
   "pytest-timeout",
   "codecov",
+  "playwright",
 ]
 doc = ["sphinx"]
 

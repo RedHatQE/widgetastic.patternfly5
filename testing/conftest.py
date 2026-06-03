@@ -90,6 +90,7 @@ def playwright_browser_instance(request, browser_name: str) -> PlaywrightBrowser
 def browser_context(playwright_browser_instance: PlaywrightBrowser) -> BrowserContext:
     """Creates a browser context for the entire test session."""
     context = playwright_browser_instance.new_context(viewport={"width": 1920, "height": 1080})
+    context.set_default_timeout(5_000)
     yield context
     context.close()
 

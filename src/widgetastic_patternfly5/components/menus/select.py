@@ -1,3 +1,4 @@
+from wait_for import wait_for as _wait_for
 from widgetastic.exceptions import NoSuchElementException
 from widgetastic.widget import TextInput
 
@@ -220,7 +221,15 @@ class BaseTypeaheadSelect(BaseSelect):
 
         if create_item and value not in self.items:
             self.input.fill(value)
-            self.root_browser.click(self.CREATE_ITEM_LOCATOR)
+            _id_attr = self.CREATE_ITEM_LOCATOR.split("@id='")[1].rstrip("']")
+            create_css = "#" + _id_attr
+            page = self.browser.element(".").page
+            _wait_for(
+                lambda: page.locator(create_css).count() > 0,
+                timeout=10,
+                delay=0.2,
+            )
+            page.locator(create_css).click()
             return True
         else:
             self.item_select(value)
