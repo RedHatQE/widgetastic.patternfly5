@@ -35,6 +35,7 @@ dev = [
   "pytest-rerunfailures",
   "pytest-timeout",
   "codecov",
+  "playwright",
 ]
 doc = ["sphinx"]
 
@@ -51,6 +52,34 @@ packages = ["src/widgetastic_patternfly5"]
 [tool.hatch.version]
 source = "vcs"
 raw-options.version_scheme = "calver-by-date"
+
+[tool.hatch.envs.test]
+features = ["dev"]
+
+[tool.hatch.envs.test.scripts]
+# Installs browser binaries and Linux system-level dependencies.
+# Run once after setting up the environment: hatch run test:install-browsers
+install-browsers = [
+  "playwright install chromium firefox",
+  "playwright install-deps",
+]
+# Run all tests (headless) – PF version defaults to v6 per conftest
+all  = "pytest -v --headless {args}"
+# PF-version-specific convenience scripts used locally and in CI
+pf5  = "pytest -v --headless --pf-version=v5 {args}"
+pf6  = "pytest -v --headless --pf-version=v6 {args}"
+# Headed mode for local interactive debugging
+debug = "pytest -v --pf-version=v6 {args}"
+
+[tool.hatch.envs.lint]
+dependencies = ["pre-commit"]
+
+[tool.hatch.envs.lint.scripts]
+check = "pre-commit run --all-files"
+
+[tool.pytest.ini_options]
+testpaths = ["testing"]
+timeout = 60
 
 [tool.ruff]
 line-length = 100

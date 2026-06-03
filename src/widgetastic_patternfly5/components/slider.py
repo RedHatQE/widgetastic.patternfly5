@@ -1,3 +1,4 @@
+from wait_for import wait_for as _wait_for
 from widgetastic.widget import GenericLocatorWidget
 
 
@@ -98,7 +99,9 @@ class InputSlider(Slider):
         if self.text == value:
             return False
         el = self.browser.element(self.INPUT)
-        el.press("Control+A")
+        el.focus()
         el.fill(str(value))
+        el.dispatch_event("change")
         el.press("Enter")
+        _wait_for(lambda: self.text == value, timeout=10, delay=0.2)
         return True

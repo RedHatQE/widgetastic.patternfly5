@@ -8,13 +8,25 @@ from widgetastic_patternfly5 import (
 
 TESTING_PAGE_COMPONENT = "components/menus/dropdown/react-templates/simple"
 
+# In PF5 the Dropdown renders a wrapper div (pf-vX-c-dropdown) around the
+# MenuToggle button. In PF6 the Dropdown uses Popper inline rendering, so the
+# button's parent is a plain wrapper div with no PF class.
+#
+# The original locator relied on data-ouia-component-id="default-1" which
+# PF6 never generates (OUIA IDs are auto-generated, not "default-1").
+#
+# This locator finds the first MenuToggle button with text "Dropdown" then
+# steps up to its parent — the natural ROOT for the Dropdown widget regardless
+# of PF version.
+_DROPDOWN_LOCATOR = (
+    ".//button[contains(@class, '-c-menu-toggle') and normalize-space(.)='Dropdown'][1]/.."
+)
+
 
 @pytest.fixture
 def view(browser):
     class TestView(View):
-        dropdown_custom_locator = Dropdown(
-            locator=".//button[contains(@data-ouia-component-type, '/MenuToggle') and contains(@data-ouia-component-id, 'default-1')]/parent::div"
-        )
+        dropdown_custom_locator = Dropdown(locator=_DROPDOWN_LOCATOR)
         disable_checkbox = Checkbox(id="simple-example-disabled-toggle")
 
     view = TestView(browser)

@@ -1,3 +1,4 @@
+from wait_for import wait_for as _wait_for
 from widgetastic.exceptions import NoSuchElementException
 
 from .dropdown import Dropdown, DropdownItemDisabled, DropdownItemNotFound
@@ -90,6 +91,19 @@ class BaseMenu:
 
     def item_element(self, item, close=True):
         """Returns a WebElement for given item name."""
+        if self.IS_ALWAYS_OPEN:
+            browser_els = self.browser.elements(self.ITEMS_LOCATOR)
+            items_els = browser_els or self.root_browser.elements(self.ITEMS_LOCATOR)
+            for el in items_els:
+                if self.browser.text(el).strip() == item:
+                    try:
+                        inp = self.browser.element(parent=el, locator=".//input")
+                    except NoSuchElementException:
+                        inp = el
+                    return inp
+            raise MenuItemNotFound(
+                f"Item {item!r} not found in {repr(self)}. Available items: {self.items}"
+            )
         try:
             return super().item_element(item, close)
         except DropdownItemNotFound:
@@ -153,9 +167,15 @@ class BaseCheckboxMenu(BaseMenu):
 
         try:
             for item in items:
-                element = self.item_element(item, close=False)
-                if not self.browser.is_selected(element):
-                    element.click()
+
+                def _try_select():
+                    element = self.item_element(item, close=False)
+                    if not self.browser.is_selected(element):
+                        element.click()
+                        return self.browser.is_selected(element)
+                    return True
+
+                _wait_for(_try_select, timeout=10, delay=0.5)
         finally:
             if close:
                 self.close()
@@ -172,9 +192,15 @@ class BaseCheckboxMenu(BaseMenu):
 
         try:
             for item in items:
-                element = self.item_element(item, close=False)
-                if self.browser.is_selected(element):
-                    element.click()
+
+                def _try_deselect():
+                    element = self.item_element(item, close=False)
+                    if self.browser.is_selected(element):
+                        element.click()
+                        return not self.browser.is_selected(element)
+                    return True
+
+                _wait_for(_try_deselect, timeout=10, delay=0.5)
         finally:
             if close:
                 self.close()
@@ -205,10 +231,9 @@ class BaseCheckboxMenu(BaseMenu):
             for el in item_elements:
                 item = self.browser.text(el)
                 try:
-                    # get the child element of the label
-                    selected[item] = self.browser.element(
-                        parent=el, locator=".//input"
-                    ).is_checked()
+                    inp = self.browser.element(parent=el, locator=".//input")
+                    checked = inp.is_checked()
+                    selected[item] = checked
                 except NoSuchElementException:
                     selected[item] = False
 

@@ -117,10 +117,14 @@ class BaseNavigation:
                     f"Could not find element: '{self.ITEM_MATCHING.format(quote(level))}'"
                 )
             if "pf-m-expanded" not in li.get_attribute("class").split():
-                self.browser.click(li)
+                link_el = self.browser.element(".//*[self::a or self::button]", parent=li)
+                link_el.dispatch_event("click")
             if i == len(levels):
                 return
-            current_item = self.browser.element(self.SUB_ITEMS_ROOT, parent=li)
+            try:
+                current_item = self.browser.element(self.SUB_ITEMS_ROOT, parent=li)
+            except NoSuchElementException:
+                raise
 
     def __repr__(self):
         return f"{type(self).__name__}({self.ROOT!r})"
