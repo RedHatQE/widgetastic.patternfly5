@@ -12,7 +12,8 @@ class ChipReadOnlyError(Exception):
 
 
 CHIP_ROOT = (
-    ".//*[contains(@data-ouia-component-type, '/Chip') and not(contains(@class, '-m-overflow')) "
+    ".//*[(contains(@data-ouia-component-type, '/Chip') or contains(@class, '-c-label')) "
+    "and not(contains(@class, '-m-overflow')) "
     "and not(contains(@class, '-c-chip-group') or contains(@class, '-c-label-group'))]"
 )
 CHIP_TEXT = ".//span[contains(@class, '-c-chip__text') or contains(@class, '-c-label__text')]"
