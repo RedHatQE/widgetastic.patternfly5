@@ -1,4 +1,7 @@
+from urllib.parse import urljoin
+
 import pytest
+from widgetastic.browser import Browser
 from widgetastic.widget import View
 
 from widgetastic_patternfly5 import CategoryChipGroup, ChipGroup
@@ -69,3 +72,31 @@ def test_chipgroup_category(category_chip_group_view):
     # This tests that a category disappears after all chips are removed
     # category_chip_group_view.category_two.remove_all_chips()
     # assert not category_chip_group_view.category_two.is_displayed
+
+
+@pytest.fixture(scope="module")
+def label_overflow_view(browser_context, pf_version):
+    """Navigate to the PF6 Label page to test overflow exclusion on label-based chips."""
+    testing_pages = {"v6": "https://www.patternfly.org", "v5": "https://v5-archive.patternfly.org"}
+    page = browser_context.new_page()
+    page.goto(urljoin(testing_pages[pf_version], "components/label"), wait_until="networkidle")
+    b = Browser(page)
+
+    class TestView(View):
+        ROOT = './/h3[text()="Label group with overflow"]/ancestor::div[@class="ws-example" or contains(@class, "pf-m-gutter")][1]'
+        label_group = ChipGroup()
+
+    yield TestView(b)
+    page.close()
+
+
+@pytest.mark.skip_if_pf5
+def test_overflow_text_excluded_from_label_chips(label_overflow_view):
+    """Overflow button text must not appear in chip list when matching via -c-label class."""
+    group = label_overflow_view.label_group
+    assert group.is_displayed
+    assert group.overflow.is_displayed
+    chips = [chip.text for chip in group.get_chips(show_more=False)]
+    overflow_text = group.overflow.text
+    assert len(chips) > 0
+    assert overflow_text not in chips
