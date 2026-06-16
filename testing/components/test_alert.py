@@ -10,7 +10,9 @@ ALERT_TYPES = ["success", "danger", "warning", "info"]
 @pytest.fixture(params=ALERT_TYPES)
 def alert(browser, request):
     class TestView(View):
-        alert = Alert(locator=f".//div[contains(@class, '-c-alert pf-m-{request.param}')][1]")
+        alert = Alert(
+            locator=f".//div[contains(@class, '-c-alert pf-m-{request.param}') and not(contains(@class, 'ws-nav-announcement'))][1]"
+        )
 
     return TestView(browser).alert
 

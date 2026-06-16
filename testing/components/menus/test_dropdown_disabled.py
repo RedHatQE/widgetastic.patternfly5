@@ -12,8 +12,9 @@ TESTING_PAGE_COMPONENT = "components/menus/dropdown/react-templates/simple"
 @pytest.fixture
 def view(browser):
     class TestView(View):
+        ROOT = './/div[@id="ws-react-templates-c-dropdown-simple"]'
         dropdown_custom_locator = Dropdown(
-            locator=".//button[contains(@data-ouia-component-type, '/MenuToggle') and contains(@data-ouia-component-id, 'default-1')]/parent::div"
+            locator=".//button[contains(@data-ouia-component-type, '/MenuToggle')][1]/parent::div"
         )
         disable_checkbox = Checkbox(id="simple-example-disabled-toggle")
 
