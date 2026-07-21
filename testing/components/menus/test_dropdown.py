@@ -55,6 +55,7 @@ def test_dropdown_items(dropdown):
     assert not dropdown.has_item("Non existing items")
     assert dropdown.item_enabled("Link")
     assert not dropdown.item_enabled("Disabled Link")
+    assert not dropdown.item_enabled("Aria-disabled Link")
 
 
 def test_dropdown_open(dropdown):
@@ -70,5 +71,7 @@ def test_dropdown_item_select(dropdown):
     assert not dropdown.is_open
     with pytest.raises(DropdownItemDisabled):
         dropdown.item_select("Disabled Link")
+    with pytest.raises(DropdownItemDisabled):
+        dropdown.item_select("Aria-disabled Link")
     with pytest.raises(DropdownItemNotFound):
         dropdown.item_select("Non existing items")

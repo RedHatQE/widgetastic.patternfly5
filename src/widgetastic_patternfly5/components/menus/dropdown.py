@@ -167,7 +167,10 @@ class BaseDropdown:
             # input element don't have such disabled attributes it at level of session.
             is_el_enabled = el.is_enabled()
         else:
-            is_el_enabled = "pf-m-disabled" not in self.browser.classes(el)
+            aria_disabled = str(self.browser.get_attribute("aria-disabled", el)).lower()
+            is_el_enabled = (
+                "pf-m-disabled" not in self.browser.classes(el) and aria_disabled != "true"
+            )
 
         if close:
             self.close()
