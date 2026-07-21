@@ -164,12 +164,19 @@ class BaseDropdown:
         el = self.item_element(item, close=False, **kwargs)
 
         if self.browser.get_attribute("type", el) == "checkbox":
-            # input element don't have such disabled attributes it at level of session.
             is_el_enabled = el.is_enabled()
         else:
+            el_classes = self.browser.classes(el)
             aria_disabled = str(self.browser.get_attribute("aria-disabled", el)).lower()
+            # PF6 puts aria-disabled on a child element (button/a) rather than the li
+            if aria_disabled != "true":
+                child_els = self.browser.elements(".//*[@aria-disabled='true']", parent=el)
+                if child_els:
+                    aria_disabled = "true"
             is_el_enabled = (
-                "pf-m-disabled" not in self.browser.classes(el) and aria_disabled != "true"
+                "pf-m-disabled" not in el_classes
+                and "pf-m-aria-disabled" not in el_classes
+                and aria_disabled != "true"
             )
 
         if close:
