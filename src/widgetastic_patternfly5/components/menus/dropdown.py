@@ -1,6 +1,6 @@
 from contextlib import contextmanager
+from functools import cached_property
 
-from cached_property import cached_property
 from wait_for import wait_for as _wait_for
 from widgetastic.exceptions import NoSuchElementException
 from widgetastic.utils import ParametrizedLocator
@@ -29,6 +29,9 @@ class BaseDropdown:
         text: Text of the button, can be the inner text or the title attribute.
 
     """
+
+    WAIT_TIMEOUT = 10
+    WAIT_DELAY = 0.5
 
     BUTTON_LOCATOR = (
         ".//button[contains(@class, '-c-menu-toggle') or contains(@class, '-c-dropdown__toggle')]"
@@ -88,7 +91,7 @@ class BaseDropdown:
             self.browser.click(self.BUTTON_LOCATOR)
             return self.is_open
 
-        _wait_for(_click, timeout=10, delay=0.5)
+        _wait_for(_click, timeout=self.WAIT_TIMEOUT, delay=self.WAIT_DELAY)
         return self.is_open
 
     def close(self, ignore_nonpresent=False):
@@ -229,9 +232,13 @@ class BaseDropdown:
 class Dropdown(BaseDropdown, Widget):
     ROOT = ParametrizedLocator("{@locator}")
     TEXT_LOCATOR = (
-        './/div[contains(@class, "-c-dropdown") and child::button[normalize-space(.)={}]]'
+        '(.//div[contains(@class, "-c-dropdown") and child::button[normalize-space(.)={0}]]'
+        ' | .//button[contains(@class, "-c-menu-toggle") and normalize-space(.)={0}]/..)[1]'
     )
-    DEFAULT_LOCATOR = './/div[contains(@class, "-c-dropdown")][1]'
+    DEFAULT_LOCATOR = (
+        '(.//div[contains(@class, "-c-dropdown")]'
+        ' | .//button[contains(@class, "-c-menu-toggle")]/..)[1]'
+    )
 
     def __init__(self, parent, text=None, locator=None, logger=None):
         super().__init__(parent, logger=logger)

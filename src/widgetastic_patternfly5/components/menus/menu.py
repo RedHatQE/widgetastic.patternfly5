@@ -175,7 +175,7 @@ class BaseCheckboxMenu(BaseMenu):
                         return self.browser.is_selected(element)
                     return True
 
-                _wait_for(_try_select, timeout=10, delay=0.5)
+                _wait_for(_try_select, timeout=self.WAIT_TIMEOUT, delay=self.WAIT_DELAY)
         finally:
             if close:
                 self.close()
@@ -200,7 +200,7 @@ class BaseCheckboxMenu(BaseMenu):
                         return not self.browser.is_selected(element)
                     return True
 
-                _wait_for(_try_deselect, timeout=10, delay=0.5)
+                _wait_for(_try_deselect, timeout=self.WAIT_TIMEOUT, delay=self.WAIT_DELAY)
         finally:
             if close:
                 self.close()

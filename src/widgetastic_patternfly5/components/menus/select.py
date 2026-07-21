@@ -197,6 +197,9 @@ class BaseTypeaheadSelect(BaseSelect):
     https://www.patternfly.org/components/menus/select/#typeahead
     """
 
+    WAIT_TIMEOUT = 10
+    WAIT_DELAY = 0.2
+
     BUTTON_LOCATOR = (
         ".//button[(contains(@class, '-c-select__toggle') "
         "or contains(@class, '-c-menu-toggle')) "
@@ -221,15 +224,12 @@ class BaseTypeaheadSelect(BaseSelect):
 
         if create_item and value not in self.items:
             self.input.fill(value)
-            _id_attr = self.CREATE_ITEM_LOCATOR.split("@id='")[1].rstrip("']")
-            create_css = "#" + _id_attr
-            page = self.browser.element(".").page
             _wait_for(
-                lambda: page.locator(create_css).count() > 0,
-                timeout=10,
-                delay=0.2,
+                lambda: self.root_browser.elements(self.CREATE_ITEM_LOCATOR),
+                timeout=self.WAIT_TIMEOUT,
+                delay=self.WAIT_DELAY,
             )
-            page.locator(create_css).click()
+            self.root_browser.click(self.CREATE_ITEM_LOCATOR)
             return True
         else:
             self.item_select(value)

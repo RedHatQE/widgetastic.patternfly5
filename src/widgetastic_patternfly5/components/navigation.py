@@ -25,6 +25,8 @@ class BaseNavigation:
     https://www.patternfly.org/components/navigation
     """
 
+    WAIT_TIMEOUT = 10
+
     CURRENTLY_SELECTED = (
         './/*[self::a or self::button][contains(@class, "pf-m-current") or '
         'parent::li[contains(@class, "pf-m-current")]]'
@@ -41,7 +43,7 @@ class BaseNavigation:
             self.logger.info("Navigation not ready yet")
             wait_for(
                 lambda: self.browser.element(".").get_attribute("data-ouia-safe") == "true",
-                timeout=10,
+                timeout=self.WAIT_TIMEOUT,
             )
         elif not out:
             self.logger.info("Navigation doesn't have 'data-ouia-safe' property")

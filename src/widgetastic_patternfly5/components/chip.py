@@ -41,6 +41,9 @@ class _BaseChip(View):
     Holds attributes shared by both Chip and OverflowChip
     """
 
+    WAIT_TIMEOUT = 3
+    WAIT_DELAY = 0.1
+
     _text = Text(CHIP_TEXT)
     _badge = Text(f"{CHIP_TEXT}/{CHIP_BADGE}")
     button = Button()
@@ -106,7 +109,12 @@ class Chip(ParametrizedView, _BaseChip):
 
         if not self.read_only:
             self.button.click()
-            wait_for(_gone, timeout=3, message="wait for chip to disappear", delay=0.1)
+            wait_for(
+                _gone,
+                timeout=self.WAIT_TIMEOUT,
+                delay=self.WAIT_DELAY,
+                message="wait for chip to disappear",
+            )
         else:
             raise ChipReadOnlyError(self, "Chip is read-only")
 
@@ -135,8 +143,8 @@ class OverflowChip(_BaseChip):
             self._text.click()
         wait_for(
             func=self._show_less_shown,
-            timeout=3,
-            delay=0.1,
+            timeout=self.WAIT_TIMEOUT,
+            delay=self.WAIT_DELAY,
             message="wait for 'show less' button to appear",
         )
 
@@ -146,8 +154,8 @@ class OverflowChip(_BaseChip):
             self._text.click()
         wait_for(
             self._show_more_shown,
-            timeout=3,
-            delay=0.1,
+            timeout=self.WAIT_TIMEOUT,
+            delay=self.WAIT_DELAY,
             message="wait for 'show more' button to appear",
         )
 
@@ -248,8 +256,7 @@ class CategoryChipGroup(ChipGroup):
         return self.close_button.is_displayed
 
     def close(self):
-        close_el = self.browser.element(CATEGORY_CLOSE)
-        close_el.dispatch_event("click")
+        self.browser.element(CATEGORY_CLOSE).dispatch_event("click")
 
     @classmethod
     def all(cls, browser):

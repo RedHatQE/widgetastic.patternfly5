@@ -48,20 +48,24 @@ class Radio(BaseRadio, View):
         return "pf-m-disabled" in self.browser.classes(self.label)
 
     def fill(self, values):
-        """Can only handle `True` to check the radio, nature of individual radio button"""
-        if values == self.selected:
+        """Fill the radio button. Only ``True`` is meaningful — radio buttons
+        cannot be unchecked, so ``False`` is always a no-op.
+
+        Returns:
+            ``True`` if the state changed, ``False`` otherwise.
+        """
+        if not values or self.selected or self.disabled:
             return False
-        if values:
-            el = self.browser.element(self.RADIO_LOC)
-            el.evaluate(
-                "e => {"
-                "  const nativeSetter = Object.getOwnPropertyDescriptor("
-                "    window.HTMLInputElement.prototype, 'checked'"
-                "  ).set;"
-                "  nativeSetter.call(e, true);"
-                "  e.dispatchEvent(new Event('click', {bubbles: true}));"
-                "  e.dispatchEvent(new Event('input', {bubbles: true}));"
-                "  e.dispatchEvent(new Event('change', {bubbles: true}));"
-                "}"
-            )
+        el = self.browser.element(self.RADIO_LOC)
+        el.evaluate(
+            "e => {"
+            "  const nativeSetter = Object.getOwnPropertyDescriptor("
+            "    window.HTMLInputElement.prototype, 'checked'"
+            "  ).set;"
+            "  nativeSetter.call(e, true);"
+            "  e.dispatchEvent(new Event('click', {bubbles: true}));"
+            "  e.dispatchEvent(new Event('input', {bubbles: true}));"
+            "  e.dispatchEvent(new Event('change', {bubbles: true}));"
+            "}"
+        )
         return True

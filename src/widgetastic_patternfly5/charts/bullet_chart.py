@@ -1,7 +1,7 @@
 import re
 import time
+from functools import cached_property
 
-from cached_property import cached_property
 from widgetastic.utils import ParametrizedLocator
 from widgetastic.widget import Text, View
 from widgetastic.xpath import quote

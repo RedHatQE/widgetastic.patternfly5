@@ -92,6 +92,9 @@ class Slider(BaseSlider, GenericLocatorWidget):
 
 
 class InputSlider(Slider):
+    WAIT_TIMEOUT = 10
+    WAIT_DELAY = 0.2
+
     INPUT = ".//input"
 
     def fill(self, value):
@@ -103,5 +106,5 @@ class InputSlider(Slider):
         el.fill(str(value))
         el.dispatch_event("change")
         el.press("Enter")
-        _wait_for(lambda: self.text == value, timeout=10, delay=0.2)
+        _wait_for(lambda: self.text == value, timeout=self.WAIT_TIMEOUT, delay=self.WAIT_DELAY)
         return True
