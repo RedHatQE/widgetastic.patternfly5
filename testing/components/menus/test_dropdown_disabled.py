@@ -30,7 +30,7 @@ def view(browser):
         disable_checkbox = Checkbox(id="simple-example-disabled-toggle")
 
     view = TestView(browser)
-    view.wait_displayed("10s")
+    view.wait_displayed(timeout=10)
     return view
 
 

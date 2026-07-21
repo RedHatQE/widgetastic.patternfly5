@@ -14,7 +14,7 @@ def group_dropdown(browser):
         browser,
         locator=".//div[@id='ws-react-c-dropdown-with-groups-of-items']",
     )
-    dropdown.wait_displayed("10s")
+    dropdown.wait_displayed(timeout=10)
     return dropdown
 
 

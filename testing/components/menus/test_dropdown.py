@@ -21,7 +21,7 @@ def view(browser):
         dropdown_default_locator = Dropdown()
 
     view = TestView(browser)
-    view.wait_displayed("10s")
+    view.wait_displayed(timeout=10)
     return view
 
 

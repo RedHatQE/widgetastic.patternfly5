@@ -56,7 +56,7 @@ class Cards(CardGroup):
 @pytest.fixture
 def cards(browser):
     cards = Cards(browser)
-    cards.wait_displayed("15s")
+    cards.wait_displayed(timeout=15)
     return cards
 
 
